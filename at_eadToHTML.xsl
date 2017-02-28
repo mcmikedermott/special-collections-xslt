@@ -1659,12 +1659,11 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template name="component-did-core">
-        <!--Inserts unitid and a space if it exists in the markup.
+        <!--Inserts unitid and a space if it exists in the markup.-->
         <xsl:if test="ead:unitid">
-            <xsl:text>(</xsl:text>
             <xsl:apply-templates select="ead:unitid"/>
-            <xsl:text>)</xsl:text>
-        </xsl:if> -->
+            <xsl:text>&#160;</xsl:text>
+        </xsl:if> 
         <!--Inserts origination and a space if it exists in the markup.-->
         <xsl:if test="ead:origination">
             <xsl:apply-templates select="ead:origination"/>
