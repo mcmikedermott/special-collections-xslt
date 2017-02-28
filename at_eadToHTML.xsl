@@ -41,7 +41,7 @@
     -->
     
     <xsl:strip-space elements="*"/>
-    <xsl:output indent="yes" method="xhtml" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" encoding="utf-8"/>
+    <xsl:output indent="yes" method="html" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" encoding="utf-8"/>
 
 <!--    <xsl:include href="lookupLists.xsl"/>-->
     <!-- Creates the body of the finding aid.-->
@@ -49,6 +49,7 @@
         <html xmlns="http://www.w3.org/1999/xhtml">
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                <meta content="width=device-width,user-scalable=YES,initial-scale=1" name="viewport" />
                 <title>
                     <xsl:value-of select="concat(/ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:titleproper,' ',/ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:subtitle)"/>                
                 </title>
@@ -142,6 +143,7 @@
     <!-- CSS for styling HTML output. Place all CSS styles in this template.-->
     <xsl:template name="css">
         <link rel="stylesheet" type="text/css" href="/arch/includes/css/finding-aid.css" />
+        <link rel="stylesheet" href="/includes/library/css/font-awesome.css" />
     </xsl:template>
 
     <!-- This template creates a customizable header  -->
@@ -962,17 +964,38 @@
         </xsl:choose>   
         <xsl:apply-templates/>
     </xsl:template>
-    <xsl:template match="ead:dao">
+    <!-- Custom DAO roles to display with "listen/watch/view ..." title -->
+    <xsl:template match="ead:dao[starts-with(@ns2:role, 'Audio-')]">
+        <xsl:apply-templates/>
+        <a class="{@ns2:role}" href="{@ns2:href}">Listen online</a>
+    </xsl:template>
+    <xsl:template match="ead:dao[starts-with(@ns2:role, 'Text-')]">
+        <xsl:apply-templates/>
+        <a class="{@ns2:role}" href="{@ns2:href}">View online</a>
+    </xsl:template>
+    <xsl:template match="ead:dao[starts-with(@ns2:role, 'Image-')]">
+        <xsl:apply-templates/>
+        <a class="{@ns2:role}" href="{@ns2:href}">View online</a>
+    </xsl:template>
+    <xsl:template match="ead:dao[starts-with(@ns2:role, 'Video-')]">
+        <xsl:apply-templates/>
+        <a class="{@ns2:role}" href="{@ns2:href}">Watch online</a>
+    </xsl:template>
+    <!-- Default DAO display... -->
+    <xsl:template match="ead:dao">    
+        <!-- Show "view <role> instead of raw href as link text -->
         <xsl:choose>
             <xsl:when test="child::*">
-                <xsl:apply-templates/> <a href="{@ns2:href}">[<xsl:value-of select="@ns2:href"/>]</a>
+                <xsl:apply-templates/>
+                <a class="{@ns2:role}" href="{@ns2:href}">View <xsl:value-of select="@ns2:role"/></a>
             </xsl:when>
             <xsl:otherwise>
-                <a href="{@ns2:href}">
-                    <xsl:value-of select="@ns2:href"/>
-                </a>
+                <a class="{@ns2:role}" href="{@ns2:href}">View <xsl:value-of select="@ns2:role"/></a>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <xsl:template match="ead:daodesc">
+        <!-- Don't show daodesc -->
     </xsl:template>
     <xsl:template match="ead:daoloc">
         <a href="{@ns2:href}">
