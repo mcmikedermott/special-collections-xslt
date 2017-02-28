@@ -1,0 +1,745 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ead xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd" xmlns:ns2="http://www.w3.org/1999/xlink" xmlns="urn:isbn:1-931666-22-9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <eadheader repositoryencoding="iso15511" countryencoding="iso3166-1" dateencoding="iso8601" langencoding="iso639-2b">
+        <eadid countrycode="US" mainagencycode="US-US-MeB">chhg</eadid>
+        <filedesc>
+            <titlestmt>
+                <titleproper>Charles Henry Howard Collection
+                    <num>M090</num>
+                </titleproper>
+            </titlestmt>
+            <publicationstmt>
+                <p>
+                    <extref ns2:type="simple" ns2:actuate="onLoad" ns2:show="embed" ns2:href="http://www.bowdoin.edu/lib/img/homepage/bowdoin-wordmark-295x60.png"/>
+                </p>
+                <publisher>George J. Mitchell Department of Special Collections &amp; Archives, Bowdoin College Library, Brunswick, Maine 04011</publisher>
+                <address>
+                    <addressline>3000 College Station</addressline>
+                    <addressline>Brunswick, Maine, 04011</addressline>
+                    <addressline>(207) 725-3288</addressline>
+                    <addressline>scaref@bowdoin.edu</addressline>
+                </address>
+            </publicationstmt>
+        </filedesc>
+        <profiledesc>
+            <creation>This finding aid was produced using the Archivists' Toolkit
+                <date>2017-02-28T10:36-0500</date>
+            </creation>
+        </profiledesc>
+    </eadheader>
+    <archdesc level="collection">
+        <did>
+            <unittitle>Charles Henry Howard collection</unittitle>
+            <unitid>M090</unitid>
+            <repository>
+                <corpname>George J. Mitchell Department of Special Collections &amp; Archives, Bowdoin College Library, Brunswick, Maine 04011</corpname>
+            </repository>
+            <langmaterial>
+                <language langcode="eng"/>
+            </langmaterial>
+            <physdesc>
+                <extent>1.0 linear feet</extent>
+            </physdesc>
+            <unitdate normal="1852/1910" type="bulk">Bulk, 1852-1910</unitdate>
+            <unitdate normal="1808/1957" type="inclusive">1808-1957 </unitdate>
+            <abstract id="ref87" label="Abstract">Letters, articles, addresses, and diaries including material on the Civil War, on Charles Henry Howard's experiences at Kents Hill School and Bowdoin College, and on Howard and his family.</abstract>
+            <origination label="creator">
+                <persname rules="dacs">Howard, Charles H.,  (Charles Henry), 1838-1908</persname>
+            </origination>
+        </did>
+        <bioghist id="ref1">
+            <head>Biographical/Historical Note</head>
+            <p>Charles Henry Howard (1838-1908, Bowdoin 1859) was a bvt. brig. general who saw action at Bull Run, Antietam, Fredericksburg, Gettysburg and Chattanooga, and in command of the U.S.C.T. training camp at Beaufort, South Carolina. After the war, Howard served in the Bureau of Refugees, Freedmen and Abandoned Lands, as inspector of schools for South Carolina, Georgia and Florida, and assistant commissioner for the District of Columbia, Maryland and Virginia.</p>
+            <p>For five years he was western secretary of the American Missionary Association. He served as editor-in-chief of 
+                <title render="italic">The Advance</title>, a Congregational journal (1871-1881) and controlling editor of 
+                <title render="italic">Farm, Field and Stockman</title>, later 
+                <title render="italic">Farm, Field and Fireside</title> (1885-1905). Howard, the brother of Oliver Otis Howard, held several special appointments including government inspector of Indian agencies under Presidents Garfield and Arthur and western editor and business manager of the National Tribune (1885).</p>
+            <p>Howard (1838-1908) married Mary Katherine "Katie" Foster (1845-1927) of Bangor in 1867, and they had seven children: Otis McGaw Howard (1868-1940); Burt Foster Howard (b. 1871); Nina Foster Howard (1873-1942); Arthur Day Howard (b. 1874); Lawrence Riggs Howard (1875-1942); Donald Charles Howard (b. 1879); and Katharine Howard Parker (1889-1981).</p>
+        </bioghist>
+        <relatedmaterial id="ref88">
+            <head>Related Materials</head>
+            <p>This collection complements the papers of Howards's brothers, 
+                <extref ns2:title="Oliver Otis Howard Collection" ns2:href="https://library.bowdoin.edu/arch/mss/oohg.shtml">Oliver Otis Howard</extref> and 
+                <extref ns2:title="Rowland Bailey Howard Collection" ns2:href="http://library.bowdoin.edu/arch/mss/rbhg.shtml">Rowland Bailey Howard</extref>.</p>
+        </relatedmaterial>
+        <odd id="ref89">
+            <head>General Note</head>
+            <p>Full transcriptions of the correspondence, as well as alphabetical and chronological correspondence indexes, have been compiled by Russell and Rosalie Howard; electronic versions of the transcriptions and indexes are available 
+                <extref ns2:title="chh Transcriptions and Indexes" ns2:href="https://library.bowdoin.edu/arch/mss/chhg.shtml#ref4">here</extref>, courtesy of the Howards (Adobe Acrobat Reader required).</p>
+        </odd>
+        <scopecontent id="ref2">
+            <head>Scope and Content</head>
+            <p>Letters, articles, addresses, diaries, etc., consisting of more than 325 items. The collection includes material on the Civil War, on Charles Henry Howard's experiences at Kents Hill School and Bowdoin College, and on Howard and his family. The majority of the correspondence dates between 1852 and the 1870s and is from Howard to family members; there are several letters to Charles from his brother Oliver Otis Howard. There is a smaller amount of non-family correspondence, most from the 1880s on.</p>
+        </scopecontent>
+        <accessrestrict id="ref85">
+            <head>Access Restrictions</head>
+            <p>No restrictions.</p>
+        </accessrestrict>
+        <prefercite id="ref3">
+            <head>Preferred Citation</head>
+            <p>Charles Henry Howard Collection, George J. Mitchell Department of Special Collections &amp; Archives, Bowdoin College Library, Brunswick, Maine</p>
+        </prefercite>
+        <altformavail id="ref86">
+            <head>Reproduction Note</head>
+            <p>This collection is available online.</p>
+        </altformavail>
+        <dsc>
+            <c01 id="ref4" level="series">
+                <did>
+                    <unittitle>Correspondence, 1852-1910</unittitle>
+                    <unitid>M090.1</unitid>
+                    <physdesc>
+                        <extent>0.5 linear feet</extent>
+                    </physdesc>
+                </did>
+                <scopecontent id="ref6">
+                    <head>Scope and Content:</head>
+                    <p>Approximately 290 items from 1852-1910, the correspondence consists largely of letters between Howard and members of the his family through the 1870s, and with non-family members from the 1880s on, including letters from William Jennings Bryan, Horace Bushnell, Henry Morton Flagler, James Longstreet and Elihu Root. A listing of the material is available by contacting Special Collections. More than 95% of the earlier letters are written by Howard, many of which complement those in the 
+                        <extref ns2:href="https://library.bowdoin.edu/arch/mss/oohg.shtml#ref4">Oliver Otis Howard</extref> and 
+                        <extref ns2:href="https://library.bowdoin.edu/arch/mss/rbhg.shtml#ref4">Rowland Bailey Howard collections</extref>.</p>
+                    <p>Full transcriptions of the letters, as well as alphabetical and chronological indexes, have been compiled by Russell and Rosalie Howard; electronic versions of the transcriptions and indexes are available courtesy of the Howards (Adobe Acrobat Reader required):</p>
+                    <p>
+                        <extref ns2:title="Alphabetical index of correspondents" ns2:href="http://library.bowdoin.edu/arch/mss/m90chh-indexauth.pdf">Alphabetical index of correspondents</extref> (PDF file).</p>
+                    <p>
+                        <extref ns2:title="Chronological index of correspondents" ns2:href="http://library.bowdoin.edu/arch/mss/m90chh-indexchron.pdf">Chronological index of correspondents</extref> (PDF file).</p>
+                    <p>
+                        <extref ns2:title="Transcriptions of Letters, chronological" ns2:href="http://library.bowdoin.edu/arch/mss/m90chh-transcriptions.pdf">Transcriptions of Letters, chronological</extref> (PDF file).</p>
+                </scopecontent>
+                <arrangement id="ref7">
+                    <head>Arrangement:</head>
+                    <p>Arranged chronologically.</p>
+                </arrangement>
+                <c02 id="ref10" level="file">
+                    <did>
+                        <unittitle>1852 March - 1852 September</unittitle>
+                        <container id="cid63001" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63001" type="Folder">1</container>
+                    </did>
+                    <dao ns2:actuate="onRequest" ns2:show="embed" ns2:title="1852 March - 1852 September" ns2:role="Text-Service" ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f001">
+                        <daodesc>
+                            <p>1852 March - 1852 September</p>
+                        </daodesc>
+                    </dao>
+                    <dao ns2:actuate="onRequest" ns2:show="embed" ns2:title="1852 March - 1852 September" ns2:role="Text-Master" ns2:href="/common/library/test">
+                        <daodesc>
+                            <p>1852 March - 1852 September</p>
+                        </daodesc>
+                    </dao>
+                </c02>
+                <c02 id="ref11" level="file">
+                    <did>
+                        <unittitle>1853 August - 1853 November</unittitle>
+                        <container id="cid63002" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63002" type="Folder">2</container>
+                    </did>
+                    <dao ns2:actuate="onRequest" ns2:show="embed" ns2:title="1853 August - 1853 November" ns2:role="Image-Service" ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f002">
+                        <daodesc>
+                            <p>1853 August - 1853 November</p>
+                        </daodesc>
+                    </dao>
+                </c02>
+                <c02 id="ref12" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f003">1854 March - 1854 December.</extref></unittitle>
+                        <container id="cid63003" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63003" type="Folder">3</container>
+                    </did>
+                </c02>
+                <c02 id="ref13" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f004">1855 April - 1856 September.</extref></unittitle>
+                        <container id="cid63004" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63004" type="Folder">4</container>
+                    </did>
+                </c02>
+                <c02 id="ref14" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f005">1857 January - 1857 December.</extref></unittitle>
+                        <container id="cid63005" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63005" type="Folder">5</container>
+                    </did>
+                </c02>
+                <c02 id="ref15" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f006">1858 - 1859 December.</extref></unittitle>
+                        <container id="cid63006" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63006" type="Folder">6</container>
+                    </did>
+                </c02>
+                <c02 id="ref16" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f007">1860 March - 1860 December.</extref></unittitle>
+                        <container id="cid63007" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63007" type="Folder">7</container>
+                    </did>
+                </c02>
+                <c02 id="ref17" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f008">1861 February - 1861 December.</extref></unittitle>
+                        <container id="cid63008" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63008" type="Folder">8</container>
+                    </did>
+                </c02>
+                <c02 id="ref18" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f009">1862 January - 1862 February.</extref></unittitle>
+                        <container id="cid63009" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63009" type="Folder">9</container>
+                    </did>
+                </c02>
+                <c02 id="ref19" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f010">1862 March.</extref></unittitle>
+                        <container id="cid63010" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63010" type="Folder">10</container>
+                    </did>
+                </c02>
+                <c02 id="ref20" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f011">1862 April - May.</extref></unittitle>
+                        <container id="cid63011" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63011" type="Folder">11</container>
+                    </did>
+                </c02>
+                <c02 id="ref21" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f012">1862 June - October.</extref></unittitle>
+                        <container id="cid63012" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63012" type="Folder">12</container>
+                    </did>
+                </c02>
+                <c02 id="ref22" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f013">1862 December.</extref></unittitle>
+                        <container id="cid63013" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63013" type="Folder">13</container>
+                    </did>
+                </c02>
+                <c02 id="ref23" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f014">1863 January - April.</extref></unittitle>
+                        <container id="cid63014" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63014" type="Folder">14</container>
+                    </did>
+                </c02>
+                <c02 id="ref24" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f015">1863 May - June.</extref></unittitle>
+                        <container id="cid63015" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63015" type="Folder">15</container>
+                    </did>
+                </c02>
+                <c02 id="ref25" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f016">1863 July - September.</extref></unittitle>
+                        <container id="cid63016" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63016" type="Folder">16</container>
+                    </did>
+                </c02>
+                <c02 id="ref26" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f017">1863 October - 6 December.</extref></unittitle>
+                        <container id="cid63017" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63017" type="Folder">17</container>
+                    </did>
+                </c02>
+                <c02 id="ref27" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f018">1863 December.</extref></unittitle>
+                        <container id="cid63018" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63018" type="Folder">18</container>
+                    </did>
+                </c02>
+                <c02 id="ref28" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f019">1864 January.</extref></unittitle>
+                        <container id="cid63019" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63019" type="Folder">19</container>
+                    </did>
+                </c02>
+                <c02 id="ref29" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f020">1864 February.</extref></unittitle>
+                        <container id="cid63020" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63020" type="Folder">20</container>
+                    </did>
+                </c02>
+                <c02 id="ref30" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f021">1864 March.</extref></unittitle>
+                        <container id="cid63021" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63021" type="Folder">21</container>
+                    </did>
+                </c02>
+                <c02 id="ref31" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f022">1864 April - June.</extref></unittitle>
+                        <container id="cid63022" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63022" type="Folder">22</container>
+                    </did>
+                </c02>
+                <c02 id="ref32" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f023">1864 July - September.</extref></unittitle>
+                        <container id="cid63023" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63023" type="Folder">23</container>
+                    </did>
+                </c02>
+                <c02 id="ref33" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f024">1864 November - December.</extref></unittitle>
+                        <container id="cid63024" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63024" type="Folder">24</container>
+                    </did>
+                </c02>
+                <c02 id="ref34" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f025">1865 January - March.</extref></unittitle>
+                        <container id="cid63025" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63025" type="Folder">25</container>
+                    </did>
+                </c02>
+                <c02 id="ref35" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f026">1865 April - May.</extref></unittitle>
+                        <container id="cid63026" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63026" type="Folder">26</container>
+                    </did>
+                </c02>
+                <c02 id="ref36" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f027">1865 June - September.</extref></unittitle>
+                        <container id="cid63027" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63027" type="Folder">27</container>
+                    </did>
+                </c02>
+                <c02 id="ref37" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f028">1865 October - November.</extref></unittitle>
+                        <container id="cid63028" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63028" type="Folder">28</container>
+                    </did>
+                </c02>
+                <c02 id="ref38" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f029">1866 May - November.</extref></unittitle>
+                        <container id="cid63029" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63029" type="Folder">29</container>
+                    </did>
+                </c02>
+                <c02 id="ref39" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f030">1867 April - December.</extref></unittitle>
+                        <container id="cid63030" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63030" type="Folder">30</container>
+                    </did>
+                </c02>
+                <c02 id="ref40" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f031">1868 April - July.</extref></unittitle>
+                        <container id="cid63031" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63031" type="Folder">31</container>
+                    </did>
+                </c02>
+                <c02 id="ref41" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f032">1872 March - 1873 November.</extref></unittitle>
+                        <container id="cid63032" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63032" type="Folder">32</container>
+                    </did>
+                </c02>
+                <c02 id="ref42" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f033">1874 February - June.</extref></unittitle>
+                        <container id="cid63033" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63033" type="Folder">33</container>
+                    </did>
+                </c02>
+                <c02 id="ref43" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f034">1876 July - 1880 December.</extref></unittitle>
+                        <container id="cid63034" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63034" type="Folder">34</container>
+                    </did>
+                </c02>
+                <c02 id="ref44" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f035">1886 March - December.</extref></unittitle>
+                        <container id="cid63035" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63035" type="Folder">35</container>
+                    </did>
+                </c02>
+                <c02 id="ref45" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f036">1887 March - 1890 April.</extref></unittitle>
+                        <container id="cid63036" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63036" type="Folder">36</container>
+                    </did>
+                </c02>
+                <c02 id="ref46" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f037">1891 March - 1893 February.</extref></unittitle>
+                        <container id="cid63037" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63037" type="Folder">37</container>
+                    </did>
+                </c02>
+                <c02 id="ref47" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f038">1893 May - August.</extref></unittitle>
+                        <container id="cid63038" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63038" type="Folder">38</container>
+                    </did>
+                </c02>
+                <c02 id="ref48" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f039">1894 June - 1895 April.</extref></unittitle>
+                        <container id="cid63039" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63039" type="Folder">39</container>
+                    </did>
+                </c02>
+                <c02 id="ref49" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f040">1895 - 1896 December.</extref></unittitle>
+                        <container id="cid63040" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63040" type="Folder">40</container>
+                    </did>
+                </c02>
+                <c02 id="ref50" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f041">1897 April - 1898 May.</extref></unittitle>
+                        <container id="cid63041" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63041" type="Folder">41</container>
+                    </did>
+                </c02>
+                <c02 id="ref51" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f042">1898 November - 1899 May.</extref></unittitle>
+                        <container id="cid63042" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63042" type="Folder">42</container>
+                    </did>
+                </c02>
+                <c02 id="ref52" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f043">1900 August - 1903 February.</extref></unittitle>
+                        <container id="cid63043" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63043" type="Folder">43</container>
+                    </did>
+                </c02>
+                <c02 id="ref53" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f044">1905 March - 1906 February.</extref></unittitle>
+                        <container id="cid63044" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63044" type="Folder">44</container>
+                    </did>
+                </c02>
+                <c02 id="ref54" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f045">1906 February.</extref></unittitle>
+                        <container id="cid63045" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63045" type="Folder">45</container>
+                    </did>
+                </c02>
+                <c02 id="ref55" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f046">1906 March - November.</extref></unittitle>
+                        <container id="cid63046" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63046" type="Folder">46</container>
+                    </did>
+                </c02>
+                <c02 id="ref56" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f047">1907 February.</extref></unittitle>
+                        <container id="cid63047" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63047" type="Folder">47</container>
+                    </did>
+                </c02>
+                <c02 id="ref57" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f048">1907 May - 1910 January.</extref></unittitle>
+                        <container id="cid63048" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63048" type="Folder">48</container>
+                    </did>
+                </c02>
+                <c02 id="ref58" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f049">Undated.</extref></unittitle>
+                        <container id="cid63049" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63049" type="Folder">49</container>
+                    </did>
+                </c02>
+                <c02 id="ref59" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f050">Typed manuscript copies of letters 1852 - 1861 [incomplete].</extref></unittitle>
+                        <container id="cid63050" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63050" type="Folder">50</container>
+                    </did>
+                </c02>
+            </c01>
+            <c01 id="ref5" level="series">
+                <did>
+                    <unittitle>Articles and addresses, diaries, clippings, notes, etc., 1808-1957</unittitle>
+                    <unitid>M090.2</unitid>
+                    <physdesc>
+                        <extent>0.5 linear feet</extent>
+                    </physdesc>
+                </did>
+                <scopecontent id="ref8">
+                    <head>Scope and Content:</head>
+                    <p>Manuscript, typescript and printed material, much of it involving Howard's Civil War experiences or his military career. Dated between 1808 and 1957, it includes articles and addresses, diaries and other ephemeral pieces.</p>
+                </scopecontent>
+                <arrangement id="ref9">
+                    <head>Arrangement:</head>
+                    <p>Arranged alphabetically.</p>
+                </arrangement>
+                <c02 id="ref60" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f051">Articles and Addresses: "American Farmer in Relation to Economic Conditions, The."</extref></unittitle>
+                        <container id="cid63051" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63051" type="Folder">51</container>
+                    </did>
+                </c02>
+                <c02 id="ref61" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f052">Articles and Addresses: "Army of the Tennessee under Major-General O.O. Howard, The" [by] William Duncan, 1894.</extref></unittitle>
+                        <container id="cid63052" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63052" type="Folder">52</container>
+                    </did>
+                </c02>
+                <c02 id="ref62" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f053">Articles and Addresses: "Battle of Fair Oaks" ... [by] G. Grant.</extref></unittitle>
+                        <container id="cid63053" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63053" type="Folder">53</container>
+                    </did>
+                </c02>
+                <c02 id="ref63" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f054">Articles and Addresses: "Call on General Grant, A."</extref></unittitle>
+                        <container id="cid63054" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63054" type="Folder">54</container>
+                    </did>
+                </c02>
+                <c02 id="ref64" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f055">Articles and Addresses: First day at Gettysburg.</extref></unittitle>
+                        <container id="cid63055" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63055" type="Folder">55</container>
+                    </did>
+                </c02>
+                <c02 id="ref65" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f056">Articles and Addresses: Inaugural Prayer Meeting [for President Grant], March 1869.</extref></unittitle>
+                        <container id="cid63056" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63056" type="Folder">56</container>
+                    </did>
+                </c02>
+                <c02 id="ref66" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f057">Articles and Addresses: "Men I Have Met."</extref></unittitle>
+                        <container id="cid63057" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63057" type="Folder">57</container>
+                    </did>
+                </c02>
+                <c02 id="ref67" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f058">Articles and Addresses: "Our First View of Atlanta," July 9, 1864.</extref></unittitle>
+                        <container id="cid63058" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63058" type="Folder">58</container>
+                    </did>
+                </c02>
+                <c02 id="ref68" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f059">Articles and Addresses: "Reminiscences of the Civil War Period."</extref></unittitle>
+                        <container id="cid63059" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63059" type="Folder">59</container>
+                    </did>
+                </c02>
+                <c02 id="ref69" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f060">Articles and Addresses: "Veteran's View of Civic Duty, A."</extref></unittitle>
+                        <container id="cid63060" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63060" type="Folder">60</container>
+                    </did>
+                </c02>
+                <c02 id="ref70" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f061">Diaries: 1854 March 15 - July 1.</extref></unittitle>
+                        <container id="cid63061" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63061" type="Folder">61</container>
+                    </did>
+                </c02>
+                <c02 id="ref71" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f062">Diaries: 1863 January 7 - 1865 January 2. </extref></unittitle>
+                        <container id="cid63062" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63062" type="Folder">62</container>
+                    </did>
+                </c02>
+                <c02 id="ref72" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f063">Autographs of famous men.</extref></unittitle>
+                        <container id="cid63063" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63063" type="Folder">63</container>
+                    </did>
+                </c02>
+                <c02 id="ref73" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f064">Biographical records re C.H. Howard and O.O. Howard.</extref></unittitle>
+                        <container id="cid63064" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63064" type="Folder">64</container>
+                    </did>
+                </c02>
+                <c02 id="ref74" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f065">Clippings.</extref></unittitle>
+                        <container id="cid63065" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63065" type="Folder">65</container>
+                    </did>
+                </c02>
+                <c02 id="ref75" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f066">Columbian Exposition programs and passes.</extref></unittitle>
+                        <container id="cid63066" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63066" type="Folder">66</container>
+                    </did>
+                </c02>
+                <c02 id="ref76" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f067">Inspection report ... South Carolina, Georgia, and Florida [1865].</extref></unittitle>
+                        <container id="cid63067" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63067" type="Folder">67</container>
+                    </did>
+                </c02>
+                <c02 id="ref77" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f068">Invitations and programs.</extref></unittitle>
+                        <container id="cid63068" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63068" type="Folder">68</container>
+                    </did>
+                </c02>
+                <c02 id="ref78" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f069">Lincoln Memorial University pamphlets, 1955-1957</extref></unittitle>
+                        <container id="cid63069" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63069" type="Folder">69</container>
+                    </did>
+                </c02>
+                <c02 id="ref79" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f070">Manuscript notes, receipts, etc.</extref></unittitle>
+                        <container id="cid63070" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63070" type="Folder">70</container>
+                    </did>
+                </c02>
+                <c02 id="ref80" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f071">Military societies: Army of the Tennessee - 13th reunion, 1879.</extref></unittitle>
+                        <container id="cid63071" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63071" type="Folder">71</container>
+                    </did>
+                </c02>
+                <c02 id="ref81" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f072">Military societies: programs, certificates, etc.</extref></unittitle>
+                        <container id="cid63072" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63072" type="Folder">72</container>
+                    </did>
+                </c02>
+                <c02 id="ref82" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f073">Pen and pocket Bible.</extref></unittitle>
+                        <container id="cid63073" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63073" type="Folder">73</container>
+                    </did>
+                </c02>
+                <c02 id="ref83" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f074">Printed ephemera.</extref></unittitle>
+                        <container id="cid63074" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63074" type="Folder">74</container>
+                    </did>
+                </c02>
+                <c02 id="ref84" level="file">
+                    <did>
+                        <unittitle>
+                            <extref ns2:href="https://library.bowdoin.edu/arch/mss/chh-pdf/M090b001f075">Volunteer Retired List: Congressional bills, etc., 1905-1906.</extref></unittitle>
+                        <container id="cid63075" type="Box" label="Mixed materials">1</container>
+                        <container parent="cid63075" type="Folder">75</container>
+                    </did>
+                </c02>
+            </c01>
+        </dsc>
+    </archdesc>
+</ead>
