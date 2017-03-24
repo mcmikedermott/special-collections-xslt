@@ -16,7 +16,7 @@ This update relates to M091-ead.xml which contains multiple objects (DAOs).
 
 The first DAO object, `ns2:title="1850 Jul"`, has a title that matches the containing title. In this case, we should show just 'view online'.
 
-The second DAO object, `ns2:title="Select transcripts"`, has a title that *does not* match the containing title, we should show 'view Select transscripts online'.
+The second DAO object, `ns2:title="Select transcripts"`, has a title that *does not* match the containing title, we should show 'view Select transcripts online'.
 
 Excerpted lines 301-317 of `M091-ead.xml`:
 
