@@ -38,4 +38,18 @@ Excerpted lines 301-317 of `M091-ead.xml`:
 		</daodesc>
 	</dao>
 </c>
-```				
+```
+
+The resulting HTML:
+
+```
+<tr class="even">
+	<td class="container">1</td>
+	<td class="container">17</td>
+	<td class="c02" colspan="3">
+		<p>1850 Jul </p>
+		<a class="Text-Service" href="https://library.bowdoin.edu/arch/mss/ooh-pdf/M91b01f017">View online</a>
+		<a class="Text-Service" href="https://library.bowdoin.edu/arch/mss/ooh-pdf/M91b01f017_transcripts">View Select transcripts online</a> 
+	</td>
+</tr>
+```
