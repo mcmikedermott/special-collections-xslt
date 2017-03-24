@@ -41,7 +41,7 @@
     -->
     
     <xsl:strip-space elements="*"/>
-    <xsl:output indent="yes" method="html" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" encoding="utf-8"/>
+    <xsl:output indent="yes" method="xml" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" encoding="utf-8"/>
 
 <!--    <xsl:include href="lookupLists.xsl"/>-->
     <!-- Creates the body of the finding aid.-->
