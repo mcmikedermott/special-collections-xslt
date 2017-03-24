@@ -965,34 +965,26 @@
         <xsl:apply-templates/>
     </xsl:template>
     <!-- Custom DAO roles to display with "listen/watch/view ..." title -->
-    <xsl:template match="ead:dao[starts-with(@ns2:role, 'Audio-')]">
-        <xsl:apply-templates/>
-        <a class="{@ns2:role}" href="{@ns2:href}">Listen online</a>
-    </xsl:template>
-    <xsl:template match="ead:dao[starts-with(@ns2:role, 'Text-')]">
-        <xsl:apply-templates/>
-        <a class="{@ns2:role}" href="{@ns2:href}">View online</a>
-    </xsl:template>
-    <xsl:template match="ead:dao[starts-with(@ns2:role, 'Image-')]">
-        <xsl:apply-templates/>
-        <a class="{@ns2:role}" href="{@ns2:href}">View online</a>
-    </xsl:template>
-    <xsl:template match="ead:dao[starts-with(@ns2:role, 'Video-')]">
-        <xsl:apply-templates/>
-        <a class="{@ns2:role}" href="{@ns2:href}">Watch online</a>
-    </xsl:template>
-    <!-- Default DAO display... -->
-    <xsl:template match="ead:dao">    
-        <!-- Show "view <role> instead of raw href as link text -->
-        <xsl:choose>
-            <xsl:when test="child::*">
-                <xsl:apply-templates/>
-                <a class="{@ns2:role}" href="{@ns2:href}">View <xsl:value-of select="@ns2:role"/></a>
-            </xsl:when>
-            <xsl:otherwise>
-                <a class="{@ns2:role}" href="{@ns2:href}">View <xsl:value-of select="@ns2:role"/></a>
-            </xsl:otherwise>
-        </xsl:choose>
+    <xsl:template match="ead:dao">
+        <xsl:if test="child::*">
+            <xsl:apply-templates/>
+        </xsl:if>
+        <!-- start the link 
+             output verb appropriate to the media; view/watch/listen
+             output the object (DAO) title if not the same as the container (DID)
+             output the link postfix and closing 
+          -->
+        <a class="{@ns2:role}" href="{@ns2:href}">
+            <xsl:choose>
+                <xsl:when test="starts-with(@ns2:role, 'Audio-')">Listen </xsl:when>
+                <xsl:when test="starts-with(@ns2:role, 'Video-')">Watch </xsl:when>
+                <xsl:otherwise>View </xsl:otherwise>
+            </xsl:choose>
+
+            <xsl:if test="../ead:did/ead:unittitle != @ns2:title">
+                <xsl:value-of select="@ns2:title"/>
+            </xsl:if> online</a>
+            <xsl:text> </xsl:text>
     </xsl:template>
     <xsl:template match="ead:daodesc">
         <!-- Don't show daodesc -->
