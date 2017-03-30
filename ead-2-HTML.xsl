@@ -974,17 +974,18 @@
              output the object (DAO) title if not the same as the container (DID)
              output the link postfix and closing 
           -->
-        <a class="{@ns2:role}" href="{@ns2:href}">
-            <xsl:choose>
-                <xsl:when test="starts-with(@ns2:role, 'Audio-')">Listen </xsl:when>
-                <xsl:when test="starts-with(@ns2:role, 'Video-')">Watch </xsl:when>
-                <xsl:otherwise>View </xsl:otherwise>
-            </xsl:choose>
+        <li>
+            <a class="{@ns2:role}" href="{@ns2:href}">
+                <xsl:choose>
+                    <xsl:when test="starts-with(@ns2:role, 'Audio-')">Listen </xsl:when>
+                    <xsl:when test="starts-with(@ns2:role, 'Video-')">Watch </xsl:when>
+                    <xsl:otherwise>View </xsl:otherwise>
+                </xsl:choose>
 
-            <xsl:if test="../ead:did/ead:unittitle != @ns2:title">
-                <xsl:value-of select="@ns2:title"/>
-            </xsl:if> online</a>
-            <xsl:text> </xsl:text>
+                <xsl:if test="../ead:did/ead:unittitle != @ns2:title">
+                    <xsl:value-of select="@ns2:title"/>
+                </xsl:if> online</a>
+        </li>
     </xsl:template>
     <xsl:template match="ead:daodesc">
         <!-- Don't show daodesc -->
@@ -1635,12 +1636,14 @@
                                 <xsl:otherwise/>
                             </xsl:choose>                            
                             <xsl:apply-templates select="ead:did" mode="dsc"/>  
-                            <xsl:apply-templates select="*[not(self::ead:did) and 
-                                not(self::ead:c) and not(self::ead:c02) and not(self::ead:c03) and
-                                not(self::ead:c04) and not(self::ead:c05) and not(self::ead:c06) and not(self::ead:c07)
-                                and not(self::ead:c08) and not(self::ead:c09) and not(self::ead:c10) and not(self::ead:c11) and not(self::ead:c12)]">
-                                <xsl:sort select="@ns2:title"/>
-                            </xsl:apply-templates>
+                            <ul>
+                                <xsl:apply-templates select="*[not(self::ead:did) and 
+                                    not(self::ead:c) and not(self::ead:c02) and not(self::ead:c03) and
+                                    not(self::ead:c04) and not(self::ead:c05) and not(self::ead:c06) and not(self::ead:c07)
+                                    and not(self::ead:c08) and not(self::ead:c09) and not(self::ead:c10) and not(self::ead:c11) and not(self::ead:c12)]">
+                                    <xsl:sort select="@ns2:title"/>
+                                </xsl:apply-templates>
+                            </ul>
                         </td>
                        
                     </tr>  
