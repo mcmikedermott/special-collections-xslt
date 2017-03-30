@@ -1638,7 +1638,9 @@
                             <xsl:apply-templates select="*[not(self::ead:did) and 
                                 not(self::ead:c) and not(self::ead:c02) and not(self::ead:c03) and
                                 not(self::ead:c04) and not(self::ead:c05) and not(self::ead:c06) and not(self::ead:c07)
-                                and not(self::ead:c08) and not(self::ead:c09) and not(self::ead:c10) and not(self::ead:c11) and not(self::ead:c12)]"/>  
+                                and not(self::ead:c08) and not(self::ead:c09) and not(self::ead:c10) and not(self::ead:c11) and not(self::ead:c12)]">
+                                <xsl:sort select="@ns2:title"/>
+                            </xsl:apply-templates>
                         </td>
                        
                     </tr>  
