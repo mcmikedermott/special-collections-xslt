@@ -974,7 +974,7 @@
              output the object (DAO) title if not the same as the container (DID)
              output the link postfix and closing 
           -->
-        <li>
+        <li class="dao">
             <a class="{@ns2:role}" href="{@ns2:href}">
                 <xsl:choose>
                     <xsl:when test="starts-with(@ns2:role, 'Audio-')">Listen </xsl:when>
@@ -1636,7 +1636,7 @@
                                 <xsl:otherwise/>
                             </xsl:choose>                            
                             <xsl:apply-templates select="ead:did" mode="dsc"/>  
-                            <ul>
+                            <ul class="daolist">
                                 <xsl:apply-templates select="*[not(self::ead:did) and 
                                     not(self::ead:c) and not(self::ead:c02) and not(self::ead:c03) and
                                     not(self::ead:c04) and not(self::ead:c05) and not(self::ead:c06) and not(self::ead:c07)
