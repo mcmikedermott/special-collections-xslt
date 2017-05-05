@@ -974,7 +974,7 @@
              output the object (DAO) title if not the same as the container (DID)
              output the link postfix and closing 
           -->
-        <a class="{@ns2:role}" href="{@ns2:href}">
+        <a class="{@ns2:role}" href="{@ns2:href}" target="_blank">
             <xsl:choose>
                 <xsl:when test="starts-with(@ns2:role, 'Audio-')">Listen </xsl:when>
                 <xsl:when test="starts-with(@ns2:role, 'Video-')">Watch </xsl:when>
