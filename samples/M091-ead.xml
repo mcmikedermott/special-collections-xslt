@@ -25,7 +25,7 @@
         </filedesc>
         <profiledesc>
             <creation>This finding aid was produced using the Archivists' Toolkit
-                <date>2017-03-28T16:11-0400</date>
+                <date>2017-04-13T10:36-0400</date>
             </creation>
             <langusage>English</langusage>
             <descrules>Describing Archives: A Content Standard</descrules>
@@ -67,6 +67,15 @@
             <p>Correspondence, articles, addresses, lectures, publications, diaries, clippings, indexes and other material from the personal and unofficial professional records of Oliver Otis Howard. Also includes images from a variety of sources. Howard corresponded with more than 14,000 people, including notables in the military, social reformation, politics and law, religion, education, literature and journalism, and the arts.</p>
             <p>Correspondents include: Henry Ward Beecher, Blanche K. Bruce, Andrew Carnegie, Salmon P. Chase, George Crook, Dorothea Dix, Frederick Douglass, James A. Garfield, William Lloyd Garrison, Ulysses S. Grant, Edward Everett Hale, Winfield S. Hancock, Rutherford B. Hayes, William Randolph Hearst, Sarah Winnemucca Hopkins, William McKinley, Montgomery C. Meigs, Nelson A. Miles, Dwight L. Moody, Theodore Roosevelt, Elihu Root, Carl Schurz, Philip H. Sheridan, John Sherman, William T. Sherman, Daniel E. Sickles, Edwin M. Stanton, Charles Sumner, William H. Taft, Soujourner Truth and Booker T. Washington.</p>
             <p>His most voluminous correspondence (minimum of 110 letters received each) was with: Charles F. Eager of Lincoln Memorial University; Cyrus Kehr, speaking agent; John Hale Larry of Lincoln Memorial University; Henry F. McCoy of the San Francisco Y.M.C.A.; J. E. Rankin of Howard University; Wager Swayne of the Freedmen's Bureau in Alabama; and Eliphalet Whittlesey of the Board of Indian Commissioners.</p>
+            <p>Indexes of the letters with links to online digital surrogates are available in both PDF and Excel form. Hyperlinks within PDFs are clickable, while hyperlinks within Excel spreadsheets must be copied and pasted.</p>
+            <p>
+                <extref ns2:title="Chronological index of unbound (mostly incoming) correspondence" ns2:href="https://library.bowdoin.edu/arch/mss/ooh-pdf/IncomingCorrespondenceList_chron.pdf">Chronological index of unbound (mostly incoming) correspondence</extref> (PDF file)</p>
+            <p>
+                <extref ns2:title="Sortable index of unbound (mostly incoming) correspondence" ns2:href="https://library.bowdoin.edu/arch/mss/ooh-pdf/IncomingCorrespondenceList_forweb.xlsx">Sortable index of unbound (mostly incoming) correspondence</extref> (Excel file)</p>
+            <p>
+                <extref ns2:title="Chronological index of bound (mostly outgoing) correspondence" ns2:href="https://library.bowdoin.edu/arch/mss/ooh-pdf/OutgoingIndex_chron.pdf">Chronological index of bound (mostly outgoing) correspondence</extref> (PDF file)</p>
+            <p>
+                <extref ns2:title="Sortable index of bound (mostly outgoing) correspondence" ns2:href="https://library.bowdoin.edu/arch/mss/ooh-pdf/outgoing_index.xlsx">Sortable index of bound (mostly outgoing) correspondence</extref> (Excel file)</p>
             <p>The collections of Howard's brothers, 
                 <extref ns2:title="Charles Henry Howard" ns2:href="https://library.bowdoin.edu/arch/mss/chhg.shtml">Charles Henry Howard</extref> and 
                 <extref ns2:title="Rowland Bailey Howard" ns2:href="https://library.bowdoin.edu/arch/mss/rbhg.shtml">Rowland Bailey Howard</extref> supplement this material.</p>
@@ -18189,13 +18198,13 @@
                 </c02>
                 <c02 id="ref1519" level="file">
                     <did>
-                        <unittitle>1885 Jan 01 - 1885 Jan 08</unittitle>
+                        <unittitle>1885 Jan 01 - 1885 Jan 09</unittitle>
                         <container id="cid889991" type="Box" label="Mixed materials">18</container>
                         <container parent="cid889991" type="Folder">24</container>
                     </did>
-                    <dao ns2:actuate="onRequest" ns2:show="embed" ns2:title="1885 Jan 01 - 1885 Jan 08" ns2:role="Text-Service" ns2:href="https://library.bowdoin.edu/arch/mss/ooh-pdf/M91b18f024">
+                    <dao ns2:actuate="onRequest" ns2:show="embed" ns2:title="1885 Jan 01 - 1885 Jan 09" ns2:role="Text-Service" ns2:href="https://library.bowdoin.edu/arch/mss/ooh-pdf/M91b18f024">
                         <daodesc>
-                            <p>1885 Jan 01 - 1885 Jan 08</p>
+                            <p>1885 Jan 01 - 1885 Jan 09</p>
                         </daodesc>
                     </dao>
                 </c02>
