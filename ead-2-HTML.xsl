@@ -975,13 +975,12 @@
              output the link postfix and closing 
           -->
         <li class="dao">
-            <a class="{@ns2:role}" href="{@ns2:href}">
+            <a class="{@ns2:role}" href="{@ns2:href}" target="_blank">
                 <xsl:choose>
                     <xsl:when test="starts-with(@ns2:role, 'Audio-')">Listen </xsl:when>
                     <xsl:when test="starts-with(@ns2:role, 'Video-')">Watch </xsl:when>
                     <xsl:otherwise>View </xsl:otherwise>
                 </xsl:choose>
-
                 <xsl:if test="../ead:did/ead:unittitle != @ns2:title">
                     <xsl:value-of select="@ns2:title"/>
                 </xsl:if> online</a>
