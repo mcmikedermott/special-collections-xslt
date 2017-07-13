@@ -9,3 +9,13 @@ Sample use:
 ```
 xsltproc ead-2-HTML.xsl samples/multiple-dao.xml > multiple-dao.html
 ```
+
+## Summer 2017 Project
+
+Update the XSLT to produce a new HTML that is more appelaing.
+
+* `samples/M118-ead.xml`: export from Archivist's Toolkit.
+* `samples/macmillian/macmillian2.shtml`: the hoped for HTML translation.
+* `samples/macmillian/macmillian.shtml`: the current HTML translation.
+* `ead2html-2017.xsl`: the new translation XSLT
+
