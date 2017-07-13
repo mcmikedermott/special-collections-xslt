@@ -48,6 +48,9 @@
     <xsl:strip-space elements="*"/>
     <xsl:output method="html" encoding="utf-8" indent="yes" />
 
+    <xsl:variable name="titleid" select="'idm6090592'"/>
+    <xsl:variable name="title" select="concat(/ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:titleproper,' ', /ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:subtitle)"/>
+
     <!-- Creates the body of the finding aid.-->
     <xsl:template match="/">
         <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html&gt;</xsl:text>
@@ -67,6 +70,17 @@
 
             <div class="wrapper">
                 <section class="container" id="main-content">
+                    <!-- Main Title -->
+                    <a name="top">
+                        <h1 id="{$titleid}"><xsl:copy-of select="$title"/></h1>
+                    </a>
+
+                    <!-- Digitiazation Status -->
+                    <xsl:call-template name="digitized"/>
+
+                    <!-- Contents -->
+                    <xsl:call-template name="contents"/>
+
                 </section>
             </div>
 
@@ -75,10 +89,105 @@
         </html>
     </xsl:template>
 
+    <xsl:template name="digitized">
+        <div class="row show-grid digitized">
+            <div class="col-md-5">
+                <div class="arrow_box">Digitized</div>
+            </div>
+            <div class="col-md-7">Some materials from this collection are available online.
+                <br/><a href="#" onclick="daoStart();">Start viewing now &#187;</a>
+            </div>
+        </div>
+    </xsl:template>
+
+    <xsl:template name="contents">
+        <div class="row"><div class="col-md12">
+            <!-- 
+            *Summary Information
+            *Using These Materials
+            *Biographical/Historical Note
+            *Scope and Content
+            *Related Materials
+            Sponsor
+            Collection Inventory
+            -->
+            <!-- Summary Information, summary information includes citation -->
+            <div class="panel-group" role="tablist" aria-multiselectable="true">
+                <div class="summary panel panel-default">
+                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:did"/>
+                </div>
+
+                <div class="matuse panel panel-default">
+                    <!-- Administrative Information  -->
+                    <xsl:if test="/ead:ead/ead:archdesc/ead:accessrestrict or
+                        /ead:ead/ead:archdesc/ead:userestrict or
+                        /ead:ead/ead:archdesc/ead:custodhist or
+                        /ead:ead/ead:archdesc/ead:accruals or
+                        /ead:ead/ead:archdesc/ead:altformavail or
+                        /ead:ead/ead:archdesc/ead:acqinfo or
+                        /ead:ead/ead:archdesc/ead:processinfo or
+                        /ead:ead/ead:archdesc/ead:appraisal or
+                        /ead:ead/ead:archdesc/ead:originalsloc or /ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt or /ead:ead/ead:eadheader/ead:revisiondesc">
+                        <h3 id="adminInfo">Administrative Information</h3>
+                        <xsl:apply-templates select="/ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt"/>
+                        <xsl:apply-templates select="/ead:ead/ead:eadheader/ead:revisiondesc"/>
+                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:accessrestrict"/>
+                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:userestrict"/>
+                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:custodhist"/>
+                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:accruals"/>
+                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:acqinfo"/>
+                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:processinfo"/>
+                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:appraisal"/>
+                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:altformavail"/>
+                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:originalsloc"/>
+                        <!-- xsl:call-template name="returnTOC"/ -->
+                    </xsl:if>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:bioghist"/>
+            </div>
+            
+            <div class="panel panel-default">
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:scopecontent"/>
+            </div>
+            
+            <div class="panel panel-default">
+                <!-- Related Materials -->
+                <xsl:if test="/ead:ead/ead:archdesc/ead:relatedmaterial or /ead:ead/ead:archdesc/ead:separatedmaterial">
+                    <h3 id="relMat">Related Materials</h3>
+                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:relatedmaterial"/>
+                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:separatedmaterial"/>
+                        <!-- xsl:call-template name="returnTOC"/ -->
+                </xsl:if>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:daogrp"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:dao"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:controlaccess"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:otherfindaid"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:phystech"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:odd"/>
+                
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:bibliography"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:index"/>
+                <xsl:if test="/ead:ead/ead:archdesc/ead:dsc/child::*">
+                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:dsc"/>    
+                </xsl:if>
+            </div>
+            
+            <div class="panel panel-default">
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:arrangement"/>
+            </div>
+            
+            <div class="panel panel-default">
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:fileplan"/>
+            </div>
+        </div></div>
+    </xsl:template>
+
     <!-- CSS for styling HTML output. Place all CSS styles in this template.-->
     <xsl:template name="css">
         <link rel="stylesheet" type="text/css" href="https://draft-library.bowdoin.edu/arch/test/finding-aid.css" />
-        <link rel="stylesheet" type="text/css" href="fonts/font-awesome.css" />
     </xsl:template>
 
     <!-- This template creates a customizable header  -->
@@ -113,178 +222,111 @@
         <meta http-equiv="Content-Type" name="dc.format" content="finding aids"/>
     </xsl:template>
 
-    <!-- Creates an ordered table of contents that matches the order of the archdesc 
-        elements. To change the order rearrange the if/for-each statements. -->  
-    <xsl:template name="toc">
-        <div id="toc">
-            <h3>Table of Contents</h3>
-            <dl>
-                <xsl:if test="/ead:ead/ead:archdesc/ead:did">
-                    <dt><a href="#top">Summary Information</a></dt>
-                </xsl:if>
-                <xsl:for-each select="/ead:ead/ead:archdesc/ead:bioghist">
-                        <dt>                                
-                            <a><xsl:call-template name="tocLinks"/>
-                                <xsl:choose>
-                                    <xsl:when test="ead:head">
-                                        <xsl:value-of select="ead:head"/></xsl:when>
-                                    <xsl:otherwise>Biography/History</xsl:otherwise>
-                                </xsl:choose>
-                            </a>
-                        </dt>   
-                </xsl:for-each>
-                <xsl:for-each select="/ead:ead/ead:archdesc/ead:scopecontent">
-                    <dt>                                
-                        <a><xsl:call-template name="tocLinks"/>
-                            <xsl:choose>
-                                <xsl:when test="ead:head">
-                                    <xsl:value-of select="ead:head"/></xsl:when>
-                                <xsl:otherwise>Scope and Content</xsl:otherwise>
-                            </xsl:choose>
-                        </a>
-                    </dt>   
-                </xsl:for-each>
-                <xsl:for-each select="/ead:ead/ead:archdesc/ead:arrangement">
-                    <dt>                                
-                        <a><xsl:call-template name="tocLinks"/>
-                            <xsl:choose>
-                                <xsl:when test="ead:head">
-                                    <xsl:value-of select="ead:head"/></xsl:when>
-                                <xsl:otherwise>Arrangement</xsl:otherwise>
-                            </xsl:choose>
-                        </a>
-                    </dt>   
-                </xsl:for-each>
-                <xsl:for-each select="/ead:ead/ead:archdesc/ead:fileplan">
-                    <dt>                                
-                        <a><xsl:call-template name="tocLinks"/>
-                            <xsl:choose>
-                                <xsl:when test="ead:head">
-                                    <xsl:value-of select="ead:head"/></xsl:when>
-                                <xsl:otherwise>File Plan</xsl:otherwise>
-                            </xsl:choose>
-                        </a>
-                    </dt>   
-               </xsl:for-each>
-                
-                <!-- Administrative Information  -->
-                <xsl:if test="/ead:ead/ead:archdesc/ead:accessrestrict or
-                    /ead:ead/ead:archdesc/ead:userestrict or
-                    /ead:ead/ead:archdesc/ead:custodhist or
-                    /ead:ead/ead:archdesc/ead:accruals or
-                    /ead:ead/ead:archdesc/ead:altformavail or
-                    /ead:ead/ead:archdesc/ead:acqinfo or
-                    /ead:ead/ead:archdesc/ead:processinfo or
-                    /ead:ead/ead:archdesc/ead:appraisal or
-                    /ead:ead/ead:archdesc/ead:originalsloc or /ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt or /ead:ead/ead:eadheader/ead:revisiondesc">
-                    <dt><a href="#adminInfo">Administrative Information</a></dt>
-                </xsl:if>
-                
-                <!-- Related Materials -->
-                <xsl:if test="/ead:ead/ead:archdesc/ead:relatedmaterial or /ead:ead/ead:archdesc/ead:separatedmaterial">
-                    <dt><a href="#relMat">Related Materials</a></dt>
-                </xsl:if>
-                <xsl:for-each select="/ead:ead/ead:archdesc/ead:controlaccess">
-                    <dt>                                
-                        <a><xsl:call-template name="tocLinks"/>
-                            <xsl:choose>
-                                <xsl:when test="ead:head">
-                                    <xsl:value-of select="ead:head"/></xsl:when>
-                                <xsl:otherwise>Controlled Access Headings</xsl:otherwise>
-                            </xsl:choose>
-                        </a>
-                    </dt>   
-                </xsl:for-each>
-                <xsl:for-each select="/ead:ead/ead:archdesc/ead:otherfindaid">
-                    <dt>                                
-                        <a><xsl:call-template name="tocLinks"/>
-                            <xsl:choose>
-                                <xsl:when test="ead:head">
-                                    <xsl:value-of select="ead:head"/></xsl:when>
-                                <xsl:otherwise>Other Finding Aids</xsl:otherwise>
-                            </xsl:choose>
-                        </a>
-                    </dt>   
-                </xsl:for-each>
-                <xsl:for-each select="/ead:ead/ead:archdesc/ead:phystech">
-                    <dt>                                
-                        <a><xsl:call-template name="tocLinks"/>
-                            <xsl:choose>
-                                <xsl:when test="ead:head"><xsl:value-of select="ead:head"/></xsl:when>
-                                <xsl:otherwise>Technical Requirements</xsl:otherwise>
-                            </xsl:choose>
-                        </a>
-                    </dt>
-                </xsl:for-each>
-                <xsl:for-each select="/ead:ead/ead:archdesc/ead:odd">
-                    <dt>                                
-                        <a><xsl:call-template name="tocLinks"/>
-                            <xsl:choose>
-                                <xsl:when test="ead:head">
-                                    <xsl:value-of select="ead:head"/></xsl:when>
-                                <xsl:otherwise>Other Descriptive Data</xsl:otherwise>
-                            </xsl:choose>
-                        </a>
-                    </dt>
-                </xsl:for-each>
-                <xsl:for-each select="/ead:ead/ead:archdesc/ead:bibliography">
-                    <dt>                                
-                        <a><xsl:call-template name="tocLinks"/>
-                            <xsl:choose>
-                                <xsl:when test="ead:head">
-                                    <xsl:value-of select="ead:head"/></xsl:when>
-                                <xsl:otherwise>Bibliography</xsl:otherwise>
-                            </xsl:choose>
-                        </a>
-                    </dt>
-                </xsl:for-each>
-                <xsl:for-each select="/ead:ead/ead:archdesc/ead:index">
-                    <dt>                                
-                        <a><xsl:call-template name="tocLinks"/>
-                            <xsl:choose>
-                                <xsl:when test="ead:head">
-                                    <xsl:value-of select="ead:head"/></xsl:when>
-                                <xsl:otherwise>Index</xsl:otherwise>
-                            </xsl:choose>
-                        </a>
-                    </dt>
-                </xsl:for-each> 
-                <xsl:for-each select="/ead:ead/ead:archdesc/ead:dsc">
-                    <xsl:if test="child::*">
-                        <dt>                                
-                            <a><xsl:call-template name="tocLinks"/>
-                                <xsl:choose>
-                                    <xsl:when test="ead:head">
-                                        <xsl:value-of select="ead:head"/></xsl:when>
-                                    <xsl:otherwise>Collection Inventory</xsl:otherwise>
-                                </xsl:choose>
-                            </a>
-                        </dt>                
-                    </xsl:if>
-                    <!--Creates a submenu for collections, record groups and series and fonds-->
-                    <xsl:for-each select="child::*[@level = 'collection'] 
-                        | child::*[@level = 'recordgrp']  | child::*[@level = 'series'] | child::*[@level = 'fonds']">
-                        <dd>     <a><xsl:call-template name="tocLinks"/>
-                            <xsl:choose>
-                                <xsl:when test="ead:head">
-                                    <xsl:apply-templates select="child::*/ead:head"/>        
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:apply-templates select="child::*/ead:unittitle"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </a></dd>
-                    </xsl:for-each>
-                </xsl:for-each>
-            </dl>
+    <xsl:template match="ead:archdesc/ead:did">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <h2 class="panel-title">
+                <a role="button" data-toggle="collapse" href="#collapseSummary" aria-expanded="true" aria-controls="collapseSummary">
+                    <xsl:choose>
+                        <xsl:when test="ead:head">
+                            <xsl:value-of select="ead:head"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            Summary Information
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </a>
+            </h2>
+        </div>
+
+        <div id="collapseSummary" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSummary">
+            <div class="panel-body">
+            <!-- Determines the order in wich elements from the archdesc did appear, 
+                to change the order of appearance for the children of did
+                by changing the order of the following statements. -->
+                <xsl:apply-templates select="ead:unittitle"/>    
+                <xsl:apply-templates select="ead:origination"/>
+                <xsl:apply-templates select="ead:unitid"/>
+                <xsl:apply-templates select="ead:unitdate"/>
+                <xsl:apply-templates select="ead:physdesc"/>        
+                <xsl:apply-templates select="ead:physloc"/>        
+                <xsl:apply-templates select="ead:langmaterial"/>
+                <xsl:apply-templates select="ead:repository"/>
+                <xsl:apply-templates select="ead:materialspec"/>
+                <xsl:apply-templates select="ead:container"/>
+                <xsl:apply-templates select="ead:abstract"/> 
+                <xsl:apply-templates select="ead:note"/>
+
+                <xsl:apply-templates select="../ead:prefercite"/>
+            </div>
         </div>
     </xsl:template>
- 
-     <!-- Named template for a generic p element with a link back to the table of contents  -->
-    <xsl:template name="returnTOC">                
-        <!--  <p class="returnTOC"><a href="#toc">Return to Table of Contents »</a></p>  -->
-        <hr/> 
+
+    <!-- Template calls and formats the children of archdesc/did -->
+    <xsl:template match="ead:archdesc/ead:did/ead:repository | ead:archdesc/ead:did/ead:unittitle | ead:archdesc/ead:did/ead:unitid | ead:archdesc/ead:did/ead:origination 
+        | ead:archdesc/ead:did/ead:unitdate | ead:archdesc/ead:did/ead:physdesc | ead:archdesc/ead:did/ead:physloc 
+        | ead:archdesc/ead:did/ead:abstract | ead:archdesc/ead:did/ead:langmaterial | ead:archdesc/ead:did/ead:materialspec | ead:archdesc/ead:did/ead:container">
+
+        <div class="row">
+            <div class="col-md-3">
+                <xsl:choose>
+                    <xsl:when test="@label">
+                        <xsl:value-of select="concat(translate( substring(@label, 1, 1 ),
+                            'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' ), 
+                            substring(@label, 2, string-length(@label )))" />
+                        <xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if>
+                        <xsl:if test="self::ead:origination">
+                            <xsl:choose>
+                                <xsl:when test="ead:persname[@role != ''] and contains(ead:persname/@role,' (')">
+                                    - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
+                                </xsl:when>
+                                <xsl:when test="ead:persname[@role != '']">
+                                    - <xsl:value-of select="ead:persname/@role"/>  
+                                </xsl:when>
+                                <xsl:otherwise/>
+                            </xsl:choose>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="self::ead:repository">Repository</xsl:when>
+                            <xsl:when test="self::ead:unittitle">Title</xsl:when>
+                            <xsl:when test="self::ead:unitid">ID</xsl:when>
+                            <xsl:when test="self::ead:unitdate">Date<xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if></xsl:when>
+                            <xsl:when test="self::ead:origination">
+                                <xsl:choose>
+                                    <xsl:when test="ead:persname[@role != ''] and contains(ead:persname/@role,' (')">
+                                        Creator - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
+                                    </xsl:when>
+                                    <xsl:when test="ead:persname[@role != '']">
+                                        Creator - <xsl:value-of select="ead:persname/@role"/>  
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        Creator        
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            <xsl:when test="self::ead:physdesc">Extent</xsl:when>
+                            <xsl:when test="self::ead:abstract">Abstract</xsl:when>
+                            <xsl:when test="self::ead:physloc">Location</xsl:when>
+                            <xsl:when test="self::ead:langmaterial">Language</xsl:when>
+                            <xsl:when test="self::ead:materialspec">Technical</xsl:when>
+                            <xsl:when test="self::ead:container">Container</xsl:when>
+                            <xsl:when test="self::ead:note">Note</xsl:when>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </div>
+            <div class="col-md-9">
+                <xsl:apply-templates/>
+            </div>
+        </div>
     </xsl:template>
+    
+
+
+<!-- *** Not Modified (yet) *** -->
+
+
     <xsl:template match="ead:eadheader">
         <h1 id="{generate-id(ead:filedesc/ead:titlestmt/ead:titleproper)}">
             <xsl:apply-templates select="ead:filedesc/ead:titlestmt/ead:titleproper"/>     
@@ -302,6 +344,7 @@
             <a href="http://library.bowdoin.edu">Bowdoin College Library</a>
         </h3>
     </xsl:template>
+
     <xsl:template match="ead:filedesc/ead:titlestmt/ead:titleproper">
         <xsl:choose>
             <xsl:when test="@type = 'filing'">
@@ -316,97 +359,9 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="ead:filedesc/ead:titlestmt"><br/><xsl:apply-templates/></xsl:template>
-    <xsl:template match="ead:archdesc/ead:did">
-        <h3>
-            <a name="{generate-id(.)}">
-                <xsl:choose>
-                    <xsl:when test="ead:head">
-                        <xsl:value-of select="ead:head"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        Summary Information
-                    </xsl:otherwise>
-                </xsl:choose>
-            </a>
-        </h3>
-        <!-- Determines the order in wich elements from the archdesc did appear, 
-            to change the order of appearance for the children of did
-            by changing the order of the following statements.-->
-        <dl class="summary">
-            <xsl:apply-templates select="ead:repository"/>
-            <xsl:apply-templates select="ead:origination"/>
-            <xsl:apply-templates select="ead:unittitle"/>    
-            <xsl:apply-templates select="ead:unitid"/>
-            <xsl:apply-templates select="ead:unitdate"/>
-            <xsl:apply-templates select="ead:physdesc"/>        
-            <xsl:apply-templates select="ead:physloc"/>        
-            <xsl:apply-templates select="ead:langmaterial"/>
-            <xsl:apply-templates select="ead:materialspec"/>
-            <xsl:apply-templates select="ead:container"/>
-            <xsl:apply-templates select="ead:abstract"/> 
-            <xsl:apply-templates select="ead:note"/>
-        </dl>
-            <xsl:apply-templates select="../ead:prefercite"/>
-        <xsl:call-template name="returnTOC"/>
-    </xsl:template>
 
-    <!-- Template calls and formats the children of archdesc/did -->
-    <xsl:template match="ead:archdesc/ead:did/ead:repository | ead:archdesc/ead:did/ead:unittitle | ead:archdesc/ead:did/ead:unitid | ead:archdesc/ead:did/ead:origination 
-        | ead:archdesc/ead:did/ead:unitdate | ead:archdesc/ead:did/ead:physdesc | ead:archdesc/ead:did/ead:physloc 
-        | ead:archdesc/ead:did/ead:abstract | ead:archdesc/ead:did/ead:langmaterial | ead:archdesc/ead:did/ead:materialspec | ead:archdesc/ead:did/ead:container">
-        <dt>
-            <xsl:choose>
-                <xsl:when test="@label">
-                    <xsl:value-of select="concat(translate( substring(@label, 1, 1 ),
-                        'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' ), 
-                        substring(@label, 2, string-length(@label )))" />
-                    <xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if>
-                    <xsl:if test="self::ead:origination">
-                        <xsl:choose>
-                            <xsl:when test="ead:persname[@role != ''] and contains(ead:persname/@role,' (')">
-                                - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
-                            </xsl:when>
-                            <xsl:when test="ead:persname[@role != '']">
-                                - <xsl:value-of select="ead:persname/@role"/>  
-                            </xsl:when>
-                            <xsl:otherwise/>
-                        </xsl:choose>
-                    </xsl:if>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:choose>
-                        <xsl:when test="self::ead:repository">Repository</xsl:when>
-                        <xsl:when test="self::ead:unittitle">Title</xsl:when>
-                        <xsl:when test="self::ead:unitid">ID</xsl:when>
-                        <xsl:when test="self::ead:unitdate">Date<xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if></xsl:when>
-                        <xsl:when test="self::ead:origination">
-                            <xsl:choose>
-                                <xsl:when test="ead:persname[@role != ''] and contains(ead:persname/@role,' (')">
-                                    Creator - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
-                                </xsl:when>
-                                <xsl:when test="ead:persname[@role != '']">
-                                    Creator - <xsl:value-of select="ead:persname/@role"/>  
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    Creator        
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:when>
-                        <xsl:when test="self::ead:physdesc">Extent</xsl:when>
-                        <xsl:when test="self::ead:abstract">Abstract</xsl:when>
-                        <xsl:when test="self::ead:physloc">Location</xsl:when>
-                        <xsl:when test="self::ead:langmaterial">Language</xsl:when>
-                        <xsl:when test="self::ead:materialspec">Technical</xsl:when>
-                        <xsl:when test="self::ead:container">Container</xsl:when>
-                        <xsl:when test="self::ead:note">Note</xsl:when>
-                    </xsl:choose>
-                </xsl:otherwise>
-            </xsl:choose>
-        </dt>
-        <dd>
-            <xsl:apply-templates/>
-        </dd>
-    </xsl:template>
+
+
     <!-- Template calls and formats all other children of archdesc many of 
         these elements are repeatable within the ead:dsc section as well.-->
     <xsl:template match="ead:bibliography | ead:odd | ead:accruals | ead:arrangement  | ead:bioghist 
@@ -479,7 +434,7 @@
                     self::ead:originalsloc or  
                     self::ead:relatedmaterial or self::ead:separatedmaterial or self::ead:prefercite"/>
                     <xsl:otherwise>
-                        <xsl:call-template name="returnTOC"/>
+                        <!-- xsl:call-template name="returnTOC"/ -->
                     </xsl:otherwise>
             </xsl:choose>    
         </xsl:if>
@@ -581,7 +536,8 @@
                 </xsl:for-each>                        
             </ul>
         </xsl:if>
-        <xsl:if test="parent::ead:archdesc"><xsl:call-template name="returnTOC"/></xsl:if>
+        <xsl:if test="parent::ead:archdesc">                        <!-- xsl:call-template name="returnTOC"/ -->
+</xsl:if>
     </xsl:template>
 
     <!-- Formats index and child elements, groups indexentry elements by type (i.e. corpname, subject...)-->
@@ -690,7 +646,8 @@
                         </xsl:for-each>
                     </ul>
                 </xsl:if>         
-       <xsl:if test="parent::ead:archdesc"><xsl:call-template name="returnTOC"/></xsl:if>
+       <xsl:if test="parent::ead:archdesc">                        <!-- xsl:call-template name="returnTOC"/ -->
+</xsl:if>
    </xsl:template>
     <xsl:template match="ead:indexentry">
         <dl class="indexEntry">
@@ -1259,7 +1216,7 @@
         <xsl:if test="self::*[@level='series']">
             <tr>
                 <td colspan="5">
-                    <xsl:call-template name="returnTOC"/>
+                                            <!-- xsl:call-template name="returnTOC"/ -->
                 </td>
             </tr>    
         </xsl:if>
@@ -1303,7 +1260,7 @@
         <xsl:if test="self::*[@level='series']">
             <tr>
                 <td colspan="5">
-                    <xsl:call-template name="returnTOC"/>
+                        <!-- xsl:call-template name="returnTOC"/ -->
                 </td>
             </tr>    
         </xsl:if>

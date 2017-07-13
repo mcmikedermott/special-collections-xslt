@@ -42,7 +42,7 @@
                             <div id="address">
                                 <h3><a href="/arch/">George J. Mitchell Department of<br/>Special Collection &amp; Archives</a></h3>
                                 <span><a href="/">Bowdoin College Library</a></span>
-                                <span>3000 College Station <xsl:text disable-output-escaping="yes"><![CDATA[&middot; Brunswick ME 04011-8421</span><span>207-725-3288 &middot;]]></xsl:text> <a href="mailto:scaref@bowdoin.edu">scaref@bowdoin.edu</a></span>
+                                <span>3000 College Station &#183; Brunswick ME 04011-8421</span><span>207-725-3288 &#183; <a href="mailto:scaref@bowdoin.edu">scaref@bowdoin.edu</a></span>
                             </div>
                             <div class="social-media">
                                 <!-- <a href="" title="Friend us on Facebook"><img alt="facebook" height="16" src="/images/facebook.png" width="16" /></a> -->
