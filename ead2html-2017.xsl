@@ -102,46 +102,16 @@
 
     <xsl:template name="contents">
         <div class="row"><div class="col-md12">
-            <!-- 
-            *Summary Information
-            *Using These Materials
-            *Biographical/Historical Note
-            *Scope and Content
-            *Related Materials
-            Sponsor
-            Collection Inventory
-            -->
-            <!-- Summary Information, summary information includes citation -->
+
+            <!-- these two panels are open by default -->
             <div class="panel-group" role="tablist" aria-multiselectable="true">
                 <div class="summary panel panel-default">
                     <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:did"/>
                 </div>
 
                 <div class="matuse panel panel-default">
-                    <!-- Administrative Information  -->
-                    <xsl:if test="/ead:ead/ead:archdesc/ead:accessrestrict or
-                        /ead:ead/ead:archdesc/ead:userestrict or
-                        /ead:ead/ead:archdesc/ead:custodhist or
-                        /ead:ead/ead:archdesc/ead:accruals or
-                        /ead:ead/ead:archdesc/ead:altformavail or
-                        /ead:ead/ead:archdesc/ead:acqinfo or
-                        /ead:ead/ead:archdesc/ead:processinfo or
-                        /ead:ead/ead:archdesc/ead:appraisal or
-                        /ead:ead/ead:archdesc/ead:originalsloc or /ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt or /ead:ead/ead:eadheader/ead:revisiondesc">
-                        <h3 id="adminInfo">Administrative Information</h3>
-                        <xsl:apply-templates select="/ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt"/>
-                        <xsl:apply-templates select="/ead:ead/ead:eadheader/ead:revisiondesc"/>
-                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:accessrestrict"/>
-                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:userestrict"/>
-                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:custodhist"/>
-                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:accruals"/>
-                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:acqinfo"/>
-                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:processinfo"/>
-                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:appraisal"/>
-                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:altformavail"/>
-                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:originalsloc"/>
-                        <!-- xsl:call-template name="returnTOC"/ -->
-                    </xsl:if>
+                    <!-- explicitly call this template as it matches a few things. -->
+                    <xsl:call-template name="using-these-materials" />
                 </div>
             </div>
 
@@ -159,7 +129,6 @@
                     <h3 id="relMat">Related Materials</h3>
                     <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:relatedmaterial"/>
                     <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:separatedmaterial"/>
-                        <!-- xsl:call-template name="returnTOC"/ -->
                 </xsl:if>
                 <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:daogrp"/>
                 <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:dao"/>
@@ -223,7 +192,7 @@
     </xsl:template>
 
     <xsl:template match="ead:archdesc/ead:did">
-        <div class="panel-heading" role="tab" id="headingOne">
+        <div class="panel-heading" role="tab" id="headingSummary">
             <h2 class="panel-title">
                 <a role="button" data-toggle="collapse" href="#collapseSummary" aria-expanded="true" aria-controls="collapseSummary">
                     <xsl:choose>
@@ -243,7 +212,7 @@
             <!-- Determines the order in wich elements from the archdesc did appear, 
                 to change the order of appearance for the children of did
                 by changing the order of the following statements. -->
-                <xsl:apply-templates select="ead:unittitle"/>    
+                <xsl:apply-templates select="ead:unittitle"/>   
                 <xsl:apply-templates select="ead:origination"/>
                 <xsl:apply-templates select="ead:unitid"/>
                 <xsl:apply-templates select="ead:unitdate"/>
@@ -255,8 +224,28 @@
                 <xsl:apply-templates select="ead:container"/>
                 <xsl:apply-templates select="ead:abstract"/> 
                 <xsl:apply-templates select="ead:note"/>
+            </div>
+        </div>
+    </xsl:template>
 
-                <xsl:apply-templates select="../ead:prefercite"/>
+    <xsl:template name="using-these-materials">
+        <div class="panel-heading" role="tab" id="headingUsing">
+            <h2 class="panel-title"><a role="button" data-toggle="collapse"  href="#collapseUsing" aria-expanded="true" aria-controls="collapseUsing">Using These Materials</a></h2>
+        </div>
+        <div id="collapseUsing" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingUsing">
+            <div class="panel-body">
+                <xsl:apply-templates select="/ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt"/>
+                <xsl:apply-templates select="/ead:ead/ead:eadheader/ead:revisiondesc"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:accessrestrict"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:userestrict"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:custodhist"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:accruals"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:acqinfo"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:processinfo"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:appraisal"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:altformavail"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:originalsloc"/>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:prefercite"/>
             </div>
         </div>
     </xsl:template>
@@ -314,7 +303,7 @@
                             <xsl:when test="self::ead:note">Note</xsl:when>
                         </xsl:choose>
                     </xsl:otherwise>
-                </xsl:choose>
+                </xsl:choose>:
             </div>
             <div class="col-md-9">
                 <xsl:apply-templates/>
@@ -322,6 +311,22 @@
         </div>
     </xsl:template>
     
+
+    <!-- Formats prefered citiation -->
+    <xsl:template match="ead:prefercite">
+        <div class="row">
+            <xsl:choose>
+                <xsl:when test="ead:head">
+                    <div class="col-md-3"><xsl:apply-templates select="ead:head"/>:</div>
+                    <div class="col-md-9"><cite><xsl:apply-templates select="ead:p"/></cite></div>
+                </xsl:when>
+                <xsl:otherwise>
+                    <div class="col-md-3">Preferred Citation:</div>
+                    <div class="col-md-9"><cite><xsl:apply-templates/></cite></div>
+                </xsl:otherwise>
+            </xsl:choose>
+        </div>
+    </xsl:template>
 
 
 <!-- *** Not Modified (yet) *** -->
@@ -765,16 +770,6 @@
         </xsl:choose>
     </xsl:template>
    
-    <!-- Formats prefered citiation -->
-    <xsl:template match="ead:prefercite">
-        <div class="citation">
-            <xsl:choose>
-                <xsl:when test="ead:head"><xsl:apply-templates/></xsl:when>
-                <xsl:otherwise><h4>Preferred Citation</h4><xsl:apply-templates/></xsl:otherwise>
-            </xsl:choose>
-        </div>
-    </xsl:template>
-
     <!-- Applies a span style to address elements, currently addresses are displayed 
         as a block item, display can be changed to inline, by changing the CSS -->
     <xsl:template match="ead:address">
@@ -790,6 +785,7 @@
     </xsl:template>
     
     <!-- Formats headings throughout the finding aid -->
+    <!-->
     <xsl:template match="ead:head[parent::*/parent::ead:archdesc]">
         <xsl:choose>
             <xsl:when test="parent::ead:accessrestrict or parent::ead:userestrict or
@@ -828,7 +824,7 @@
     <xsl:template match="ead:head">
         <h4 class="clist2"><xsl:apply-templates/></h4>
     </xsl:template>
-    
+    -->
     <!-- Digital Archival Object -->
     <xsl:template match="ead:daogrp">
         <xsl:choose>
