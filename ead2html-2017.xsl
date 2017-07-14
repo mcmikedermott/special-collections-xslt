@@ -57,10 +57,9 @@
         <html class="no-js" lang="en">
         <head>
             <meta charset="UTF-8" />
+            <title><xsl:value-of select="concat(/ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:titleproper,' ', /ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:subtitle)"/></title>
 
             <xsl:call-template name="site-head-include"/>
-
-            <title><xsl:value-of select="concat(/ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:titleproper,' ', /ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:subtitle)"/></title>
             <xsl:call-template name="metadata"/>
             <xsl:call-template name="css"/>
         </head>
@@ -71,79 +70,37 @@
             <div class="wrapper">
                 <section class="container" id="main-content">
                     <!-- Main Title -->
-                    <a name="top">
-                        <h1 id="{$titleid}"><xsl:copy-of select="$title"/></h1>
-                    </a>
+                    <a name="top"><h1><xsl:copy-of select="$title"/></h1></a>
 
                     <!-- Digitiazation Status -->
                     <xsl:call-template name="digitized"/>
 
                     <!-- Contents -->
-                    <xsl:call-template name="contents"/>
+                    <div class="row"><div class="col-md12">
+                        <!-- these two panels are open by default -->
+                        <div class="panel-group" role="tablist" aria-multiselectable="true">
+                            <div class="summary panel panel-default">
+                                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:did"/>
+                            </div>
 
+                            <div class="matuse panel panel-default">
+                                <!-- explicitly call this template as it matches a few things. -->
+                                <xsl:call-template name="using-these-materials" />
+                            </div>
+                        </div>
+
+                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:bioghist"/>
+                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:scopecontent"/>
+                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:relatedmaterial"/>
+                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:odd"/>
+                        <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:dsc"/>
+                    </div></div>
                 </section>
             </div>
 
             <xsl:call-template name="footer"/>
             </body>
         </html>
-    </xsl:template>
-
-    <xsl:template name="digitized">
-        <div class="row show-grid digitized">
-            <div class="col-md-5">
-                <div class="arrow_box">Digitized</div>
-            </div>
-            <div class="col-md-7">Some materials from this collection are available online.
-                <br/><a href="#" onclick="daoStart();">Start viewing now &#187;</a>
-            </div>
-        </div>
-    </xsl:template>
-
-    <xsl:template name="contents">
-        <div class="row"><div class="col-md12">
-
-            <!-- these two panels are open by default -->
-            <div class="panel-group" role="tablist" aria-multiselectable="true">
-                <div class="summary panel panel-default">
-                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:did"/>
-                </div>
-
-                <div class="matuse panel panel-default">
-                    <!-- explicitly call this template as it matches a few things. -->
-                    <xsl:call-template name="using-these-materials" />
-                </div>
-            </div>
-
-            <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:bioghist"/>
-            <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:scopecontent"/>
-            <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:relatedmaterial"/>
-            <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:odd"/>
-            <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:dsc"/>
-        </div></div>
-    </xsl:template>
-
-    <!-- CSS for styling HTML output. Place all CSS styles in this template.-->
-    <xsl:template name="css">
-        <link rel="stylesheet" type="text/css" href="https://draft-library.bowdoin.edu/arch/test/finding-aid.css" />
-    </xsl:template>
-
-    <!-- This template creates a customizable header  -->
-    <xsl:template name="header">
-        <xsl:call-template name="site-masthead-include"/>
-    </xsl:template>
-
-    <!-- This template creates a customizable footer  -->
-    <xsl:template name="footer">
-        <a href="#main-content" class="back-to-top">Top</a>
-
-        <xsl:call-template name="site-footer-include"/>
-
-        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/affix.js"></script>
-        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/collapse.js"></script>
-        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/transition.js"></script>
-        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/stickyfill.min.js"></script>
-        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/test/finding-aid.js"></script>
     </xsl:template>
 
     <!-- HTML meta tags for use by web search engines for indexing. -->
@@ -160,7 +117,87 @@
         <meta http-equiv="Content-Type" name="dc.format" content="finding aids"/>
     </xsl:template>
 
-    <xsl:template match="ead:archdesc/ead:did">
+    <!-- CSS for styling HTML output. Place all CSS styles in this template.-->
+    <xsl:template name="css">
+        <link rel="stylesheet" type="text/css" href="https://draft-library.bowdoin.edu/arch/test/finding-aid.css" />
+    </xsl:template>
+
+    <!-- This template creates a customizable header  -->
+    <xsl:template name="header">
+        <xsl:call-template name="site-masthead-include"/>
+    </xsl:template>
+
+    <xsl:template name="digitized">
+        <div class="row show-grid digitized">
+            <div class="col-md-5">
+                <div class="arrow_box">Digitized</div>
+            </div>
+            <div class="col-md-7">Some materials from this collection are available online.
+                <br/><a href="#" onclick="daoStart();">Start viewing now &#187;</a>
+            </div>
+        </div>
+    </xsl:template>
+
+    <!-- Template for each top-level "panel" of content -->
+    <xsl:template name="panel">
+        <xsl:param name="default-title" />
+        <xsl:param name="title" />
+        <xsl:param name="content"/>
+
+        <xsl:variable name="collapseId" select="generate-id(.)"/>
+        <xsl:variable name="headingId" select="generate-id(title)"/>
+
+        <div class="panel panel-default">
+            <div id="{$headingId}" class="panel-heading" role="tab" >
+                <h2 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#{$collapseId}" aria-expanded="false" aria-controls="{$collapseId}">
+                        <xsl:choose>
+                            <xsl:when test="$title"><xsl:apply-templates select="$title"/></xsl:when>
+                            <xsl:otherwise><xsl:value-of select="$default-title" /></xsl:otherwise>
+                        </xsl:choose>
+                    </a>
+                </h2>
+            </div>
+            <div id="{$collapseId}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{$headingId}">
+                <div class="panel-body">
+                    <xsl:copy-of select="$content" />
+                </div>
+            </div>
+        </div>
+    </xsl:template>
+
+    <!-- Template for each table-like data element in a panel -->
+    <xsl:template name="panel-data-row">
+        <xsl:param name="title" />
+        <xsl:param name="default-title" />
+        <xsl:param name="content"/>
+
+        <div class="row">
+            <div class="col-md-3">
+                <xsl:choose>
+                    <xsl:when test="$head"><xsl:apply-templates select="$head"/></xsl:when>
+                    <xsl:otherwise><xsl:value-of select="$title"/></xsl:otherwise>
+                </xsl:choose>:
+            </div>
+            <div class="col-md-9"><xsl:copy-of select="$body"/></div>
+        </div>
+    </xsl:template>
+
+    <!-- This template creates a customizable footer  -->
+    <xsl:template name="footer">
+        <a href="#main-content" class="back-to-top">Top</a>
+
+        <xsl:call-template name="site-footer-include"/>
+
+        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/affix.js"></script>
+        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/collapse.js"></script>
+        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/transition.js"></script>
+        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/stickyfill.min.js"></script>
+        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/test/finding-aid.js"></script>
+    </xsl:template>
+
+
+<!--
         <div class="panel-heading" role="tab" id="headingSummary">
             <h2 class="panel-title">
                 <a role="button" data-toggle="collapse" href="#collapseSummary" aria-expanded="true" aria-controls="collapseSummary">
@@ -173,6 +210,13 @@
         </div>
         <div id="collapseSummary" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSummary">
             <div class="panel-body">
+-->
+
+    <xsl:template match="ead:archdesc/ead:did">
+        <xsl:call-template name="panel-data-row">
+            <xsl:with-param name="title" select="ead:head"/>
+            <xsl:with-param name="default-title">Summary Information</xsl:with-param>
+            <xsl:with-param name="content">
             <!-- Determines the order in wich elements from the archdesc did appear, 
                 to change the order of appearance for the children of did
                 by changing the order of the following statements. -->
@@ -188,8 +232,8 @@
                 <xsl:apply-templates select="ead:container"/>
                 <xsl:apply-templates select="ead:abstract"/> 
                 <xsl:apply-templates select="ead:note"/>
-            </div>
-        </div>
+            </xsl:with-param>
+        </xsl:call-template>
     </xsl:template>
 
     <xsl:template name="using-these-materials">
@@ -218,22 +262,6 @@
         </div>
     </xsl:template>
     
-    <xsl:template name="data-row">
-        <xsl:param name="head" />
-        <xsl:param name="title" />
-        <xsl:param name="body"/>
-
-        <div class="row">
-            <div class="col-md-3">
-                <xsl:choose>
-                    <xsl:when test="$head"><xsl:apply-templates select="$head"/></xsl:when>
-                    <xsl:otherwise><xsl:value-of select="$title"/></xsl:otherwise>
-                </xsl:choose>:
-            </div>
-            <div class="col-md-9"><xsl:copy-of select="$body"/></div>
-        </div>
-    </xsl:template>
-
     <!-- Template calls and formats the children of archdesc/did -->
     <xsl:template match="ead:archdesc/ead:did/ead:repository | 
         ead:archdesc/ead:did/ead:unittitle | 
@@ -247,9 +275,9 @@
         ead:archdesc/ead:did/ead:materialspec | 
         ead:archdesc/ead:did/ead:container">
 
-        <xsl:call-template name="data-row">
-            <xsl:with-param name="head" select="ead:head"/>
-            <xsl:with-param name="title">
+        <xsl:call-template name="panel-data-row">
+            <xsl:with-param name="title" select="ead:head"/>
+            <xsl:with-param name="default-title">
                 <xsl:choose>
                     <xsl:when test="@label">
                         <xsl:value-of select="concat(translate( substring(@label, 1, 1 ),
@@ -298,47 +326,20 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:with-param>
-            <xsl:with-param name="body">
+            <xsl:with-param name="content">
                 <xsl:apply-templates />
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
 
     <xsl:template match="ead:prefercite">
-        <xsl:call-template name="data-row">
-            <xsl:with-param name="head" select="ead:head"/>
-            <xsl:with-param name="title">Preferred Citation</xsl:with-param>
-            <xsl:with-param name="body">
+        <xsl:call-template name="panel-data-row">
+            <xsl:with-param name="title" select="ead:head"/>
+            <xsl:with-param name="default-title">Preferred Citation</xsl:with-param>
+            <xsl:with-param name="content">
                 <cite><xsl:apply-templates select="child::*[not(name()='head')]"/></cite>
             </xsl:with-param>
         </xsl:call-template>
-    </xsl:template>
-
-    <xsl:template name="panel">
-        <xsl:param name="default-title" />
-        <xsl:param name="title" />
-        <xsl:param name="content"/>
-
-        <xsl:variable name="collapseId" select="generate-id(.)"/>
-        <xsl:variable name="headingId" select="generate-id(title)"/>
-
-        <div class="panel panel-default">
-            <div id="{$headingId}" class="panel-heading" role="tab" >
-                <h2 class="panel-title">
-                    <a role="button" data-toggle="collapse" href="#{$collapseId}" aria-expanded="false" aria-controls="{$collapseId}">
-                        <xsl:choose>
-                            <xsl:when test="$title"><xsl:apply-templates select="$title"/></xsl:when>
-                            <xsl:otherwise><xsl:value-of select="$default-title" /></xsl:otherwise>
-                        </xsl:choose>
-                    </a>
-                </h2>
-            </div>
-            <div id="{$collapseId}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{$headingId}">
-                <div class="panel-body">
-                    <xsl:copy-of select="$content" />
-                </div>
-            </div>
-        </div>
     </xsl:template>
 
 <!-- *** Not Modified (yet) *** -->
