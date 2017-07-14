@@ -115,25 +115,11 @@
                 </div>
             </div>
 
-            <div class="panel panel-default">
-                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:bioghist"/>
-            </div>
-            
-            <div class="panel panel-default">
-                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:scopecontent"/>
-            </div>
-            
-            <div class="panel panel-default">
-                <xsl:call-template name="related-materials"/>
-            </div>
-
-            <div class="panel panel-default">
-                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:odd"/>
-            </div>
-            
-            <div class="panel panel-default">
-                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:dsc"/>
-            </div>            
+            <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:bioghist"/>
+            <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:scopecontent"/>
+            <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:relatedmaterial"/>
+            <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:odd"/>
+            <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:dsc"/>
         </div></div>
     </xsl:template>
 
@@ -328,149 +314,32 @@
         </xsl:call-template>
     </xsl:template>
 
-    <xsl:template name="panel-content">
-        <xsl:param name="head" />
+    <xsl:template name="panel">
+        <xsl:param name="default-title" />
         <xsl:param name="title" />
-        <xsl:param name="body"/>
+        <xsl:param name="content"/>
 
         <xsl:variable name="collapseId" select="generate-id(.)"/>
         <xsl:variable name="headingId" select="generate-id(title)"/>
 
-        <div id="{$headingId}" class="panel-heading" role="tab" >
-            <h2 class="panel-title">
-                <a role="button" data-toggle="collapse" href="#{$collapseId}" aria-expanded="false" aria-controls="{$collapseId}">
-                    <xsl:choose>
-                        <xsl:when test="$head"><xsl:apply-templates select="$head"/></xsl:when>
-                        <xsl:otherwise><xsl:value-of select="$title" /></xsl:otherwise>
-                    </xsl:choose>
-                </a>
-            </h2>
-        </div>
-        <div id="{$collapseId}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{$headingId}">
-            <div class="panel-body">
-                <xsl:copy-of select="$body" />
-            </div>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="ead:bioghist">
-        <xsl:call-template name="panel-content">
-            <xsl:with-param name="title">Biographical/Historical Note</xsl:with-param>
-            <xsl:with-param name="body">
-                <xsl:apply-templates select="ead:*[not(name()='head')]"/>
-            </xsl:with-param>
-        </xsl:call-template>
-    </xsl:template>
-
-    <xsl:template match="ead:scopecontent">
-        <xsl:call-template name="panel-content">
-            <xsl:with-param name="title">Scope and Content</xsl:with-param>
-            <xsl:with-param name="body">
-                <xsl:apply-templates select="ead:*[not(name()='head')]"/>
-            </xsl:with-param>
-        </xsl:call-template>
-    </xsl:template>
-
-    <xsl:template name="related-materials">
-        <xsl:if test="/ead:ead/ead:archdesc/ead:relatedmaterial or /ead:ead/ead:archdesc/ead:separatedmaterial">
-            <xsl:call-template name="panel-content">
-                <xsl:with-param name="title">Related Materials</xsl:with-param>
-                <xsl:with-param name="body">
-                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:relatedmaterial/*[not(name()='head')]"/>
-                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:separatedmaterial/*[not(name()='head')]"/>
-                </xsl:with-param>
-            </xsl:call-template>
-        </xsl:if>
-    </xsl:template>
-
-    <xsl:template match="ead:odd">
-        <xsl:call-template name="panel-content">
-            <xsl:with-param name="title">Sponsor</xsl:with-param>
-            <xsl:with-param name="body">
-                <xsl:apply-templates select="ead:*[not(name()='head')]"/>
-            </xsl:with-param>
-        </xsl:call-template>
-    </xsl:template>
-
-<!--
-
-
-    <xsl:template match="ead:prefercite">
-        <div class="row">
-            <div class="col-md-3">
-                <xsl:choose>
-                    <xsl:when test="ead:head"><xsl:apply-templates select="ead:head"/>:</xsl:when>
-                    <xsl:otherwise>Preferred Citation:</xsl:otherwise>
-                </xsl:choose>
-            </div>
-            <div class="col-md-9"><cite><xsl:apply-templates/></cite></div>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="ead:relatedmaterial | ead:separatedmaterial">
-        <xsl:apply-templates select="*[not(name()='head')]" />
-    </xsl:template>
-
-    <xsl:template match="ead:bioghist">
-        <div class="panel-heading" role="tab" id="headingBio">
-            <h2 class="panel-title">
-                <a role="button" data-toggle="collapse"  href="#collapseBio" aria-expanded="false" aria-controls="collapseBio">
-                    <xsl:choose>
-                        <xsl:when test="ead:head"><xsl:apply-templates select="ead:head"/></xsl:when>
-                        <xsl:otherwise>Biographical/Historical Note</xsl:otherwise>
-                    </xsl:choose>
-                </a>
-            </h2>
-        </div>
-        <div id="collapseBio" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBio">
-            <div class="panel-body">
-                <xsl:apply-templates select="ead:*[not(name()='head')]"/>
-            </div>
-        </div>
-    </xsl:template>
-
-    <xsl:template match="ead:scopecontent">
-        <xsl:variable name="panelid" select="generate-id(.)"/>
-
-        <div class="panel-heading" role="tab" id="heading{$panelid}">
-            <h2 class="panel-title">
-                <a role="button" data-toggle="collapse"  href="#collapse{$panelid}" aria-expanded="false" aria-controls="collapse{$panelid}">
-                    <xsl:choose>
-                        <xsl:when test="ead:head"><xsl:apply-templates select="ead:head"/></xsl:when>
-                        <xsl:otherwise>Scope and Content</xsl:otherwise>
-                    </xsl:choose>
-                </a>
-            </h2>
-        </div>
-        <div id="collapse{$panelid}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{$panelid}">
-            <div class="panel-body">
-                <xsl:apply-templates select="ead:*[not(name()='head')]"/>
-            </div>
-        </div>
-    </xsl:template>
-
-    <xsl:template name="related-materials">
-        <xsl:if test="/ead:ead/ead:archdesc/ead:relatedmaterial or /ead:ead/ead:archdesc/ead:separatedmaterial">
-            <div class="panel-heading" role="tab" id="headingRelated">
+        <div class="panel panel-default">
+            <div id="{$headingId}" class="panel-heading" role="tab" >
                 <h2 class="panel-title">
-                    <a role="button" data-toggle="collapse"  href="#collapseRelated" aria-expanded="false" aria-controls="collapseRelated">
-                        Related Materials
+                    <a role="button" data-toggle="collapse" href="#{$collapseId}" aria-expanded="false" aria-controls="{$collapseId}">
+                        <xsl:choose>
+                            <xsl:when test="$title"><xsl:apply-templates select="$title"/></xsl:when>
+                            <xsl:otherwise><xsl:value-of select="$default-title" /></xsl:otherwise>
+                        </xsl:choose>
                     </a>
                 </h2>
             </div>
-            <div id="collapseRelated" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingRelated">
+            <div id="{$collapseId}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{$headingId}">
                 <div class="panel-body">
-                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:relatedmaterial"/>
-                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:separatedmaterial"/>
+                    <xsl:copy-of select="$content" />
                 </div>
             </div>
-        </xsl:if>
+        </div>
     </xsl:template>
-
-    <xsl:template match="ead:relatedmaterial | ead:separatedmaterial">
-        <xsl:apply-templates select="*[not(name()='head')]" />
-    </xsl:template>
-    -->
 
 <!-- *** Not Modified (yet) *** -->
 
@@ -490,10 +359,11 @@
     <xsl:template match="ead:filedesc/ead:titlestmt"><br/><xsl:apply-templates/></xsl:template>
 
     <!-- Template calls and formats all other children of archdesc many of 
-        ead:relatedmaterial |
-        ead:odd | 
         these elements are repeatable within the ead:dsc section as well.-->
     <xsl:template match="ead:bibliography | 
+        ead:scopecontent |
+        ead:bioghist |
+        ead:odd | 
         ead:accruals | 
         ead:arrangement  | 
         ead:accessrestrict | 
@@ -506,64 +376,38 @@
         ead:otherfindaid | 
         ead:phystech | 
         ead:processinfo | 
+        ead:relatedmaterial |
         ead:separatedmaterial | 
         ead:appraisal">        
-        <xsl:choose>
-            <xsl:when test="ead:head"><xsl:apply-templates/></xsl:when>
-            <xsl:otherwise>
+        <xsl:call-template name="panel">
+            <xsl:with-param name="title" select="ead:head"/>
+            <xsl:with-param name="default-title">
                 <xsl:choose>
-                    <xsl:when test="parent::ead:archdesc">
-                            <xsl:choose>
-                                <xsl:when test="self::ead:bibliography"><h3><xsl:call-template name="anchor"/>Bibliography</h3></xsl:when>
-                                <xsl:when test="self::ead:odd"><h3><xsl:call-template name="anchor"/>Other Descriptive Data</h3></xsl:when>
-                                <xsl:when test="self::ead:accruals"><h4><xsl:call-template name="anchor"/>Accruals</h4></xsl:when>
-                                <xsl:when test="self::ead:arrangement"><h3><xsl:call-template name="anchor"/>Arrangement</h3></xsl:when>
-                                <xsl:when test="self::ead:bioghist"><h3><xsl:call-template name="anchor"/>Biography/History</h3></xsl:when>
-                                <xsl:when test="self::ead:accessrestrict"><h4><xsl:call-template name="anchor"/>Restrictions on Access</h4></xsl:when>
-                                <xsl:when test="self::ead:userestrict"><h4><xsl:call-template name="anchor"/>Restrictions on Use</h4></xsl:when>
-                                <xsl:when test="self::ead:custodhist"><h4><xsl:call-template name="anchor"/>Custodial History</h4></xsl:when>
-                                <xsl:when test="self::ead:altformavail"><h4><xsl:call-template name="anchor"/>Alternative Form Available</h4></xsl:when>
-                                <xsl:when test="self::ead:originalsloc"><h4><xsl:call-template name="anchor"/>Original Location</h4></xsl:when>
-                                <xsl:when test="self::ead:fileplan"><h3><xsl:call-template name="anchor"/>File Plan</h3></xsl:when>
-                                <xsl:when test="self::ead:acqinfo"><h4><xsl:call-template name="anchor"/>Acquisition Information</h4></xsl:when>
-                                <xsl:when test="self::ead:otherfindaid"><h3><xsl:call-template name="anchor"/>Other Finding Aids</h3></xsl:when>
-                                <xsl:when test="self::ead:phystech"><h3><xsl:call-template name="anchor"/>Physical Characteristics and Technical Requirements</h3></xsl:when>
-                                <xsl:when test="self::ead:processinfo"><h4><xsl:call-template name="anchor"/>Processing Information</h4></xsl:when>
-                                <xsl:when test="self::ead:relatedmaterial"><h4><xsl:call-template name="anchor"/>Related Material</h4></xsl:when>
-                                <xsl:when test="self::ead:scopecontent"><h3><xsl:call-template name="anchor"/>Scope and Content</h3></xsl:when>
-                                <xsl:when test="self::ead:separatedmaterial"><h4><xsl:call-template name="anchor"/>Separated Material</h4></xsl:when>
-                                <xsl:when test="self::ead:appraisal"><h4><xsl:call-template name="anchor"/>Appraisal</h4></xsl:when>                        
-                            </xsl:choose>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <h4><xsl:call-template name="anchor"/>
-                            <xsl:choose>
-                                <xsl:when test="self::ead:bibliography">Bibliography</xsl:when>
-                                <xsl:when test="self::ead:odd">Other Descriptive Data</xsl:when>
-                                <xsl:when test="self::ead:accruals">Accruals</xsl:when>
-                                <xsl:when test="self::ead:arrangement">Arrangement</xsl:when>
-                                <xsl:when test="self::ead:bioghist">Biography/History</xsl:when>
-                                <xsl:when test="self::ead:accessrestrict">Restrictions on Access</xsl:when>
-                                <xsl:when test="self::ead:userestrict">Restrictions on Use</xsl:when>
-                                <xsl:when test="self::ead:custodhist">Custodial History</xsl:when>
-                                <xsl:when test="self::ead:altformavail">Alternative Form Available</xsl:when>
-                                <xsl:when test="self::ead:originalsloc">Original Location</xsl:when>
-                                <xsl:when test="self::ead:fileplan">File Plan</xsl:when>
-                                <xsl:when test="self::ead:acqinfo">Acquisition Information</xsl:when>
-                                <xsl:when test="self::ead:otherfindaid">Other Finding Aids</xsl:when>
-                                <xsl:when test="self::ead:phystech">Physical Characteristics and Technical Requirements</xsl:when>
-                                <xsl:when test="self::ead:processinfo">Processing Information</xsl:when>
-                                <xsl:when test="self::ead:relatedmaterial">Related Material</xsl:when>
-                                <xsl:when test="self::ead:scopecontent">Scope and Content</xsl:when>
-                                <xsl:when test="self::ead:separatedmaterial">Separated Material</xsl:when>
-                                <xsl:when test="self::ead:appraisal">Appraisal</xsl:when>    
-                            </xsl:choose>
-                        </h4>
-                    </xsl:otherwise>
+                    <xsl:when test="self::ead:bibliography">Bibliography</xsl:when>
+                    <xsl:when test="self::ead:odd">Other Descriptive Data</xsl:when>
+                    <xsl:when test="self::ead:accruals">Accruals</xsl:when>
+                    <xsl:when test="self::ead:arrangement">Arrangement</xsl:when>
+                    <xsl:when test="self::ead:bioghist">Biography/History</xsl:when>
+                    <xsl:when test="self::ead:accessrestrict">Restrictions on Access</xsl:when>
+                    <xsl:when test="self::ead:userestrict">Restrictions on Use</xsl:when>
+                    <xsl:when test="self::ead:custodhist">Custodial History</xsl:when>
+                    <xsl:when test="self::ead:altformavail">Alternative Form Available</xsl:when>
+                    <xsl:when test="self::ead:originalsloc">Original Location</xsl:when>
+                    <xsl:when test="self::ead:fileplan">File Plan</xsl:when>
+                    <xsl:when test="self::ead:acqinfo">Acquisition Information</xsl:when>
+                    <xsl:when test="self::ead:otherfindaid">Other Finding Aids</xsl:when>
+                    <xsl:when test="self::ead:phystech">Physical Characteristics and Technical Requirements</xsl:when>
+                    <xsl:when test="self::ead:processinfo">Processing Information</xsl:when>
+                    <xsl:when test="self::ead:relatedmaterial">Related Material</xsl:when>
+                    <xsl:when test="self::ead:scopecontent">Scope and Content</xsl:when>
+                    <xsl:when test="self::ead:separatedmaterial">Separated Material</xsl:when>
+                    <xsl:when test="self::ead:appraisal">Appraisal</xsl:when>                        
                 </xsl:choose>
-                <xsl:apply-templates/>
-            </xsl:otherwise>
-        </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="content">
+                <xsl:apply-templates select="ead:*[not(name()='head')]"/>
+            </xsl:with-param>
+        </xsl:call-template>
     </xsl:template>
 
     <!-- Templates for publication information  -->
@@ -1265,10 +1109,10 @@
 
     <!-- *** Begin templates for Container List *** -->
     <xsl:template match="ead:archdesc/ead:dsc">
-        <xsl:call-template name="panel-content">
-            <xsl:with-param name="head" select="ead:head"/>
-            <xsl:with-param name="title">Collection Inventory</xsl:with-param>
-            <xsl:with-param name="body">
+        <xsl:call-template name="panel">
+            <xsl:with-param name="title" select="ead:head"/>
+            <xsl:with-param name="default-title">Collection Inventory</xsl:with-param>
+            <xsl:with-param name="content">
                 <table class="containerList" cellpadding="0" cellspacing="0" border="0">
                     <!-- Call children of dsc -->
                     <xsl:apply-templates select="*[not(self::ead:head)]"/>            
