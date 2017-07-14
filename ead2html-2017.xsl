@@ -142,6 +142,7 @@
     <xsl:template name="panel">
         <xsl:param name="default-title" />
         <xsl:param name="title" />
+        <xsl:param name="expanded" select="'false'"/>
         <xsl:param name="content"/>
 
         <xsl:variable name="collapseId" select="generate-id(.)"/>
@@ -150,7 +151,7 @@
         <div class="panel panel-default">
             <div id="{$headingId}" class="panel-heading" role="tab" >
                 <h2 class="panel-title">
-                    <a role="button" data-toggle="collapse" href="#{$collapseId}" aria-expanded="false" aria-controls="{$collapseId}">
+                    <a role="button" data-toggle="collapse" href="#{$collapseId}" aria-expanded="{$expanded}" aria-controls="{$collapseId}">
                         <xsl:choose>
                             <xsl:when test="$title"><xsl:apply-templates select="$title"/></xsl:when>
                             <xsl:otherwise><xsl:value-of select="$default-title" /></xsl:otherwise>
@@ -158,7 +159,11 @@
                     </a>
                 </h2>
             </div>
-            <div id="{$collapseId}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{$headingId}">
+
+            <xsl:variable name="collapse-in">
+                <xsl:if test="$expanded='true'">in</xsl:if>
+            </xsl:variable>
+            <div id="{$collapseId}" class="panel-collapse collapse {$collapse-in}" role="tabpanel" aria-labelledby="{$headingId}">
                 <div class="panel-body">
                     <xsl:copy-of select="$content" />
                 </div>
@@ -175,11 +180,11 @@
         <div class="row">
             <div class="col-md-3">
                 <xsl:choose>
-                    <xsl:when test="$head"><xsl:apply-templates select="$head"/></xsl:when>
-                    <xsl:otherwise><xsl:value-of select="$title"/></xsl:otherwise>
+                    <xsl:when test="$title"><xsl:apply-templates select="$title"/></xsl:when>
+                    <xsl:otherwise><xsl:value-of select="$default-title"/></xsl:otherwise>
                 </xsl:choose>:
             </div>
-            <div class="col-md-9"><xsl:copy-of select="$body"/></div>
+            <div class="col-md-9"><xsl:copy-of select="$content"/></div>
         </div>
     </xsl:template>
 
@@ -213,9 +218,10 @@
 -->
 
     <xsl:template match="ead:archdesc/ead:did">
-        <xsl:call-template name="panel-data-row">
+        <xsl:call-template name="panel">
             <xsl:with-param name="title" select="ead:head"/>
             <xsl:with-param name="default-title">Summary Information</xsl:with-param>
+            <xsl:with-param name="expanded">true</xsl:with-param>            
             <xsl:with-param name="content">
             <!-- Determines the order in wich elements from the archdesc did appear, 
                 to change the order of appearance for the children of did
