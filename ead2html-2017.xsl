@@ -124,33 +124,16 @@
             </div>
             
             <div class="panel panel-default">
-                <!-- Related Materials -->
-                <xsl:if test="/ead:ead/ead:archdesc/ead:relatedmaterial or /ead:ead/ead:archdesc/ead:separatedmaterial">
-                    <h3 id="relMat">Related Materials</h3>
-                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:relatedmaterial"/>
-                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:separatedmaterial"/>
-                </xsl:if>
-                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:daogrp"/>
-                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:dao"/>
-                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:controlaccess"/>
-                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:otherfindaid"/>
-                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:phystech"/>
+                <xsl:call-template name="related-materials"/>
+            </div>
+
+            <div class="panel panel-default">
                 <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:odd"/>
-                
-                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:bibliography"/>
-                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:index"/>
-                <xsl:if test="/ead:ead/ead:archdesc/ead:dsc/child::*">
-                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:dsc"/>    
-                </xsl:if>
             </div>
             
             <div class="panel panel-default">
-                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:arrangement"/>
-            </div>
-            
-            <div class="panel panel-default">
-                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:fileplan"/>
-            </div>
+                <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:dsc"/>
+            </div>            
         </div></div>
     </xsl:template>
 
@@ -196,17 +179,12 @@
             <h2 class="panel-title">
                 <a role="button" data-toggle="collapse" href="#collapseSummary" aria-expanded="true" aria-controls="collapseSummary">
                     <xsl:choose>
-                        <xsl:when test="ead:head">
-                            <xsl:value-of select="ead:head"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            Summary Information
-                        </xsl:otherwise>
+                        <xsl:when test="ead:head"><xsl:value-of select="ead:head"/></xsl:when>
+                        <xsl:otherwise>Summary Information</xsl:otherwise>
                     </xsl:choose>
                 </a>
             </h2>
         </div>
-
         <div id="collapseSummary" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSummary">
             <div class="panel-body">
             <!-- Determines the order in wich elements from the archdesc did appear, 
@@ -230,11 +208,15 @@
 
     <xsl:template name="using-these-materials">
         <div class="panel-heading" role="tab" id="headingUsing">
-            <h2 class="panel-title"><a role="button" data-toggle="collapse"  href="#collapseUsing" aria-expanded="true" aria-controls="collapseUsing">Using These Materials</a></h2>
+            <h2 class="panel-title">
+                <a role="button" data-toggle="collapse"  href="#collapseUsing" aria-expanded="true" aria-controls="collapseUsing">
+                    Using These Materials
+                </a>
+            </h2>
         </div>
         <div id="collapseUsing" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingUsing">
             <div class="panel-body">
-                <xsl:apply-templates select="/ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt"/>
+                <!-- xsl:apply-templates select="/ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt"/ -->
                 <xsl:apply-templates select="/ead:ead/ead:eadheader/ead:revisiondesc"/>
                 <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:accessrestrict"/>
                 <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:userestrict"/>
@@ -249,14 +231,39 @@
             </div>
         </div>
     </xsl:template>
-
-    <!-- Template calls and formats the children of archdesc/did -->
-    <xsl:template match="ead:archdesc/ead:did/ead:repository | ead:archdesc/ead:did/ead:unittitle | ead:archdesc/ead:did/ead:unitid | ead:archdesc/ead:did/ead:origination 
-        | ead:archdesc/ead:did/ead:unitdate | ead:archdesc/ead:did/ead:physdesc | ead:archdesc/ead:did/ead:physloc 
-        | ead:archdesc/ead:did/ead:abstract | ead:archdesc/ead:did/ead:langmaterial | ead:archdesc/ead:did/ead:materialspec | ead:archdesc/ead:did/ead:container">
+    
+    <xsl:template name="data-row">
+        <xsl:param name="head" />
+        <xsl:param name="title" />
+        <xsl:param name="body"/>
 
         <div class="row">
             <div class="col-md-3">
+                <xsl:choose>
+                    <xsl:when test="$head"><xsl:apply-templates select="$head"/></xsl:when>
+                    <xsl:otherwise><xsl:value-of select="$title"/></xsl:otherwise>
+                </xsl:choose>:
+            </div>
+            <div class="col-md-9"><xsl:copy-of select="$body"/></div>
+        </div>
+    </xsl:template>
+
+    <!-- Template calls and formats the children of archdesc/did -->
+    <xsl:template match="ead:archdesc/ead:did/ead:repository | 
+        ead:archdesc/ead:did/ead:unittitle | 
+        ead:archdesc/ead:did/ead:unitid | 
+        ead:archdesc/ead:did/ead:origination |
+        ead:archdesc/ead:did/ead:unitdate | 
+        ead:archdesc/ead:did/ead:physdesc | 
+        ead:archdesc/ead:did/ead:physloc |
+        ead:archdesc/ead:did/ead:abstract | 
+        ead:archdesc/ead:did/ead:langmaterial | 
+        ead:archdesc/ead:did/ead:materialspec | 
+        ead:archdesc/ead:did/ead:container">
+
+        <xsl:call-template name="data-row">
+            <xsl:with-param name="head" select="ead:head"/>
+            <xsl:with-param name="title">
                 <xsl:choose>
                     <xsl:when test="@label">
                         <xsl:value-of select="concat(translate( substring(@label, 1, 1 ),
@@ -303,52 +310,169 @@
                             <xsl:when test="self::ead:note">Note</xsl:when>
                         </xsl:choose>
                     </xsl:otherwise>
-                </xsl:choose>:
-            </div>
-            <div class="col-md-9">
-                <xsl:apply-templates/>
+                </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="body">
+                <xsl:apply-templates />
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="ead:prefercite">
+        <xsl:call-template name="data-row">
+            <xsl:with-param name="head" select="ead:head"/>
+            <xsl:with-param name="title">Preferred Citation</xsl:with-param>
+            <xsl:with-param name="body">
+                <cite><xsl:apply-templates select="child::*[not(name()='head')]"/></cite>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+
+    <xsl:template name="panel-content">
+        <xsl:param name="head" />
+        <xsl:param name="title" />
+        <xsl:param name="body"/>
+
+        <xsl:variable name="collapseId" select="generate-id(.)"/>
+        <xsl:variable name="headingId" select="generate-id(title)"/>
+
+        <div id="{$headingId}" class="panel-heading" role="tab" >
+            <h2 class="panel-title">
+                <a role="button" data-toggle="collapse" href="#{$collapseId}" aria-expanded="false" aria-controls="{$collapseId}">
+                    <xsl:choose>
+                        <xsl:when test="$head"><xsl:apply-templates select="$head"/></xsl:when>
+                        <xsl:otherwise><xsl:value-of select="$title" /></xsl:otherwise>
+                    </xsl:choose>
+                </a>
+            </h2>
+        </div>
+        <div id="{$collapseId}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{$headingId}">
+            <div class="panel-body">
+                <xsl:copy-of select="$body" />
             </div>
         </div>
     </xsl:template>
-    
 
-    <!-- Formats prefered citiation -->
+    <xsl:template match="ead:bioghist">
+        <xsl:call-template name="panel-content">
+            <xsl:with-param name="title">Biographical/Historical Note</xsl:with-param>
+            <xsl:with-param name="body">
+                <xsl:apply-templates select="ead:*[not(name()='head')]"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="ead:scopecontent">
+        <xsl:call-template name="panel-content">
+            <xsl:with-param name="title">Scope and Content</xsl:with-param>
+            <xsl:with-param name="body">
+                <xsl:apply-templates select="ead:*[not(name()='head')]"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+
+    <xsl:template name="related-materials">
+        <xsl:if test="/ead:ead/ead:archdesc/ead:relatedmaterial or /ead:ead/ead:archdesc/ead:separatedmaterial">
+            <xsl:call-template name="panel-content">
+                <xsl:with-param name="title">Related Materials</xsl:with-param>
+                <xsl:with-param name="body">
+                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:relatedmaterial/*[not(name()='head')]"/>
+                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:separatedmaterial/*[not(name()='head')]"/>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="ead:odd">
+        <xsl:call-template name="panel-content">
+            <xsl:with-param name="title">Sponsor</xsl:with-param>
+            <xsl:with-param name="body">
+                <xsl:apply-templates select="ead:*[not(name()='head')]"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+
+<!--
+
+
     <xsl:template match="ead:prefercite">
         <div class="row">
-            <xsl:choose>
-                <xsl:when test="ead:head">
-                    <div class="col-md-3"><xsl:apply-templates select="ead:head"/>:</div>
-                    <div class="col-md-9"><cite><xsl:apply-templates select="ead:p"/></cite></div>
-                </xsl:when>
-                <xsl:otherwise>
-                    <div class="col-md-3">Preferred Citation:</div>
-                    <div class="col-md-9"><cite><xsl:apply-templates/></cite></div>
-                </xsl:otherwise>
-            </xsl:choose>
+            <div class="col-md-3">
+                <xsl:choose>
+                    <xsl:when test="ead:head"><xsl:apply-templates select="ead:head"/>:</xsl:when>
+                    <xsl:otherwise>Preferred Citation:</xsl:otherwise>
+                </xsl:choose>
+            </div>
+            <div class="col-md-9"><cite><xsl:apply-templates/></cite></div>
         </div>
     </xsl:template>
 
+    <xsl:template match="ead:relatedmaterial | ead:separatedmaterial">
+        <xsl:apply-templates select="*[not(name()='head')]" />
+    </xsl:template>
+
+    <xsl:template match="ead:bioghist">
+        <div class="panel-heading" role="tab" id="headingBio">
+            <h2 class="panel-title">
+                <a role="button" data-toggle="collapse"  href="#collapseBio" aria-expanded="false" aria-controls="collapseBio">
+                    <xsl:choose>
+                        <xsl:when test="ead:head"><xsl:apply-templates select="ead:head"/></xsl:when>
+                        <xsl:otherwise>Biographical/Historical Note</xsl:otherwise>
+                    </xsl:choose>
+                </a>
+            </h2>
+        </div>
+        <div id="collapseBio" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBio">
+            <div class="panel-body">
+                <xsl:apply-templates select="ead:*[not(name()='head')]"/>
+            </div>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="ead:scopecontent">
+        <xsl:variable name="panelid" select="generate-id(.)"/>
+
+        <div class="panel-heading" role="tab" id="heading{$panelid}">
+            <h2 class="panel-title">
+                <a role="button" data-toggle="collapse"  href="#collapse{$panelid}" aria-expanded="false" aria-controls="collapse{$panelid}">
+                    <xsl:choose>
+                        <xsl:when test="ead:head"><xsl:apply-templates select="ead:head"/></xsl:when>
+                        <xsl:otherwise>Scope and Content</xsl:otherwise>
+                    </xsl:choose>
+                </a>
+            </h2>
+        </div>
+        <div id="collapse{$panelid}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{$panelid}">
+            <div class="panel-body">
+                <xsl:apply-templates select="ead:*[not(name()='head')]"/>
+            </div>
+        </div>
+    </xsl:template>
+
+    <xsl:template name="related-materials">
+        <xsl:if test="/ead:ead/ead:archdesc/ead:relatedmaterial or /ead:ead/ead:archdesc/ead:separatedmaterial">
+            <div class="panel-heading" role="tab" id="headingRelated">
+                <h2 class="panel-title">
+                    <a role="button" data-toggle="collapse"  href="#collapseRelated" aria-expanded="false" aria-controls="collapseRelated">
+                        Related Materials
+                    </a>
+                </h2>
+            </div>
+            <div id="collapseRelated" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingRelated">
+                <div class="panel-body">
+                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:relatedmaterial"/>
+                    <xsl:apply-templates select="/ead:ead/ead:archdesc/ead:separatedmaterial"/>
+                </div>
+            </div>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="ead:relatedmaterial | ead:separatedmaterial">
+        <xsl:apply-templates select="*[not(name()='head')]" />
+    </xsl:template>
+    -->
 
 <!-- *** Not Modified (yet) *** -->
-
-
-    <xsl:template match="ead:eadheader">
-        <h1 id="{generate-id(ead:filedesc/ead:titlestmt/ead:titleproper)}">
-            <xsl:apply-templates select="ead:filedesc/ead:titlestmt/ead:titleproper"/>     
-        </h1>
-        <xsl:if test="ead:filedesc/ead:titlestmt/ead:subtitle">
-            <p>
-                <xsl:apply-templates select="ead:filedesc/ead:titlestmt/ead:subtitle"/>
-            </p>                
-        </xsl:if>
-        
-        <h3>
-            <a href="http://library.bowdoin.edu/arch">
-            George J. Mitchell Department of Special Collections &amp; Archives</a>
-            <br />
-            <a href="http://library.bowdoin.edu">Bowdoin College Library</a>
-        </h3>
-    </xsl:template>
 
     <xsl:template match="ead:filedesc/ead:titlestmt/ead:titleproper">
         <xsl:choose>
@@ -365,14 +489,25 @@
     </xsl:template>
     <xsl:template match="ead:filedesc/ead:titlestmt"><br/><xsl:apply-templates/></xsl:template>
 
-
-
     <!-- Template calls and formats all other children of archdesc many of 
+        ead:relatedmaterial |
+        ead:odd | 
         these elements are repeatable within the ead:dsc section as well.-->
-    <xsl:template match="ead:bibliography | ead:odd | ead:accruals | ead:arrangement  | ead:bioghist 
-        | ead:accessrestrict | ead:userestrict  | ead:custodhist | ead:altformavail | ead:originalsloc 
-        | ead:fileplan | ead:acqinfo | ead:otherfindaid | ead:phystech | ead:processinfo | ead:relatedmaterial
-        | ead:scopecontent  | ead:separatedmaterial | ead:appraisal">        
+    <xsl:template match="ead:bibliography | 
+        ead:accruals | 
+        ead:arrangement  | 
+        ead:accessrestrict | 
+        ead:userestrict  | 
+        ead:custodhist | 
+        ead:altformavail | 
+        ead:originalsloc |
+        ead:fileplan | 
+        ead:acqinfo | 
+        ead:otherfindaid | 
+        ead:phystech | 
+        ead:processinfo | 
+        ead:separatedmaterial | 
+        ead:appraisal">        
         <xsl:choose>
             <xsl:when test="ead:head"><xsl:apply-templates/></xsl:when>
             <xsl:otherwise>
@@ -421,7 +556,7 @@
                                 <xsl:when test="self::ead:relatedmaterial">Related Material</xsl:when>
                                 <xsl:when test="self::ead:scopecontent">Scope and Content</xsl:when>
                                 <xsl:when test="self::ead:separatedmaterial">Separated Material</xsl:when>
-                                <xsl:when test="self::ead:appraisal">Appraisal</xsl:when>                       
+                                <xsl:when test="self::ead:appraisal">Appraisal</xsl:when>    
                             </xsl:choose>
                         </h4>
                     </xsl:otherwise>
@@ -429,20 +564,6 @@
                 <xsl:apply-templates/>
             </xsl:otherwise>
         </xsl:choose>
-        <!-- If the element is a child of arcdesc then a link to the table of contents is included -->
-        <xsl:if test="parent::ead:archdesc">
-            <xsl:choose>
-                <xsl:when test="self::ead:accessrestrict or self::ead:userestrict or
-                    self::ead:custodhist or self::ead:accruals or
-                    self::ead:altformavail or self::ead:acqinfo or
-                    self::ead:processinfo or self::ead:appraisal or
-                    self::ead:originalsloc or  
-                    self::ead:relatedmaterial or self::ead:separatedmaterial or self::ead:prefercite"/>
-                    <xsl:otherwise>
-                        <!-- xsl:call-template name="returnTOC"/ -->
-                    </xsl:otherwise>
-            </xsl:choose>    
-        </xsl:if>
     </xsl:template>
 
     <!-- Templates for publication information  -->
@@ -825,6 +946,7 @@
         <h4 class="clist2"><xsl:apply-templates/></h4>
     </xsl:template>
     -->
+
     <!-- Digital Archival Object -->
     <xsl:template match="ead:daogrp">
         <xsl:choose>
@@ -1143,20 +1265,16 @@
 
     <!-- *** Begin templates for Container List *** -->
     <xsl:template match="ead:archdesc/ead:dsc">
-        <xsl:choose>
-            <xsl:when test="ead:head">
-                <xsl:apply-templates select="ead:head"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <h3><xsl:call-template name="anchor"/>Collection Inventory</h3>
-            </xsl:otherwise>
-        </xsl:choose>
-        <!-- Creates a table for container lists, defaults to 5 cells, for up to 4 container lists.  -->
-        <table class="containerList" cellpadding="0" cellspacing="0" border="0">
-            <!-- Call children of dsc -->
-            <xsl:apply-templates select="*[not(self::ead:head)]"/>
-       
-        </table>
+        <xsl:call-template name="panel-content">
+            <xsl:with-param name="head" select="ead:head"/>
+            <xsl:with-param name="title">Collection Inventory</xsl:with-param>
+            <xsl:with-param name="body">
+                <table class="containerList" cellpadding="0" cellspacing="0" border="0">
+                    <!-- Call children of dsc -->
+                    <xsl:apply-templates select="*[not(self::ead:head)]"/>            
+                </table>
+            </xsl:with-param>
+        </xsl:call-template>
     </xsl:template>
     
     <!--This section of the stylesheet creates a div for each c01 or c 
