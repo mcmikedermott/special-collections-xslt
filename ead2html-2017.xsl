@@ -242,7 +242,11 @@
         </xsl:call-template>
     </xsl:template>
 
-    <!-- Template calls and formats the children of archdesc/did -->
+    <!-- Template calls and formats the children of archdesc/did 
+            <langmaterial>
+                <language langcode="eng"/>
+            </langmaterial>
+    -->
     <xsl:template match="ead:archdesc/ead:did/ead:repository | 
         ead:archdesc/ead:did/ead:unittitle | 
         ead:archdesc/ead:did/ead:unitid | 
@@ -254,7 +258,6 @@
         ead:archdesc/ead:did/ead:langmaterial | 
         ead:archdesc/ead:did/ead:materialspec | 
         ead:archdesc/ead:did/ead:container">
-
         <xsl:call-template name="panel-data-row">
             <xsl:with-param name="title" select="ead:head"/>
             <xsl:with-param name="default-title">
@@ -351,25 +354,50 @@
 
     <!-- Template calls and formats all other children of archdesc many of 
         these elements are repeatable within the ead:dsc section as well.-->
+    <xsl:template match="ead:revisiondesc |
+        ead:accessrestrict | 
+        ead:userestrict  | 
+        ead:custodhist | 
+        ead:accruals | 
+        ead:acqinfo | 
+        ead:processinfo |
+        ead:appraisal | 
+        ead:altformavail | 
+        ead:originalsloc">
+        <xsl:call-template name="panel-data-row">
+            <xsl:with-param name="title" select="ead:head"/>
+            <xsl:with-param name="default-title">
+                <xsl:choose>
+                    <xsl:when test="self::ead:accessrestrict">Restrictions on Access</xsl:when>
+                    <xsl:when test="self::ead:userestrict">Restrictions on Use</xsl:when>
+                    <xsl:when test="self::ead:custodhist">Custodial History</xsl:when>
+                    <xsl:when test="self::ead:accruals">Accruals</xsl:when>
+                    <xsl:when test="self::ead:acqinfo">Acquisition Information</xsl:when>
+                    <xsl:when test="self::ead:processinfo">Processing Information</xsl:when>
+                    <xsl:when test="self::ead:appraisal">Appraisal</xsl:when>                     
+                    <xsl:when test="self::ead:altformavail">Alternative Form Available</xsl:when>
+                    <xsl:when test="self::ead:originalsloc">Original Location</xsl:when>
+                    <xsl:when test="self::ead:separatedmaterial">Separated Material</xsl:when>
+                </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="content">
+                <xsl:apply-templates select="ead:*[not(name()='head')]"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+
+    <!-- Template calls and formats all other children of archdesc many of 
+        these elements are repeatable within the ead:dsc section as well.-->
     <xsl:template match="ead:bibliography | 
         ead:scopecontent |
         ead:bioghist |
         ead:odd | 
-        ead:accruals | 
         ead:arrangement  | 
-        ead:accessrestrict | 
-        ead:userestrict  | 
-        ead:custodhist | 
-        ead:altformavail | 
-        ead:originalsloc |
         ead:fileplan | 
-        ead:acqinfo | 
         ead:otherfindaid | 
         ead:phystech | 
-        ead:processinfo | 
         ead:relatedmaterial |
-        ead:separatedmaterial | 
-        ead:appraisal">        
+        ead:separatedmaterial">        
         <xsl:call-template name="panel">
             <xsl:with-param name="title" select="ead:head"/>
             <xsl:with-param name="default-title">
@@ -401,14 +429,128 @@
         </xsl:call-template>
     </xsl:template>
 
-<!-- *** Not Modified (yet) *** -->
+   <!-- Formats controlled access terms -->
+    <xsl:template match="ead:controlaccess">
+        <xsl:call-template name="panel">
+            <xsl:with-param name="title" select="ead:head"/>
+            <xsl:with-param name="default-title">Controlled Access Headings</xsl:with-param>
+            <xsl:with-param name="content">
+                <xsl:if test="ead:corpname">
+                    <xsl:call-template name="panel-data-row">
+                        <xsl:with-param name="default-title">Corporate Name(s)</xsl:with-param>
+                        <xsl:with-param name="content">
+                            <ul>
+                                <xsl:for-each select="ead:corpname">
+                                    <li><xsl:apply-templates/></li>
+                                </xsl:for-each>                        
+                            </ul>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:if test="ead:famname">
+                    <xsl:call-template name="panel-data-row">
+                        <xsl:with-param name="default-title">Family Name(s)</xsl:with-param>
+                        <xsl:with-param name="content">
+                            <ul>
+                                <xsl:for-each select="ead:famname">
+                                    <li><xsl:apply-templates/></li>
+                                </xsl:for-each>                        
+                            </ul>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:if test="ead:function">
+                      <xsl:call-template name="panel-data-row">
+                        <xsl:with-param name="default-title">Function(s)</xsl:with-param>
+                        <xsl:with-param name="content">
+                            <ul>
+                                <xsl:for-each select="ead:function">
+                                    <li><xsl:apply-templates/></li>
+                                </xsl:for-each>                        
+                            </ul>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:if test="ead:genreform">
+                     <xsl:call-template name="panel-data-row">
+                        <xsl:with-param name="default-title">Genre(s)</xsl:with-param>
+                        <xsl:with-param name="content">
+                            <ul>
+                                <xsl:for-each select="ead:genreform">
+                                    <li><xsl:apply-templates/></li>
+                                </xsl:for-each>                        
+                            </ul>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:if test="ead:geogname">
+                     <xsl:call-template name="panel-data-row">
+                        <xsl:with-param name="default-title">Geographic Name(s)</xsl:with-param>
+                        <xsl:with-param name="content">
+                            <ul>
+                                <xsl:for-each select="ead:geogname">
+                                    <li><xsl:apply-templates/></li>
+                                </xsl:for-each>                        
+                            </ul>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:if test="ead:occupation">
+                    <xsl:call-template name="panel-data-row">
+                        <xsl:with-param name="default-title">Occupation(s)</xsl:with-param>
+                        <xsl:with-param name="content">
+                            <ul>
+                                <xsl:for-each select="ead:occupation">
+                                    <li><xsl:apply-templates/></li>
+                                </xsl:for-each>                        
+                            </ul>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:if test="ead:persname">
+                    <xsl:call-template name="panel-data-row">
+                        <xsl:with-param name="default-title">Personal Name(s)</xsl:with-param>
+                        <xsl:with-param name="content">
+                            <ul>
+                                <xsl:for-each select="ead:persname">
+                                    <li><xsl:apply-templates/></li>
+                                </xsl:for-each>                        
+                            </ul>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:if test="ead:subject">
+                    <xsl:call-template name="panel-data-row">
+                        <xsl:with-param name="default-title">Subject(s)</xsl:with-param>
+                        <xsl:with-param name="content">
+                            <ul>
+                                <xsl:for-each select="ead:subject">
+                                    <li><xsl:apply-templates/></li>
+                                </xsl:for-each>                        
+                            </ul>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </xsl:if>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="ead:language">
+        <xsl:choose>
+            <xsl:when test="@langcode = 'eng'">English</xsl:when>
+            <xsl:when test="@langcode = 'mul'">Multiple</xsl:when>
+            <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+<!-- *** TODO: Not Modified (yet) *** -->
     <xsl:template match="ead:filedesc/ead:titlestmt/ead:titleproper">
         <xsl:choose>
             <xsl:when test="@type = 'filing'">
                 <xsl:choose>
                     <xsl:when test="count(parent::*/ead:titleproper) &gt; 1"/>
                     <xsl:otherwise>
-                        <xsl:value-of select="/ead:ead/ead:archdesc/ead:did/ead:unittitle"/>        
+                        <xsl:value-of select="/ead:ead/ead:archdesc/ead:did/ead:unittitle"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -438,85 +580,7 @@
         <p><xsl:if test="ead:change/ead:item"><xsl:apply-templates select="ead:change/ead:item"/></xsl:if><xsl:if test="ead:change/ead:date">&#160;<xsl:apply-templates select="ead:change/ead:date"/></xsl:if></p>        
     </xsl:template>
     
-    <!-- Formats controlled access terms -->
-    <xsl:template match="ead:controlaccess">
-        <xsl:choose>
-            <xsl:when test="ead:head"><xsl:apply-templates select="ead:head"/></xsl:when>
-            <xsl:otherwise>
-                <xsl:choose>
-                    <xsl:when test="parent::ead:archdesc"><h3><xsl:call-template name="anchor"/>Controlled Access Headings</h3></xsl:when>
-                    <xsl:otherwise><h4>Controlled Access Headings</h4></xsl:otherwise>
-                </xsl:choose>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:if test="ead:corpname">
-            <h4>Corporate Name(s)</h4>
-            <ul>
-                <xsl:for-each select="ead:corpname">
-                    <li><xsl:apply-templates/> </li>
-                </xsl:for-each>
-            </ul>            
-        </xsl:if>
-        <xsl:if test="ead:famname">
-            <h4>Family Name(s)</h4>
-            <ul>
-                <xsl:for-each select="ead:famname">
-                    <li><xsl:apply-templates/> </li>
-                </xsl:for-each>                        
-            </ul>
-        </xsl:if>
-        <xsl:if test="ead:function">
-            <h4>Function(s)</h4>
-            <ul>
-                <xsl:for-each select="ead:function">
-                    <li><xsl:apply-templates/> </li>
-                </xsl:for-each>                        
-            </ul>
-        </xsl:if>
-        <xsl:if test="ead:genreform">
-            <h4>Genre(s)</h4>
-            <ul>
-                <xsl:for-each select="ead:genreform">
-                    <li><xsl:apply-templates/> </li>
-                </xsl:for-each>
-           </ul>     
-        </xsl:if>
-        <xsl:if test="ead:geogname">
-            <h4>Geographic Name(s)</h4>
-            <ul>
-                <xsl:for-each select="ead:geogname">
-                    <li><xsl:apply-templates/> </li>
-                </xsl:for-each>                        
-            </ul>
-        </xsl:if>
-        <xsl:if test="ead:occupation">
-            <h4>Occupation(s)</h4>
-            <ul>
-                <xsl:for-each select="ead:occupation">
-                    <li><xsl:apply-templates/> </li>
-                </xsl:for-each>                        
-            </ul>
-        </xsl:if>
-        <xsl:if test="ead:persname">
-            <h4>Personal Name(s)</h4>
-            <ul>
-                <xsl:for-each select="ead:persname">
-                    <li><xsl:apply-templates/> </li>
-                </xsl:for-each>                        
-            </ul>
-        </xsl:if>
-        <xsl:if test="ead:subject">
-            <h4>Subject(s)</h4>
-            <ul>
-                <xsl:for-each select="ead:subject">
-                    <li><xsl:apply-templates/> </li>
-                </xsl:for-each>                        
-            </ul>
-        </xsl:if>
-        <xsl:if test="parent::ead:archdesc">                        <!-- xsl:call-template name="returnTOC"/ -->
-</xsl:if>
-    </xsl:template>
-
+ 
     <!-- Formats index and child elements, groups indexentry elements by type (i.e. corpname, subject...)-->
     <xsl:template match="ead:index">
        <xsl:choose>
