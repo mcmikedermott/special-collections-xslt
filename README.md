@@ -14,6 +14,8 @@ xsltproc ead-2-HTML.xsl samples/multiple-dao.xml > multiple-dao.html
 
 Update the XSLT to produce a new HTML that is more appelaing.
 
+
+* [Carr's Sample New Version](https://draft-library.bowdoin.edu/arch/test/macmillan2.shtml)
 * `samples/M118-ead.xml`: export from Archivist's Toolkit.
 * `samples/macmillian/macmillian2.shtml`: the hoped for HTML translation.
 * `samples/macmillian/macmillian.shtml`: the current HTML translation.

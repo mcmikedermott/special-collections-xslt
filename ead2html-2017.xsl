@@ -397,36 +397,54 @@
         ead:otherfindaid | 
         ead:phystech | 
         ead:relatedmaterial |
-        ead:separatedmaterial">        
-        <xsl:call-template name="panel">
-            <xsl:with-param name="title" select="ead:head"/>
-            <xsl:with-param name="default-title">
-                <xsl:choose>
-                    <xsl:when test="self::ead:bibliography">Bibliography</xsl:when>
-                    <xsl:when test="self::ead:odd">Other Descriptive Data</xsl:when>
-                    <xsl:when test="self::ead:accruals">Accruals</xsl:when>
-                    <xsl:when test="self::ead:arrangement">Arrangement</xsl:when>
-                    <xsl:when test="self::ead:bioghist">Biography/History</xsl:when>
-                    <xsl:when test="self::ead:accessrestrict">Restrictions on Access</xsl:when>
-                    <xsl:when test="self::ead:userestrict">Restrictions on Use</xsl:when>
-                    <xsl:when test="self::ead:custodhist">Custodial History</xsl:when>
-                    <xsl:when test="self::ead:altformavail">Alternative Form Available</xsl:when>
-                    <xsl:when test="self::ead:originalsloc">Original Location</xsl:when>
-                    <xsl:when test="self::ead:fileplan">File Plan</xsl:when>
-                    <xsl:when test="self::ead:acqinfo">Acquisition Information</xsl:when>
-                    <xsl:when test="self::ead:otherfindaid">Other Finding Aids</xsl:when>
-                    <xsl:when test="self::ead:phystech">Physical Characteristics and Technical Requirements</xsl:when>
-                    <xsl:when test="self::ead:processinfo">Processing Information</xsl:when>
-                    <xsl:when test="self::ead:relatedmaterial">Related Material</xsl:when>
-                    <xsl:when test="self::ead:scopecontent">Scope and Content</xsl:when>
-                    <xsl:when test="self::ead:separatedmaterial">Separated Material</xsl:when>
-                    <xsl:when test="self::ead:appraisal">Appraisal</xsl:when>                        
-                </xsl:choose>
-            </xsl:with-param>
-            <xsl:with-param name="content">
-                <xsl:apply-templates select="ead:*[not(name()='head')]"/>
-            </xsl:with-param>
-        </xsl:call-template>
+        ead:separatedmaterial">
+        
+        <xsl:variable name="panel-title">
+            <xsl:choose>
+                <xsl:when test="self::ead:bibliography">Bibliography</xsl:when>
+                <xsl:when test="self::ead:odd">Other Descriptive Data</xsl:when>
+                <xsl:when test="self::ead:accruals">Accruals</xsl:when>
+                <xsl:when test="self::ead:arrangement">Arrangement</xsl:when>
+                <xsl:when test="self::ead:bioghist">Biography/History</xsl:when>
+                <xsl:when test="self::ead:accessrestrict">Restrictions on Access</xsl:when>
+                <xsl:when test="self::ead:userestrict">Restrictions on Use</xsl:when>
+                <xsl:when test="self::ead:custodhist">Custodial History</xsl:when>
+                <xsl:when test="self::ead:altformavail">Alternative Form Available</xsl:when>
+                <xsl:when test="self::ead:originalsloc">Original Location</xsl:when>
+                <xsl:when test="self::ead:fileplan">File Plan</xsl:when>
+                <xsl:when test="self::ead:acqinfo">Acquisition Information</xsl:when>
+                <xsl:when test="self::ead:otherfindaid">Other Finding Aids</xsl:when>
+                <xsl:when test="self::ead:phystech">Physical Characteristics and Technical Requirements</xsl:when>
+                <xsl:when test="self::ead:processinfo">Processing Information</xsl:when>
+                <xsl:when test="self::ead:relatedmaterial">Related Material</xsl:when>
+                <xsl:when test="self::ead:scopecontent">Scope and Content</xsl:when>
+                <xsl:when test="self::ead:separatedmaterial">Separated Material</xsl:when>
+                <xsl:when test="self::ead:appraisal">Appraisal</xsl:when>                        
+            </xsl:choose>
+        </xsl:variable>
+
+        <xsl:choose>
+            <xsl:when test="parent::ead:archdesc">
+                <xsl:call-template name="panel">
+                    <xsl:with-param name="title" select="ead:head"/>
+                    <xsl:with-param name="default-title" select="$panel-title"/>
+                    <xsl:with-param name="content">
+                        <xsl:apply-templates select="ead:*[not(name()='head')]"/>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="panel-data-row">
+                    <xsl:with-param name="title" select="ead:head"/>
+                    <xsl:with-param name="default-title" select="$panel-title"/>
+                    <xsl:with-param name="content">
+                        <xsl:apply-templates select="ead:*[not(name()='head')]"/>
+                </xsl:with-param>
+            </xsl:call-template>
+
+            </xsl:otherwise>
+        </xsl:choose>
+
     </xsl:template>
 
    <!-- Formats controlled access terms -->
@@ -542,6 +560,23 @@
             <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
+
+    <!-- *** Begin templates for Container List *** -->
+    <xsl:template match="ead:archdesc/ead:dsc">
+        <xsl:call-template name="panel">
+            <xsl:with-param name="title" select="ead:head"/>
+            <xsl:with-param name="default-title">Collection Inventory</xsl:with-param>
+            <xsl:with-param name="content">
+                <span id="all-series"/>
+                <div class="containerList" id="accordian">
+                    <!-- Call children of dsc -->
+                    <xsl:apply-templates select="*[not(self::ead:head)]"/>            
+                </div>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+    
 
 <!-- *** TODO: Not Modified (yet) *** -->
     <xsl:template match="ead:filedesc/ead:titlestmt/ead:titleproper">
@@ -687,8 +722,9 @@
                         </xsl:for-each>
                     </ul>
                 </xsl:if>         
-       <xsl:if test="parent::ead:archdesc">                        <!-- xsl:call-template name="returnTOC"/ -->
-</xsl:if>
+       <xsl:if test="parent::ead:archdesc">                        
+        <!-- xsl:call-template name="returnTOC"/ -->
+        </xsl:if>
    </xsl:template>
     <xsl:template match="ead:indexentry">
         <dl class="indexEntry">
@@ -1178,20 +1214,6 @@
         <value>nonproport</value>        
     -->
 
-    <!-- *** Begin templates for Container List *** -->
-    <xsl:template match="ead:archdesc/ead:dsc">
-        <xsl:call-template name="panel">
-            <xsl:with-param name="title" select="ead:head"/>
-            <xsl:with-param name="default-title">Collection Inventory</xsl:with-param>
-            <xsl:with-param name="content">
-                <table class="containerList" cellpadding="0" cellspacing="0" border="0">
-                    <!-- Call children of dsc -->
-                    <xsl:apply-templates select="*[not(self::ead:head)]"/>            
-                </table>
-            </xsl:with-param>
-        </xsl:call-template>
-    </xsl:template>
-    
     <!--This section of the stylesheet creates a div for each c01 or c 
         It then recursively processes each child component of the c01 by 
         calling the clevel template.
@@ -1243,11 +1265,11 @@
         </xsl:for-each>
         <!-- ADDED 5/31/12: Return to top only after series -->
         <xsl:if test="self::*[@level='series']">
-            <tr>
-                <td colspan="5">
-                                            <!-- xsl:call-template name="returnTOC"/ -->
-                </td>
-            </tr>    
+            <div>
+                <div colspan="5">
+                    <!-- xsl:call-template name="returnTOC"/ -->
+                </div>
+            </div>    
         </xsl:if>
     </xsl:template>
     <xsl:template match="ead:c01">
@@ -1287,11 +1309,11 @@
         </xsl:for-each>
         <!-- ADDED 5/31/12: Return to top only after series -->
         <xsl:if test="self::*[@level='series']">
-            <tr>
-                <td colspan="5">
+            <div>
+                <div colspan="5">
                         <!-- xsl:call-template name="returnTOC"/ -->
-                </td>
-            </tr>    
+                </div>
+            </div>    
         </xsl:if>
         
     </xsl:template>
@@ -1349,7 +1371,7 @@
                 <xsl:when test="@level='subcollection' or @level='subgrp' or @level='series' 
                     or @level='subseries' or @level='collection'or @level='fonds' or 
                     @level='recordgrp' or @level='subfonds' or @level='class' or (@level='otherlevel' and not(child::ead:did/ead:container))">
-                    <tr> 
+                    <div> 
                         <xsl:attribute name="class">
                             <xsl:choose>
                                 <xsl:when test="@level='subcollection' or @level='subgrp' or @level='subseries' or @level='subfonds'">subseries</xsl:when>
@@ -1358,7 +1380,7 @@
                         </xsl:attribute>
                         <xsl:choose>
                             <xsl:when test="ead:did/ead:container">
-                            <td class="{$clevelMargin}">
+                            <div class="{$clevelMargin}">
                             <xsl:choose>                                
                                 <xsl:when test="count(ead:did/ead:container) &lt; 1">
                                     <xsl:attribute name="colspan">
@@ -1385,22 +1407,22 @@
                                 <xsl:call-template name="anchor"/>
                                 <xsl:apply-templates select="ead:did" mode="dsc"/>
                                 <xsl:apply-templates select="child::*[not(ead:did) and not(self::ead:did)]"/>
-                            </td>
+                            </div>
                             <xsl:for-each select="descendant::ead:did[ead:container][1]/ead:container">    
-                                <td class="containerHeader">    
+                                <div class="containerHeader">    
                                     <xsl:value-of select="@type"/><br/><xsl:value-of select="."/>       
-                                </td>    
+                                </div>    
                             </xsl:for-each>
                             </xsl:when>
                             <xsl:otherwise>
-                                <td colspan="5" class="{$clevelMargin}">
+                                <div colspan="5" class="{$clevelMargin}">
                                     <xsl:call-template name="anchor"/>
                                     <xsl:apply-templates select="ead:did" mode="dsc"/>
                                     <xsl:apply-templates select="child::*[not(ead:did) and not(self::ead:did)]"/>
-                                </td>
+                                </div>
                             </xsl:otherwise>
                         </xsl:choose>
-                    </tr>
+                    </div>
                 </xsl:when>
                 
                 <!--Items/Files with multiple formats linked using parent and id attributes -->
@@ -1591,9 +1613,11 @@
             <xsl:when test="../@level='subcollection' or ../@level='subgrp' or ../@level='series' 
                 or ../@level='subseries'or ../@level='collection'or ../@level='fonds' or 
                 ../@level='recordgrp' or ../@level='subfonds'">    
-                <h4 class="did-core">
+                <h3 class="did-core">
+                    <a href="#" aria-hidden="true" aria-expanded="false" data-toggle="collapse" data-target="collapse1" class="collapsed">
                     <xsl:call-template name="component-did-core"/>
-                </h4>
+                    </a>
+                </h3>
             </xsl:when>
             <!--Otherwise render the text in its normal font.-->
             <xsl:otherwise>
@@ -1601,6 +1625,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
     <xsl:template name="component-did-core">
         <!--Inserts unitid and a space if it exists in the markup.-->
         <xsl:if test="ead:unitid">
