@@ -37,7 +37,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="stylesheet" href="https://draft-library.bowdoin.edu/arch/libr/css/normalize.css"/>
 <link rel="stylesheet" href="https://draft-library.bowdoin.edu/arch/libr/css/main.css"/>
 <link rel="stylesheet" href="https://draft-library.bowdoin.edu/arch/libr/css/oth.css"/>
-<link rel="stylesheet" href="fonts/font-awesome.css"/>
+<!--<link rel="stylesheet" href="fonts/font-awesome.css"/>-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 <!--browser feature detection -->
 <script src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/modernizr-custom.js"></script>
 <!--Bootstrap tabs -->
