@@ -1,4 +1,9 @@
 
+[ ] M091 - DAO objects
+
+[ ] M305, M306 - content inventory all titles
+[ ] M335 no content inventory, all under scove and contents note.
+[ ] M275 no content 
 
 [ ] In Collection Inventory where does the "Series n" title come from? The series' are not numbered from what I can tell.
 

@@ -189,18 +189,19 @@
         <xsl:param name="title" />
         <xsl:param name="default-title" />
         <xsl:param name="class" />
+        <xsl:param name="title-class" />
         <xsl:param name="content"/>
 
         <!-- Choose title or default title -->
         <xsl:variable name="final_title">
             <xsl:choose>
-                <xsl:when test="$title"><xsl:apply-templates select="$title"/></xsl:when>
+                <xsl:when test="$title"><xsl:copy-of select="$title"/></xsl:when>
                 <xsl:otherwise><xsl:value-of select="$default-title"/></xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
 
         <div class="row {$class}">
-            <div class="col-md-3">
+            <div class="col-md-3 {$title-class}">
                 <xsl:value-of select="$final_title" />
                 <!-- Insert colon if title does not end with colon -->
                 <xsl:if test="substring(., string-length($final_title), 1) != ':'">:</xsl:if>
@@ -417,6 +418,7 @@
         </xsl:call-template>
     </xsl:template>
 
+
     <!-- Template calls and formats all other children of archdesc many of 
         these elements are repeatable within the ead:dsc section as well.-->
     <xsl:template match="ead:revisiondesc |
@@ -443,6 +445,12 @@
                     <xsl:when test="self::ead:altformavail">Alternative Form Available</xsl:when>
                     <xsl:when test="self::ead:originalsloc">Original Location</xsl:when>
                     <xsl:when test="self::ead:separatedmaterial">Separated Material</xsl:when>
+                </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="title-class">
+                <xsl:choose>
+                    <xsl:when test="self::ead:accessrestrict">fa fa-exclamation-triangle</xsl:when>
+                    <xsl:when test="self::ead:userestrict">fa fa-exclamation-triangle</xsl:when>
                 </xsl:choose>
             </xsl:with-param>
             <xsl:with-param name="content">
@@ -641,7 +649,16 @@
         </xsl:call-template>
     </xsl:template>
 
+    <!-- xsl:template match="ead:c01" -->
+    <xsl:template match="ead:c">
+        <xsl:call-template name="clevel01" />
+    </xsl:template>
+
     <xsl:template match="ead:c01">
+        <xsl:call-template name="clevel01" />
+    </xsl:template>
+
+    <xsl:template name="clevel01">
         <xsl:call-template name="series">
             <xsl:with-param name="title">
                 <xsl:apply-templates select="ead:did" mode="dsc"/>
@@ -649,33 +666,20 @@
             <xsl:with-param name="default-title">Series</xsl:with-param>
             <xsl:with-param name="class">c01</xsl:with-param>
             <xsl:with-param name="content">
-                <!-- apply all c02's as the content -->
-                <xsl:apply-templates select="child::*[ead:did]" />
+                <xsl:for-each select="child::*[ead:did]">
+                    <xsl:call-template name="clevel02" />
+                </xsl:for-each>                  
+                <!-- xsl:apply-templates select="child::*[ead:did]" / -->
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="ead:c02">
+    <!-- xsl:template match="ead:c02" -->
+    <xsl:template name="clevel02">
         <xsl:apply-templates mode="series-row"/>
     </xsl:template>
 
     <xsl:template match="ead:did" mode="series-row">
-        <!--
-        <xsl:call-template name="series-data-row">
-            <xsl:with-param name="title">
-                <xsl:apply-templates select="." mode="dsc"/>
-            </xsl:with-param>
-            <xsl:with-param name="default-title">Series</xsl:with-param>
-            <xsl:with-param name="class">c02 bucket</xsl:with-param>
-            <xsl:with-param name="content">
-                <xsl:for-each select="ead:container">                    
-                    <span>
-                        <xsl:value-of select="@type" />&#160;<xsl:value-of select="node()" />
-                    </span>
-                </xsl:for-each>
-            </xsl:with-param>
-        </xsl:call-template>
-        -->
         <div class="row c02">
             <div class="col-md-10">
                 <xsl:apply-templates select="." mode="dsc"/>
@@ -684,7 +688,6 @@
                 <xsl:for-each select="ead:container">                    
                     <span>
                         <xsl:value-of select="@type" />&#160;<xsl:value-of select="node()" />
-                        <!-- xsl:value-of disable-output-escaping="yes" select="'&lt;br /&gt;'"/-->
                     </span>
                 </xsl:for-each>
             </div>
@@ -1333,7 +1336,7 @@
         calling the clevel template.
         Edited 5/31/12: Added parameter to indicate clevel margin, parameter is called by clevelMargin variable
     -->
-    <xsl:template match="ead:c">
+    <xsl:template match="ead:cX">
         <xsl:call-template name="clevel">
             <xsl:with-param name="level">01</xsl:with-param>
         </xsl:call-template>
@@ -1386,7 +1389,8 @@
             </div>    
         </xsl:if>
     </xsl:template>
-    <xsl:template match="ead:c01x">
+
+    <xsl:template match="ead:c01X">
         <xsl:call-template name="clevel"/>
         <xsl:for-each select="ead:c02">
             <xsl:call-template name="clevel"/>
