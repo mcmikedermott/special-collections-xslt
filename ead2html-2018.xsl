@@ -212,27 +212,6 @@
         </div>
     </xsl:template>
 
-
-    <!-- Template for a table-like data element in a series -->
-    <xsl:template name="series-data-row">
-        <xsl:param name="title" />
-        <xsl:param name="default-title" />
-        <xsl:param name="class" />
-        <xsl:param name="content"/>
-
-        <div class="row {$class}">
-            <div class="col-md-10">
-                <xsl:choose>
-                    <xsl:when test="$title"><xsl:copy-of select="$title"/></xsl:when>
-                    <xsl:otherwise><xsl:value-of select="$default-title"/></xsl:otherwise>
-                </xsl:choose>
-            </div>
-            <div class="col-md-2">
-                <xsl:copy-of select="$content"/>
-            </div>
-        </div>
-    </xsl:template>
-
     <!-- This template creates a customizable footer  -->
     <xsl:template name="footer">
         <a href="#main-content" class="back-to-top">Top</a>
@@ -604,10 +583,39 @@
             <xsl:with-param name="title" select="ead:head"/>
             <xsl:with-param name="default-title">Collection Inventory</xsl:with-param>
             <xsl:with-param name="content">
-                <span id="all-series"/>
+                <!-- show "open all series" only if contains series' -->
+                <xsl:if test="count(*[not(self::ead:head) and (@level='subcollection' or @level='subgrp' or @level='series' 
+                    or @level='subseries' or @level='collection'or @level='fonds' or 
+                    @level='recordgrp' or @level='subfonds' or @level='class' or (@level='otherlevel' and not(child::ead:did/ead:container)))])">
+                    <span id="all-series"/>
+                </xsl:if>
                 <div class="containerList" id="accordian">
-                    <!-- Call children of dsc -->
-                    <xsl:apply-templates select="*[not(self::ead:head)]"/>            
+                    <xsl:choose>
+                        <xsl:when test="count(*[not(self::ead:head) and (@level='subcollection' or @level='subgrp' or @level='series' 
+                        or @level='subseries' or @level='collection'or @level='fonds' or 
+                        @level='recordgrp' or @level='subfonds' or @level='class' or (@level='otherlevel' and not(child::ead:did/ead:container)))])">                                              
+                            <!-- Call children of dsc -->
+                            <xsl:apply-templates select="*[not(self::ead:head)]"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- treat top-level files as implicit series -->
+                            <!--xsl:call-template name="c-collection">
+                                <xsl:with-param name="c-level">01</xsl:with-param>
+                            </xsl:call-template-->
+                            
+                            <!-- rows -->
+                            <div class="series">
+                                <!--div class="series-desc"></div -->
+                                <div class="panel-collapse collapse in">
+                                    <xsl:for-each select="child::*[ead:did and not(self::ead:did)]" >
+                                        <xsl:call-template name="c-level-decoder">
+                                            <xsl:with-param name="c-level">01</xsl:with-param>
+                                        </xsl:call-template>
+                                    </xsl:for-each>                    
+                                </div>
+                            </div>                            
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </div>
             </xsl:with-param>
         </xsl:call-template>
@@ -646,7 +654,7 @@
                     <xsl:with-param name="c-level"><xsl:value-of select="$c-level"/></xsl:with-param>
                 </xsl:call-template>
             </xsl:when>
-            <xsl:when test="@level='file' or @level='item' or (@level='otherlevel'and child::ead:did/ead:container)">
+            <xsl:when test="@level='file' or @level='item' or (@level='otherlevel' and child::ead:did/ead:container)">
                 <!-- c Items/Files -->
                 <xsl:call-template name="c-files">
                     <xsl:with-param name="c-level"><xsl:value-of select="$c-level"/></xsl:with-param>
@@ -683,7 +691,7 @@
             </div>
 
             <!-- rows -->
-            <div id="{$collapseId}" class="panel-collapse collapse collapse-in" aria-labelledby="{$headingId}">
+            <div id="{$collapseId}" class="panel-collapse collapse" aria-labelledby="{$headingId}">
                 <xsl:for-each select="child::*[ead:did and not(self::ead:did)]" >
                     <xsl:call-template name="c-level-decoder">
                         <xsl:with-param name="c-level"><xsl:value-of select="format-number(number($c-level)+1,'00')"/></xsl:with-param>

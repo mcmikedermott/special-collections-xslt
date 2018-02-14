@@ -12,7 +12,7 @@ echo "<html><body><ul>" > $site_dir/index.html
 for xml in $files; do
 	echo "Converting $xml..."
 	base=`basename $xml .xml`
-	xsltproc ead2html-2017.xsl $xml > $site_dir/$base.html
+	xsltproc ead2html-2018.xsl $xml > $site_dir/$base.html
 
 	echo "<li><a href=\"$base.html\">$base</a></li>" >> $site_dir/index.html
 done
