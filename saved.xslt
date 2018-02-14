@@ -262,6 +262,7 @@
                     </div>
                     <p>END HEADER</p>
                 </xsl:when>
+                
                 <!--Items/Files with multiple formats linked using parent and id attributes -->
                 <xsl:when test="count(child::*/ead:container/@id) &gt; 1">
                     <p>START ITEMS/FILES WITH FORMATS</p>

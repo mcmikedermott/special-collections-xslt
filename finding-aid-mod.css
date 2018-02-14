@@ -1,0 +1,9 @@
+.bucket span {
+	/* add space between containers so they wrap */
+	display: block;
+}
+
+.sticky {
+	/* replace 10px. Keeps series headears from moving when expanded. */
+    padding-bottom: 0px;
+}

@@ -132,6 +132,7 @@
     <!-- CSS for styling HTML output. Place all CSS styles in this template.-->
     <xsl:template name="css">
         <link rel="stylesheet" type="text/css" href="https://draft-library.bowdoin.edu/arch/test/finding-aid.css" />
+        <link rel="stylesheet" type="text/css" href="finding-aid-mod.css" />
     </xsl:template>
 
     <!-- This template creates a customizable header  -->
@@ -211,42 +212,6 @@
         </div>
     </xsl:template>
 
-   <!-- Template for a sub-level "panel" of content -->
-    <xsl:template name="series">
-        <xsl:param name="title" />
-        <xsl:param name="default-title" />
-        <xsl:param name="class" />
-        <xsl:param name="expanded" select="'false'"/>
-        <xsl:param name="content"/>
-
-        <xsl:variable name="collapseId" select="generate-id(.)"/>
-        <xsl:variable name="headingId" select="generate-id(title)"/>
-
-        <div class="series">
-            <!-- heading -->
-            <h3 class="did-core" id="{$headingId}">
-                <a href="#" aria-hidden="true" aria-expanded="false" data-toggle="collapse" data-target="#{$collapseId}" class="collapsed">
-                    <xsl:choose>
-                        <xsl:when test="$title"><xsl:copy-of select="$title"/></xsl:when>
-                        <xsl:otherwise><xsl:value-of select="$default-title" /></xsl:otherwise>
-                    </xsl:choose>
-                </a>
-            </h3>
-            <!-- header description -->
-            <div colspan="5" class="{$class} series-desc">
-                <xsl:call-template name="anchor"/>
-                <xsl:apply-templates select="child::*[not(ead:did) and not(self::ead:did)]"/>
-            </div>
-            <!-- items collapsable -->
-            <xsl:variable name="collapse-in">
-                <xsl:if test="$expanded='true'">in</xsl:if>
-            </xsl:variable>
-            <div id="{$collapseId}" class="panel-collapse collapse {$collapse-in}" aria-labelledby="{$headingId}">
-                <!-- rows -->
-                <xsl:copy-of select="$content" />
-            </div>
-        </div>
-    </xsl:template>
 
     <!-- Template for a table-like data element in a series -->
     <xsl:template name="series-data-row">
@@ -648,50 +613,95 @@
         </xsl:call-template>
     </xsl:template>
 
+
+    <!-- *** C Level Translation *** -->
+
     <xsl:template match="ead:c">
+        <xsl:call-template name="c-level-decoder">
+            <xsl:with-param name="c-level">01</xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="ead:c01">
+        <xsl:call-template name="c-level-decoder">
+            <xsl:with-param name="c-level">01</xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+
+    <xsl:template name="c-level-decoder">
+        <xsl:param name="c-level"/>
+                
         <xsl:choose>
             <xsl:when test="@level='subcollection' or @level='subgrp' or @level='series' 
                     or @level='subseries' or @level='collection'or @level='fonds' or 
                     @level='recordgrp' or @level='subfonds' or @level='class' or (@level='otherlevel' and not(child::ead:did/ead:container))">
-                <xsl:call-template name="clevel01" />
+                <!-- c Collections that have sub-items -->
+                <xsl:call-template name="c-collection">
+                    <xsl:with-param name="c-level"><xsl:value-of select="$c-level"/></xsl:with-param>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="count(child::*/ead:container/@id) &gt; 1">
+                <!-- c Items/Files with multiple formats linked using parent and id attributes -->
+                <xsl:call-template name="c-multi-files">
+                    <xsl:with-param name="c-level"><xsl:value-of select="$c-level"/></xsl:with-param>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="@level='file' or @level='item' or (@level='otherlevel'and child::ead:did/ead:container)">
+                <!-- c Items/Files -->
+                <xsl:call-template name="c-files">
+                    <xsl:with-param name="c-level"><xsl:value-of select="$c-level"/></xsl:with-param>
+                </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates mode="series-row"/>
+                <!-- Other c items--> 
+                <xsl:call-template name="c-files">
+                    <xsl:with-param name="c-level"><xsl:value-of select="$c-level"/></xsl:with-param>
+                </xsl:call-template>
+                <!--xsl:apply-templates mode="series-row"/ -->
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="ead:c01">
-        <xsl:call-template name="clevel01" />
+    <!-- c Collections that have sub-items -->
+    <xsl:template name="c-collection">
+        <xsl:param name="c-level"/>
+
+        <xsl:variable name="collapseId" select="generate-id(.)"/>
+        <xsl:variable name="headingId" select="generate-id(title)"/>
+
+        <div class="series">
+            <!-- heading -->
+            <h3 class="did-core" id="{$headingId}">
+                <a href="#" aria-hidden="true" aria-expanded="false" data-toggle="collapse" data-target="#{$collapseId}" class="collapsed">
+                    <xsl:apply-templates select="ead:did" mode="dsc"/>
+                </a>
+            </h3>
+            <!-- header description -->
+            <div colspan="5" class="c{$c-level} series-desc">
+                <xsl:call-template name="anchor"/>
+                <xsl:apply-templates select="child::*[not(ead:did) and not(self::ead:did)]"/>
+            </div>
+
+            <!-- rows -->
+            <div id="{$collapseId}" class="panel-collapse collapse collapse-in" aria-labelledby="{$headingId}">
+                <xsl:for-each select="child::*[ead:did and not(self::ead:did)]" >
+                    <xsl:call-template name="c-level-decoder">
+                        <xsl:with-param name="c-level"><xsl:value-of select="format-number(number($c-level)+1,'00')"/></xsl:with-param>
+                    </xsl:call-template>
+                </xsl:for-each>                    
+            </div>
+        </div>
     </xsl:template>
 
-    <xsl:template name="clevel01">
-        <xsl:call-template name="series">
-            <xsl:with-param name="title">
-                <xsl:apply-templates select="ead:did" mode="dsc"/>
-            </xsl:with-param>
-            <xsl:with-param name="default-title">Series</xsl:with-param>
-            <xsl:with-param name="class">c01</xsl:with-param>
-            <xsl:with-param name="content">
-                <xsl:for-each select="child::*[ead:did]">
-                    <xsl:call-template name="clevel02" />
-                </xsl:for-each>                  
-                <!-- xsl:apply-templates select="child::*[ead:did]" / -->
-            </xsl:with-param>
-        </xsl:call-template>
-    </xsl:template>
-
-    <xsl:template name="clevel02">
-        <xsl:apply-templates mode="series-row"/>
-    </xsl:template>
-
-    <xsl:template match="ead:did" mode="series-row">
-        <div class="row c02">
+    <!-- c Items/Files with multiple formats linked using parent and id attributes -->
+    <xsl:template name="c-multi-files">
+        <xsl:param name="c-level"/>
+        <div class="row c{$c-level}">
             <div class="col-md-10">
                 <xsl:apply-templates select="." mode="dsc"/>
             </div>
             <div class="bucket col-md-2">
-                <xsl:for-each select="ead:container">                    
+                <xsl:for-each select="ead:did">                    
                     <span>
                         <xsl:value-of select="@type" />&#160;<xsl:value-of select="node()" />
                     </span>
@@ -700,7 +710,30 @@
         </div>
     </xsl:template>
 
-    <!-- xsl:template match="br"><br /></xsl:template -->
+    <!-- c Items/Files--> 
+    <xsl:template name="c-files">
+        <xsl:param name="c-level"/>
+        <div class="row c{$c-level}">
+            <div class="col-md-10">
+                <xsl:apply-templates select="." mode="dsc"/>
+            </div>
+            <div class="bucket col-md-2">
+                <xsl:apply-templates select="ead:did/ead:container"/>                    
+            </div>
+        </div>
+    </xsl:template>
+
+    <!-- Other c items--> 
+    <xsl:template name="c-other">
+        <xsl:param name="c-level"/>
+    </xsl:template>
+
+    <xsl:template match="ead:container">
+        <span>
+            <xsl:value-of select="@type" />&#160;<xsl:value-of select="node()" />
+        </span>
+    </xsl:template>
+
 
     <!-- Templates for revision description  -->
     <xsl:template match="/ead:ead/ead:eadheader/ead:revisiondesc">
@@ -817,7 +850,7 @@
        <xsl:if test="parent::ead:archdesc">                        
         <!-- xsl:call-template name="returnTOC"/ -->
         </xsl:if>
-   </xsl:template>
+    </xsl:template>
    
     <xsl:template match="ead:indexentry">
         <dl class="indexEntry">
@@ -825,6 +858,7 @@
             <dd><xsl:apply-templates select="child::*[2]"/></dd>    
         </dl>
     </xsl:template>
+    
     <xsl:template match="ead:ptrgrp">
         <xsl:apply-templates/>
     </xsl:template>
@@ -841,6 +875,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
     <xsl:template match="ead:ref">
         <xsl:choose>
             <xsl:when test="@target">
@@ -860,6 +895,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>    
+    
     <xsl:template match="ead:extptr">
         <xsl:choose>
             <xsl:when test="@href">
@@ -869,6 +905,7 @@
             <xsl:otherwise><xsl:value-of select="@title"/></xsl:otherwise>
         </xsl:choose> 
     </xsl:template>
+    
     <xsl:template match="ead:extref">
         <xsl:choose>
             <xsl:when test="@href">
@@ -982,7 +1019,6 @@
         </xsl:choose>
     </xsl:template>
 
-
     <!-- Digital Archival Object -->
     <xsl:template match="ead:daogrp">
         <xsl:choose>
@@ -1013,6 +1049,7 @@
         </xsl:choose>   
         <xsl:apply-templates/>
     </xsl:template>
+    
     <!-- Custom DAO roles to display with "listen/watch/view ..." title -->
     <xsl:template match="ead:dao">
         <xsl:if test="child::*">
@@ -1035,9 +1072,11 @@
                 </xsl:if> online</a>
         </li>
     </xsl:template>
+    
     <xsl:template match="ead:daodesc">
         <!-- Don't show daodesc -->
     </xsl:template>
+    
     <xsl:template match="ead:daoloc">
         <a href="{@ns2:href}">
             <xsl:value-of select="@ns2:title"/>
@@ -1241,58 +1280,81 @@
     <xsl:template match="ead:legalstatus">
         <p><xsl:apply-templates/></p>
     </xsl:template>
+    
     <!-- Puts a space between sibling elements -->
+    <!--
     <xsl:template match="child::*">
-        <!-- xsl:if test="preceding-sibling::*">&#160;</xsl:if -->
         <xsl:apply-templates/>
+        <xsl:if test="preceding-sibling::*">&#160;</xsl:if>
     </xsl:template>
+    -->
+
     <!-- Generic text display elements -->
     <xsl:template match="ead:p">
         <p><xsl:apply-templates/></p>
     </xsl:template>
-    <xsl:template match="ead:lb"><br/></xsl:template>
+    
+    <xsl:template match="ead:lb">
+        <br/>
+    </xsl:template>
+ 
     <xsl:template match="ead:blockquote">
         <blockquote><xsl:apply-templates/></blockquote>
     </xsl:template>
-    <xsl:template match="ead:emph"><em><xsl:apply-templates/></em></xsl:template>
+ 
+    <xsl:template match="ead:emph">
+        <em><xsl:apply-templates/></em>
+    </xsl:template>
     
     <!--Render elements -->
     <xsl:template match="*[@render = 'bold'] | *[@altrender = 'bold'] ">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if><strong><xsl:apply-templates/></strong>
     </xsl:template>
+ 
     <xsl:template match="*[@render = 'bolddoublequote'] | *[@altrender = 'bolddoublequote']">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if><strong>"<xsl:apply-templates/>"</strong>
     </xsl:template>
+
     <xsl:template match="*[@render = 'boldsinglequote'] | *[@altrender = 'boldsinglequote']">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if><strong>'<xsl:apply-templates/>'</strong>
     </xsl:template>
+    
     <xsl:template match="*[@render = 'bolditalic'] | *[@altrender = 'bolditalic']">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if><strong><em><xsl:apply-templates/></em></strong>
     </xsl:template>
+
     <xsl:template match="*[@render = 'boldsmcaps'] | *[@altrender = 'boldsmcaps']">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if><strong><span class="smcaps"><xsl:apply-templates/></span></strong>
     </xsl:template>
+    
     <xsl:template match="*[@render = 'boldunderline'] | *[@altrender = 'boldunderline']">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if><strong><span class="underline"><xsl:apply-templates/></span></strong>
     </xsl:template>
+
     <xsl:template match="*[@render = 'doublequote'] | *[@altrender = 'doublequote']">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if>"<xsl:apply-templates/>"
     </xsl:template>
+    
     <xsl:template match="*[@render = 'italic'] | *[@altrender = 'italic']">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if><em><xsl:apply-templates/></em>
     </xsl:template>
+
     <xsl:template match="*[@render = 'singlequote'] | *[@altrender = 'singlequote']">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if>'<xsl:apply-templates/>'
     </xsl:template>
+    
     <xsl:template match="*[@render = 'smcaps'] | *[@altrender = 'smcaps']">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if><span class="smcaps"><xsl:apply-templates/></span>
     </xsl:template>
+    
     <xsl:template match="*[@render = 'sub'] | *[@altrender = 'sub']">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if><sub><xsl:apply-templates/></sub>
     </xsl:template>
+    
     <xsl:template match="*[@render = 'super'] | *[@altrender = 'super']">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if><sup><xsl:apply-templates/></sup>
     </xsl:template>
+    
     <xsl:template match="*[@render = 'underline'] | *[@altrender = 'underline']">
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if><span class="underline"><xsl:apply-templates/></span>
     </xsl:template>
