@@ -666,7 +666,14 @@
         <xsl:variable name="collapseId" select="generate-id(.)"/>
         <xsl:variable name="headingId" select="generate-id(title)"/>
 
-        <div class="series">
+        <xsl:variable name="class">
+            <xsl:choose>
+                <xsl:when test="@level"><xsl:value-of select="@level"/></xsl:when>
+                <xsl:otherwise>series</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+        <div class="{$class}">
             <!-- heading -->
             <xsl:if test="ead:did">
                 <h3 class="did-core" id="{$headingId}">
@@ -675,10 +682,12 @@
                     </a>
                 </h3>
                 <!-- header description -->
-                <div colspan="5" class="c{$c-level} series-desc">
-                    <xsl:call-template name="anchor"/>
-                    <xsl:apply-templates select="child::*[not(ead:did) and not(self::ead:did)]"/>
-                </div>
+                <xsl:if test="child::*[not(ead:did) and not(self::ead:did)]">
+                    <div colspan="5" class="c{$c-level} series-desc">
+                        <xsl:call-template name="anchor"/>
+                        <xsl:apply-templates select="child::*[not(ead:did) and not(self::ead:did)]"/>
+                    </div>
+                </xsl:if>
             </xsl:if>
             
             <!-- rows -->
