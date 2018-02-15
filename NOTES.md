@@ -1,6 +1,6 @@
 
-[ ] M091 - DAO objects, need to check they are showing properly (and all of them are showing)
-
+[ ] The 'open/close' all series javascript does not work properly when some series' are open and some are closed.
+[*] M091 - DAO objects, need to check they are showing properly (and all of them are showing)
 [*] Where does the `n` in "Series n" come from in Carr's example? it's a simple sequence
 [*] Digitized shows up when nothing has been digitized; show when any DAOs in xml
 [*] M286 - has subseries of series -- what should UI look like?

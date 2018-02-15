@@ -75,7 +75,7 @@
                     </h1>
 
                     <!-- Digitiazation Status -->
-                    <xsl:if test="count(//ead:dao)">                        
+                    <xsl:if test="count(//ead:dao) > 0">                        
                         <xsl:call-template name="digitized"/>
                     </xsl:if>
                     
@@ -134,7 +134,7 @@
     <!-- CSS for styling HTML output. Place all CSS styles in this template.-->
     <xsl:template name="css">
         <link rel="stylesheet" type="text/css" href="https://draft-library.bowdoin.edu/arch/test/finding-aid.css" />
-        <!--link rel="stylesheet" type="text/css" href="finding-aid-mod.css" / -->
+        <link rel="stylesheet" type="text/css" href="finding-aid-mod.css" />
     </xsl:template>
 
     <!-- This template creates a customizable header  -->
