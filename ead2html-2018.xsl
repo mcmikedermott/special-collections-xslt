@@ -132,7 +132,7 @@
     <!-- CSS for styling HTML output. Place all CSS styles in this template.-->
     <xsl:template name="css">
         <link rel="stylesheet" type="text/css" href="https://draft-library.bowdoin.edu/arch/test/finding-aid.css" />
-        <link rel="stylesheet" type="text/css" href="finding-aid-mod.css" />
+        <!--link rel="stylesheet" type="text/css" href="finding-aid-mod.css" / -->
     </xsl:template>
 
     <!-- This template creates a customizable header  -->
@@ -678,6 +678,13 @@
             <xsl:if test="ead:did">
                 <h3 class="did-core" id="{$headingId}">
                     <a href="#" aria-hidden="true" aria-expanded="false" data-toggle="collapse" data-target="#{$collapseId}" class="collapsed">
+                        <xsl:value-of select="concat(translate(substring(@level, 1, 1), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'), substring(@level,2,string-length(@level)-1))"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:number format="1" value="position()"/>
+                        <xsl:if test="ead:did/ead:unitid">
+                            <xsl:text> </xsl:text>
+                            (<xsl:apply-templates select="ead:did/ead:unitid"/>):
+                        </xsl:if>:                       
                         <xsl:apply-templates select="ead:did" mode="dsc"/>
                     </a>
                 </h3>
@@ -711,8 +718,9 @@
             <div class="bucket col-md-2">
                 <xsl:for-each select="ead:did">                    
                     <span>
-                        <xsl:value-of select="@type" />&#160;<xsl:value-of select="node()" />
+                        <xsl:value-of select="@type" /><xsl:text> </xsl:text><xsl:value-of select="node()" />                                               
                     </span>
+                    <xsl:text> </xsl:text>
                 </xsl:for-each>
             </div>
         </div>
@@ -738,8 +746,9 @@
 
     <xsl:template match="ead:container">
         <span>
-            <xsl:value-of select="@type" />&#160;<xsl:value-of select="node()" />
+            <xsl:value-of select="@type" /><xsl:text> </xsl:text><xsl:value-of select="node()" />
         </span>
+        <xsl:text> </xsl:text>
     </xsl:template>
 
 
@@ -1385,10 +1394,9 @@
 
     <xsl:template name="component-did-core">
         <!--Inserts unitid and a space if it exists in the markup.-->
-        <xsl:if test="ead:unitid">
-            <xsl:apply-templates select="ead:unitid"/>:
-            <xsl:text>&#160;</xsl:text>
-        </xsl:if> 
+        <!-- xsl:if test="ead:unitid">
+            (<xsl:apply-templates select="ead:unitid"/>):
+        </xsl:if --> 
         <!--Inserts origination and a space if it exists in the markup.-->
         <xsl:if test="ead:origination">
             <xsl:apply-templates select="ead:origination"/>
