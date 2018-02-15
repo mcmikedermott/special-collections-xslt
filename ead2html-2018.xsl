@@ -75,8 +75,10 @@
                     </h1>
 
                     <!-- Digitiazation Status -->
-                    <xsl:call-template name="digitized"/>
-
+                    <xsl:if test="count(//ead:dao)">                        
+                        <xsl:call-template name="digitized"/>
+                    </xsl:if>
+                    
                     <!-- Contents -->
                     <div class="row"><div class="col-md12">
                         <!-- these two panels are open by default. 
