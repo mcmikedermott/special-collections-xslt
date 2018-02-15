@@ -685,11 +685,11 @@
                         <xsl:number format="1" value="position()"/>
                         <xsl:if test="ead:did/ead:unitid">
                             <xsl:text> </xsl:text>
-                            (<xsl:apply-templates select="ead:did/ead:unitid"/>):
-                        </xsl:if>:                       
+                            (<xsl:apply-templates select="ead:did/ead:unitid"/>)</xsl:if>:                       
                         <xsl:apply-templates select="ead:did" mode="dsc"/>
                     </a>
                 </h3>
+                
                 <!-- header description -->
                 <xsl:if test="child::*[not(ead:did) and not(self::ead:did)]">
                     <div colspan="5" class="c{$c-level} series-desc">
@@ -715,10 +715,16 @@
         <xsl:param name="c-level"/>
         <div class="row c{$c-level}">
             <div class="col-md-10">
-                <xsl:apply-templates select="." mode="dsc"/>
+                <xsl:apply-templates select="ead:did" mode="dsc"/>
+                
+                <xsl:if test="ead:dao">
+                    <ul class="daolist">
+                        <xsl:apply-templates select="ead:dao"/>
+                    </ul>
+                </xsl:if>
             </div>
             <div class="bucket col-md-2">
-                <xsl:for-each select="ead:did">                    
+                <xsl:for-each select="ead:did">
                     <span>
                         <xsl:value-of select="@type" /><xsl:text> </xsl:text><xsl:value-of select="node()" />                                               
                     </span>
@@ -733,7 +739,13 @@
         <xsl:param name="c-level"/>
         <div class="row c{$c-level}">
             <div class="col-md-10">
-                <xsl:apply-templates select="." mode="dsc"/>
+                <xsl:apply-templates select="ead:did" mode="dsc"/>
+                
+                <xsl:if test="ead:dao">
+                    <ul class="daolist">
+                        <xsl:apply-templates select="ead:dao"/>
+                    </ul>
+                </xsl:if>
             </div>
             <div class="bucket col-md-2">
                 <xsl:apply-templates select="ead:did/ead:container"/>                    
@@ -1070,6 +1082,10 @@
     </xsl:template>
     
     <!-- Custom DAO roles to display with "listen/watch/view ..." title -->
+    <xsl:template match="ead:dao" mode="dsc">
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+    
     <xsl:template match="ead:dao">
         <xsl:if test="child::*">
             <xsl:apply-templates/>

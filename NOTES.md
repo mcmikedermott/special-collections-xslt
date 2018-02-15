@@ -1,7 +1,8 @@
-[ ] Where does the `n` in "Series n" come from in Carr's example?
-[ ] Digitized shows up when nothing has been digitized, what's the logic here?
+
 [ ] M091 - DAO objects, need to check they are showing properly (and all of them are showing)
 
+[*] Where does the `n` in "Series n" come from in Carr's example? it's a simple sequence
+[*] Digitized shows up when nothing has been digitized; show when any DAOs in xml
 [*] M286 - has subseries of series -- what should UI look like?
 [*] M290, M305 - all files are top-level
 [*] M305, M306 - content inventory all titles
