@@ -1438,7 +1438,7 @@
                     (<xsl:apply-templates/>)
                 </xsl:for-each>
             </xsl:otherwise>
-        </xsl:choose>
+        </xsl:choose>.
         <xsl:if test="ead:physdesc">
             <!--xsl:text>&#160;</xsl:text -->
             <xsl:apply-templates select="ead:physdesc"/>
