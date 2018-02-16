@@ -6,6 +6,7 @@ xml_dir=export
 files=$xml_dir/${1:-*}.xml
 
 mkdir $site_dir
+cp finding-aid.css $site_dir
 cp finding-aid-mod.css $site_dir
 echo "<html><body><ul>" > $site_dir/index.html
 #for xml in $xml_dir/*.xml; do

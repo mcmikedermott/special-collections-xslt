@@ -134,6 +134,7 @@
     <!-- CSS for styling HTML output. Place all CSS styles in this template.-->
     <xsl:template name="css">
         <link rel="stylesheet" type="text/css" href="https://draft-library.bowdoin.edu/arch/test/finding-aid.css" />
+        <!--link rel="stylesheet" type="text/css" href="finding-aid.css" /-->
         <link rel="stylesheet" type="text/css" href="finding-aid-mod.css" />
     </xsl:template>
 
@@ -700,7 +701,7 @@
             </xsl:if>
             
             <!-- rows -->
-            <div id="{$collapseId}" class="panel-collapse collapse {$collapse}" aria-labelledby="{$headingId}">
+            <div id="{$collapseId}" class="series-data panel-collapse collapse {$collapse}" aria-labelledby="{$headingId}">
                 <xsl:for-each select="child::*[ead:did and not(self::ead:did)]" >
                     <xsl:call-template name="c-level-decoder">
                         <xsl:with-param name="c-level"><xsl:value-of select="format-number(number($c-level)+1,'00')"/></xsl:with-param>
