@@ -1382,8 +1382,6 @@
         <xsl:if test="preceding-sibling::*"> &#160;</xsl:if><span class="underline"><xsl:apply-templates/></span>
     </xsl:template>
 
-    <!-- ******** -->
-
     <xsl:template match="ead:did" mode="dsc">
         <xsl:choose>
             <xsl:when test="../@level='subcollection' or ../@level='subgrp' or ../@level='series' 
