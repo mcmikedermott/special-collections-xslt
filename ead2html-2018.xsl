@@ -4,46 +4,35 @@
     xmlns:ead="urn:isbn:1-931666-22-9"
     xmlns:ns2="http://www.w3.org/1999/xlink">
 
-    <xsl:import href="include/site-head-include.xsl"/>
-    <xsl:import href="include/site-masthead-include.xsl"/>
-    <xsl:import href="include/site-footer-include.xsl"/>
-
     <!--
         *******************************************************************
+        * VERSION:          1.00                                          *
+        *                   March 6, 2018                                 *
         *                                                                 *
-        * VERSION:          1.02                                          *
-        *                                                                 *
-        * AUTHOR:           Winona Salesky                                *
+        * AUTHOR:           Stephen Houser                                *
+        *                   houser@bowdoin.edu                            *
+        *                   Winona Salesky (original)                     *
         *                   wsalesky@gmail.com                            *
-        *                                                                 *
         *                                                                 *
         * ABOUT:           This file has been created for use with        *
         *                  the Archivists' Toolkit  July 30 2008.         *
         *                  this file calls lookupLists.xsl, which         *
         *                  should be located in the same folder.          *
         *                                                                 *
-        * UPDATED          May 31, 2012                                   *
-        *                  Fixed bug with multiple instance display       *
-        * UPDATED          June 3, 2009                                   *
-        *                  Added additional table cell to component       *
-        *                  display to address bug ART-1833, also addressed* 
-        *                  problematic container heading displays         *          
-        *                                                                 *
-        * UPDATED          September 24, 2009                             *
-        *                  Added address to publication statement         *
-        *                  March 23, 2009                                 *
-        *                  Added revision description and date,           * 
-        *                  and publication information                    *
-        *                  March 12, 2009                                 *
-        *                  Fixed character encoding issues                *
-        *                  March 11, 2009                                 *
-        *                  Added repository branding device to header     *
-        *                  March 1, 2009                                  *
-        *                  Changed bulk date display for unitdates        *
-        *                  Feb. 6, 2009                                   *
-        *                  Added roles to creator display in summary      * 
+        *                  Complete rewrite for Bowdoin College Library   *
         *******************************************************************
     -->
+
+    <!-- Server side includes for HEAD, masthead, and footer -->
+   	<xsl:template name="site-head-include">
+        <xsl:comment>#include virtual="library.bowdoin.edu/arch/libr/site-head-include.shtml"</xsl:comment>
+	</xsl:template>
+	<xsl:template name="site-masthead-include">
+        <xsl:comment>#include virtual="library.bowdoin.edu/arch/libr/site-masthead-include.shtml"</xsl:comment>
+	</xsl:template>
+	<xsl:template name="site-footer-include">
+        <xsl:comment>#include virtual="library.bowdoin.edu/arch/libr/site-footer-include.shtml"</xsl:comment>
+	</xsl:template>
     
     <xsl:output method="html" encoding="utf-8" indent="yes" />
     <xsl:strip-space elements="*"/>
@@ -134,8 +123,6 @@
     <!-- CSS for styling HTML output. Place all CSS styles in this template.-->
     <xsl:template name="css">
         <link rel="stylesheet" type="text/css" href="https://draft-library.bowdoin.edu/arch/test/finding-aid.css" />
-        <!--link rel="stylesheet" type="text/css" href="finding-aid.css" /-->
-        <link rel="stylesheet" type="text/css" href="finding-aid-mod.css" />
     </xsl:template>
 
     <!-- This template creates a customizable header  -->
@@ -592,7 +579,7 @@
                     @level='recordgrp' or @level='subfonds' or @level='class' or (@level='otherlevel' and not(child::ead:did/ead:container)))])">
                     <span id="all-series"/>
                 </xsl:if>
-                <div class="containerList" id="accordian">
+                <div class="containerList" id="accordion">
                     <xsl:choose>
                         <xsl:when test="count(*[not(self::ead:head) and (@level='subcollection' or @level='subgrp' or @level='series' 
                         or @level='subseries' or @level='collection'or @level='fonds' or 
@@ -1439,9 +1426,10 @@
                     (<xsl:apply-templates/>)
                 </xsl:for-each>
             </xsl:otherwise>
-        </xsl:choose>.
+        </xsl:choose><!-- . -->
         <xsl:if test="ead:physdesc">
-            <!--xsl:text>&#160;</xsl:text -->
+            <xsl:text>, </xsl:text>
+            <!--xsl:text>, &#160;</xsl:text -->
             <xsl:apply-templates select="ead:physdesc"/>
         </xsl:if>
     </xsl:template>
