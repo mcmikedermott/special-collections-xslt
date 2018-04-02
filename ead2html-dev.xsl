@@ -6,7 +6,7 @@
 
 	<!-- This style sheet is ONLY FOR DEVELOPMENT. Not for production -->
 
-	<xsl:import href="ead2html-2018.xsl"/>
+	<xsl:import href="ead2html.xsl"/>
 
 	<!-- 
 		That which is named last wins.
