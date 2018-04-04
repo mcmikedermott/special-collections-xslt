@@ -15,23 +15,20 @@
         *                   wsalesky@gmail.com                            *
         *                                                                 *
         * ABOUT:           This file has been created for use with        *
-        *                  the Archivists' Toolkit  July 30 2008.         *
-        *                  this file calls lookupLists.xsl, which         *
-        *                  should be located in the same folder.          *
-        *                                                                 *
-        *                  Complete rewrite for Bowdoin College Library   *
+        *                  the Archivists' Toolkit.                       *
+        *                  Rewrite for Bowdoin College Library            *
         *******************************************************************
     -->
 
     <!-- Server side includes for HEAD, masthead, and footer -->
    	<xsl:template name="site-head-include">
-        <xsl:comment>#include virtual="library.bowdoin.edu/arch/libr/site-head-include.shtml"</xsl:comment>
+        <xsl:comment>#include virtual="/arch/libr/site-head-include.shtml"</xsl:comment>
 	</xsl:template>
 	<xsl:template name="site-masthead-include">
-        <xsl:comment>#include virtual="library.bowdoin.edu/arch/libr/site-masthead-include.shtml"</xsl:comment>
+        <xsl:comment>#include virtual="/arch/libr/site-masthead-include.shtml"</xsl:comment>
 	</xsl:template>
 	<xsl:template name="site-footer-include">
-        <xsl:comment>#include virtual="library.bowdoin.edu/arch/libr/site-footer-include.shtml"</xsl:comment>
+        <xsl:comment>#include virtual="/arch/libr/site-footer-include.shtml"</xsl:comment>
 	</xsl:template>
     
     <xsl:output method="html" encoding="utf-8" indent="yes" />
