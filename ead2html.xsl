@@ -119,7 +119,7 @@
 
     <!-- CSS for styling HTML output. Place all CSS styles in this template.-->
     <xsl:template name="css">
-        <link rel="stylesheet" type="text/css" href="https://draft-library.bowdoin.edu/arch/test/finding-aid.css" />
+        <link rel="stylesheet" type="text/css" href="/arch/libr/css/finding-aid.css" />
     </xsl:template>
 
     <!-- This template creates a customizable header  -->
@@ -209,7 +209,7 @@
         <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/collapse.js"></script>
         <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/transition.js"></script>
         <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/stickyfill.min.js"></script>
-        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/test/finding-aid.js"></script>
+        <script type="text/javascript" src="/arch/libr/js/finding-aid.js"></script>
     </xsl:template>
 
     <!-- Template for Summary Information. Broken out so we can specify the order of children -->
