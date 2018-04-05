@@ -205,10 +205,10 @@
 
         <xsl:call-template name="site-footer-include"/>
 
-        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/affix.js"></script>
-        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/collapse.js"></script>
-        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/transition.js"></script>
-        <script type="text/javascript" src="https://draft-library.bowdoin.edu/arch/libr/js/vendors/stickyfill.min.js"></script>
+        <script type="text/javascript" src="/arch/libr/js/vendors/affix.js"></script>
+        <script type="text/javascript" src="/arch/libr/js/vendors/collapse.js"></script>
+        <script type="text/javascript" src="/arch/libr/js/vendors/transition.js"></script>
+        <script type="text/javascript" src="/arch/libr/js/vendors/stickyfill.min.js"></script>
         <script type="text/javascript" src="/arch/libr/js/finding-aid.js"></script>
     </xsl:template>
 
