@@ -66,7 +66,7 @@
                     </xsl:if>
                     
                     <!-- Contents -->
-                    <div class="row"><div class="col-md12">
+                    <div class="row"><div class="col-md-12">
                         <!-- these two panels are open by default. 
                             TODO: Is there a reason these are in a "group"? Works w/o the group.
                          -->
