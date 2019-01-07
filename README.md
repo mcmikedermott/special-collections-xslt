@@ -9,6 +9,12 @@ Sample use:
 xsltproc ead2html.xsl samples/multiple-dao.xml > multiple-dao.html
 ```
 
+When developing use the development XSL like this to apply the absolute URLs for CSS and JS:
+```
+xsltproc ead2html-dev.xsl export/M091-ead.xml > M091-ead.html
+```
+
+
 ## Summer 2017 / Winter 2018 Project
 
 Update the XSLT to produce a new HTML that is more appealing.
