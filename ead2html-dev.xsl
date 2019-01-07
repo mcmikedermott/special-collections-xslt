@@ -19,4 +19,21 @@
 	<xsl:import href="include/site-masthead-include.xsl"/>
 	<xsl:import href="include/site-footer-include.xsl"/>
 
+	<xsl:template name="css">
+		<link rel="stylesheet" type="text/css" href="https://library.bowdoin.edu/arch/libr/css/finding-aid.css" />
+	</xsl:template>
+
+	<!-- This template creates a customizable footer  -->
+	<xsl:template name="footer">
+		<a href="#main-content" class="back-to-top">Top</a>
+
+		<xsl:call-template name="site-footer-include"/>
+
+		<script type="text/javascript" src="https://library.bowdoin.edu/arch/libr/js/vendors/affix.js"></script>
+		<script type="text/javascript" src="https://library.bowdoin.edu/arch/libr/js/vendors/collapse.js"></script>
+		<script type="text/javascript" src="https://library.bowdoin.edu/arch/libr/js/vendors/transition.js"></script>
+		<script type="text/javascript" src="https://library.bowdoin.edu/arch/libr/js/vendors/stickyfill.min.js"></script>
+		<script type="text/javascript" src="https://library.bowdoin.edu/arch/libr/js/finding-aid.js"></script>
+	</xsl:template>
+
 </xsl:stylesheet>

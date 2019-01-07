@@ -704,7 +704,9 @@
                 
                 <xsl:if test="ead:dao">
                     <ul class="daolist">
-                        <xsl:apply-templates select="ead:dao"/>
+                        <xsl:apply-templates select="ead:dao">
+							<xsl:sort select="@ns2:title" />
+						</xsl:apply-templates>
                     </ul>
                 </xsl:if>
             </div>
@@ -728,7 +730,9 @@
                 
                 <xsl:if test="ead:dao">
                     <ul class="daolist">
-                        <xsl:apply-templates select="ead:dao"/>
+                        <xsl:apply-templates select="ead:dao">
+							<xsl:sort select="@ns2:title" />
+						</xsl:apply-templates>
                     </ul>
                 </xsl:if>
             </div>
@@ -1081,7 +1085,7 @@
              output the link postfix and closing 
           -->
         <li class="dao">
-            <a class="{@ns2:role}" href="{@ns2:href}" target="_blank">
+			<a class="{@ns2:role}" href="{@ns2:href}" target="_blank">
                 <xsl:choose>
                     <xsl:when test="starts-with(@ns2:role, 'Audio-')">Listen </xsl:when>
                     <xsl:when test="starts-with(@ns2:role, 'Video-')">Watch </xsl:when>

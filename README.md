@@ -11,7 +11,7 @@ xsltproc ead2html.xsl samples/multiple-dao.xml > multiple-dao.html
 
 ## Summer 2017 / Winter 2018 Project
 
-Update the XSLT to produce a new HTML that is more appelaing.
+Update the XSLT to produce a new HTML that is more appealing.
 
 * [Carr's Sample New Version](https://draft-library.bowdoin.edu/arch/test/macmillan2.shtml)
 * `samples/M118-ead.xml`: export from Archivist's Toolkit.
