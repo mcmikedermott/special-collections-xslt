@@ -614,6 +614,7 @@
 
     <xsl:template name="c-level-decoder">
         <xsl:param name="c-level"/>
+		<!-- xsl:value-of select="count(child::*/ead:container/@id)"/ -->
         <xsl:choose>
             <xsl:when test="@level='subcollection' or @level='subgrp' or @level='series' 
                     or @level='subseries' or @level='collection'or @level='fonds' or 
@@ -696,12 +697,18 @@
     </xsl:template>
 
     <!-- c Items/Files with multiple formats linked using parent and id attributes -->
+	<!-- 
+	NOTE:
+	This is a sham. I'm not really linking the parent and children containers
+	I don't have an example (yet) to truly test it on. Thus, this is a mirror
+	image of the c-files template. See below for what *might* be a start at the problem.
+	-->
     <xsl:template name="c-multi-files">
         <xsl:param name="c-level"/>
         <div class="row c{$c-level}">
             <div class="col-md-10">
                 <xsl:apply-templates select="ead:did" mode="dsc"/>
-                
+
                 <xsl:if test="ead:dao">
                     <ul class="daolist">
                         <xsl:apply-templates select="ead:dao">
@@ -711,12 +718,18 @@
                 </xsl:if>
             </div>
             <div class="bucket col-md-2">
-                <xsl:for-each select="ead:did">
+				<xsl:apply-templates select="ead:did/ead:container"/>
+                <!-- 
+				This *might* be a start at the problem noted above. 
+				Though *IT DOES NOT WORK* as-is and it actually breaks things.
+				
+				<xsl:for-each select="ead:did">
                     <span>
                         <xsl:value-of select="@type" /><xsl:text> </xsl:text><xsl:value-of select="node()" />                                               
                     </span>
                     <xsl:text> </xsl:text>
-                </xsl:for-each>
+                </xsl:for-each> 
+				-->
             </div>
         </div>
     </xsl:template>
