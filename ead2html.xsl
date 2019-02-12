@@ -230,7 +230,9 @@
         <script type="text/javascript" src="/arch/libr/js/vendors/transition.js"></script>
         <script type="text/javascript" src="/arch/libr/js/vendors/stickyfill.min.js"></script>
         <script type="text/javascript" src="/arch/libr/js/finding-aid.js"></script>
-    </xsl:template>
+        <!-- https://markjs.io/ Added for Carr Jan. 2019-->
+        <script type="text/javascript" src="/arch/libr/js/vendors/jquery.mark.min.js"></script>
+        <script src="/arch/libr/js/vendors/mark_utilities.js"></script>     </xsl:template>
 
     <!-- Template for Summary Information. Broken out so we can specify the order of children -->
     <xsl:template match="ead:archdesc/ead:did">
