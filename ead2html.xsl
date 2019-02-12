@@ -67,6 +67,26 @@
                     
                     <!-- Contents -->
                     <div class="row"><div class="col-md-12">
+
+                    <div class="markSearch"> <!-- Added for Carr Jan. 2019  -->
+                    	<input type="search" placeholder="Search Inventory" onfocus="openAll()"></input>
+                    	<div>
+                    		<!-- <span class="fa fa-times-circle" data-search="clear" aria-hidden="true">
+                    		<div class="visuallyhidden">Clear search box</div>
+                    		</span> -->
+                    	</div>
+                    	<span class="markSearchResults"></span>
+                    	<div class="markSearchNav">
+                            <div>|&#160;&#160;
+                                <span class="fa fa-angle-down" data-search="next" aria-hidden="true">
+                                    <div class="visuallyhidden">Find next</div>
+                                </span>
+                                <span class="fa fa-angle-up" data-search="prev" aria-hidden="true">
+                                  <div class="visuallyhidden">Find previous</div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                         <!-- these two panels are open by default. 
                             TODO: Is there a reason these are in a "group"? Works w/o the group.
                          -->
