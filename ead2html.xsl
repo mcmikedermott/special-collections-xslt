@@ -139,7 +139,7 @@
 
     <!-- CSS for styling HTML output. Place all CSS styles in this template.-->
     <xsl:template name="css">
-        <link rel="stylesheet" type="text/css" href="/arch/libr/css/finding-aid.css" />
+        <link rel="stylesheet" type="text/css" href="/arch/libr/css/finding-aid.css?version=2.0" />
     </xsl:template>
 
     <!-- This template creates a customizable header  -->
