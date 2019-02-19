@@ -35,7 +35,7 @@
     <xsl:strip-space elements="*"/>
 
     <!-- <xsl:variable name="full-title" select="concat(/ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:titleproper,' ', /ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:subtitle)"/> -->
-    <xsl:variable name="full-title" select="concat(/ead:ead/ead:archdesc/ead:did/ead:unittitle,' (', /ead:ead/ead:archdesc/ead:did/ead:unitid,')')"/>
+    <xsl:variable name="full-title" select="concat(/ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:titleproper,', ', /ead:ead/ead:archdesc/ead:did/ead:unitdate)"/>
 
     <!-- Creates the body of the finding aid.-->
     <xsl:template match="/">
