@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xmlns:ead="urn:isbn:1-931666-22-9"
-    xmlns:ns2="http://www.w3.org/1999/xlink">
+    xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <!--
         *******************************************************************
@@ -35,7 +35,7 @@
     <xsl:strip-space elements="*"/>
 
     <!-- <xsl:variable name="full-title" select="concat(/ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:titleproper,' ', /ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:subtitle)"/> -->
-    <xsl:variable name="full-title" select="concat(/ead:ead/ead:archdesc/ead:did/ead:unittitle,' (', /ead:ead/ead:archdesc/ead:did/ead:unitid,')')"/>
+    <xsl:variable name="full-title" select="concat(/ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:titleproper,', ', /ead:ead/ead:archdesc/ead:did/ead:unitdate)"/>
 
     <!-- Creates the body of the finding aid.-->
     <xsl:template match="/">
@@ -735,7 +735,7 @@
                 <xsl:if test="ead:dao">
                     <ul class="daolist">
                         <xsl:apply-templates select="ead:dao">
-							<xsl:sort select="@ns2:title" />
+							<xsl:sort select="@xlink:title" />
 						</xsl:apply-templates>
                     </ul>
                 </xsl:if>
@@ -767,7 +767,7 @@
                 <xsl:if test="ead:dao">
                     <ul class="daolist">
                         <xsl:apply-templates select="ead:dao">
-							<xsl:sort select="@ns2:title" />
+							<xsl:sort select="@xlink:title" />
 						</xsl:apply-templates>
                     </ul>
                 </xsl:if>
@@ -940,8 +940,8 @@
                 </a>
                 <xsl:if test="following-sibling::ead:ref">, </xsl:if>
             </xsl:when>
-            <xsl:when test="@ns2:href">
-                <a href="#{@ns2:href}">
+            <xsl:when test="@xlink:href">
+                <a href="#{@xlink:href}">
                     <xsl:apply-templates/>
                 </a>
                 <xsl:if test="following-sibling::ead:ref">, </xsl:if>
@@ -957,7 +957,7 @@
             <xsl:when test="@href">
                 <a href="{@href}"><xsl:value-of select="@title"/></a>
             </xsl:when>
-            <xsl:when test="@ns2:href"><a href="{@ns2:href}"><xsl:value-of select="@title"/></a></xsl:when>
+            <xsl:when test="@xlink:href"><a href="{@xlink:href}"><xsl:value-of select="@title"/></a></xsl:when>
             <xsl:otherwise><xsl:value-of select="@title"/></xsl:otherwise>
         </xsl:choose> 
     </xsl:template>
@@ -967,7 +967,7 @@
             <xsl:when test="@href">
                 <a href="{@href}"><xsl:value-of select="."/></a>
             </xsl:when>
-            <xsl:when test="@ns2:href"><a href="{@ns2:href}"><xsl:value-of select="."/></a></xsl:when>
+            <xsl:when test="@xlink:href"><a href="{@xlink:href}"><xsl:value-of select="."/></a></xsl:when>
             <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
         </xsl:choose> 
     </xsl:template>
@@ -996,8 +996,8 @@
         <xsl:choose>
             <xsl:when test="parent::ead:p">
                 <xsl:choose>
-                    <xsl:when test="@ns2:href">
-                        <a href="{@ns2:href}"><xsl:apply-templates/></a>
+                    <xsl:when test="@xlink:href">
+                        <a href="{@xlink:href}"><xsl:apply-templates/></a>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:apply-templates/>
@@ -1007,8 +1007,8 @@
             <xsl:otherwise>
                 <p>
                     <xsl:choose>
-                        <xsl:when test="@ns2:href">
-                            <a href="{@ns2:href}"><xsl:apply-templates/></a>
+                        <xsl:when test="@xlink:href">
+                            <a href="{@xlink:href}"><xsl:apply-templates/></a>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:apply-templates/>
@@ -1081,8 +1081,8 @@
             <xsl:when test="parent::ead:archdesc">
                 <h3><xsl:call-template name="anchor"/>
                     <xsl:choose>
-                    <xsl:when test="@ns2:title">
-                       <xsl:value-of select="@ns2:title"/>
+                    <xsl:when test="@xlink:title">
+                       <xsl:value-of select="@xlink:title"/>
                     </xsl:when>
                     <xsl:otherwise>
                         Digital Archival Object
@@ -1093,8 +1093,8 @@
             <xsl:otherwise>
                 <h4><xsl:call-template name="anchor"/>
                     <xsl:choose>
-                    <xsl:when test="@ns2:title">
-                       <xsl:value-of select="@ns2:title"/>
+                    <xsl:when test="@xlink:title">
+                       <xsl:value-of select="@xlink:title"/>
                     </xsl:when>
                     <xsl:otherwise>
                         Digital Archival Object
@@ -1121,14 +1121,14 @@
              output the link postfix and closing 
           -->
         <li class="dao">
-			<a class="{@ns2:role}" href="{@ns2:href}" target="_blank">
+			<a class="{@xlink:role}" href="{@xlink:href}" target="_blank">
                 <xsl:choose>
-                    <xsl:when test="starts-with(@ns2:role, 'Audio-')">Listen </xsl:when>
-                    <xsl:when test="starts-with(@ns2:role, 'Video-')">Watch </xsl:when>
+                    <xsl:when test="starts-with(@xlink:role, 'Audio-')">Listen </xsl:when>
+                    <xsl:when test="starts-with(@xlink:role, 'Video-')">Watch </xsl:when>
                     <xsl:otherwise>View </xsl:otherwise>
                 </xsl:choose>
-                <xsl:if test="../ead:did/ead:unittitle != @ns2:title">
-                    <xsl:value-of select="@ns2:title"/>
+                <xsl:if test="../ead:did/ead:unittitle != @xlink:title">
+                    <xsl:value-of select="@xlink:title"/>
                 </xsl:if> online</a>
         </li>
     </xsl:template>
@@ -1138,8 +1138,8 @@
     </xsl:template>
     
     <xsl:template match="ead:daoloc">
-        <a href="{@ns2:href}">
-            <xsl:value-of select="@ns2:title"/>
+        <a href="{@xlink:href}">
+            <xsl:value-of select="@xlink:title"/>
         </a>
     </xsl:template>
     
@@ -1467,6 +1467,13 @@
             <!--xsl:text>, &#160;</xsl:text -->
             <xsl:apply-templates select="ead:physdesc"/>
         </xsl:if>
+        <xsl:if test="ead:dao">
+                    <ul class="daolist">
+                        <xsl:apply-templates select="ead:dao">
+							<xsl:sort select="@xlink:title" />
+						</xsl:apply-templates>
+                    </ul>
+                </xsl:if>
     </xsl:template>
 
 </xsl:stylesheet>
